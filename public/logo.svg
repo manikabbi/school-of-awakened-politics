@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="260" height="70" viewBox="0 0 260 70">
+  <defs>
+    <style>
+      .c{fill:#000acc;stroke:#000acc}
+      .s{fill:none;stroke:#000acc;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+      .sap{font-family:'Arial',serif;font-weight:700;letter-spacing:.5px}
+      .sub{font-family:'Arial',serif;font-weight:400;letter-spacing:.2px}
+      .tag{font-family:'Arial',serif;font-weight:400;letter-spacing:.3px}
+    </style>
+  </defs>
+
+  
+  <g transform="translate(10 10)">
+    
+    <path class="s" d="M10,30 A25,25 0 0 1 60,30"></path>
+    <path class="s" d="M18,30 A17,17 0 0 1 52,30" opacity=".9"></path>
+
+    
+    <line x1="22" y1="30" x2="22" y2="45" class="s"></line>
+    <line x1="30" y1="30" x2="30" y2="45" class="s"></line>
+    <line x1="38" y1="30" x2="38" y2="45" class="s"></line>
+    <line x1="46" y1="30" x2="46" y2="45" class="s"></line>
+
+    
+    <rect x="18" y="45" width="32" height="4" class="c" opacity=".25"></rect>
+
+    
+    <circle cx="35" cy="13" r="2.3" class="c"></circle>
+    <path class="s" d="M27,16 A8,8 0 0 1 43,16"></path>
+  </g>
+
+  
+  <text x="90" y="30" class="sap" font-size="26" fill="#000acc">SAP</text>
+  <text x="90" y="46" class="sub" font-size="10.5" fill="#000acc">School of Awakened Politics</text>
+  <text x="90" y="60" class="tag" font-size="9.5" fill="#000acc">Lead from Your 
+    Authentic Self</text>
+</svg> 

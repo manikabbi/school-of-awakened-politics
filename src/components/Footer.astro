@@ -1,0 +1,96 @@
+---
+// src/components/Footer.astro
+const currentYear = 2026;
+---
+
+<footer class="border-t border-stone-300 bg-sap-navy text-slate-300">
+  <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 gap-12 lg:grid-cols-12">
+      <!-- Brand & Mission Column -->
+      <div class="lg:col-span-5 space-y-4">
+        <div class="flex items-center gap-3">
+          <img 
+            src="/logo.svg" 
+            alt="SAP Logo" 
+            class="h-12 w-auto brightness-0 invert"
+          />
+          <div>
+            <h3 class="font-cinzel text-xl font-bold tracking-wider text-white">
+              SAP
+            </h3>
+            <p class="font-serif text-sm text-amber-200/90 font-medium">
+              School of Awakened Politics
+            </p>
+          </div>
+        </div>
+
+        <p class="text-sm leading-relaxed text-slate-300 max-w-md">
+          Centre for Excellence in Leadership and Governance. Cultivating conscious, purpose-driven leaders dedicated to stewardship, authenticity, and empathy in public life.
+        </p>
+
+        <div class="inline-flex items-center gap-2 rounded-full border border-amber-400/30 bg-amber-950/40 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-amber-300">
+          <span>🇮🇳</span> Made In India For The World
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="lg:col-span-3 space-y-3">
+        <h4 class="text-xs font-semibold uppercase tracking-widest text-amber-400">
+          Navigation
+        </h4>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/" class="hover:text-white transition">Home</a></li>
+          <li><a href="/about" class="hover:text-white transition">About SAP</a></li>
+          <li><a href="/vision-mission" class="hover:text-white transition">Vision & Mission</a></li>
+          <li><a href="/fellowship" class="hover:text-white transition">World Leaders Fellowship</a></li>
+          <li><a href="/courses" class="hover:text-white transition">Programs & Circuits</a></li>
+          <li><a href="/blogs" class="hover:text-white transition">Publishing Platform</a></li>
+          <li><a href="/contact" class="hover:text-white transition">Contact Us</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact & Inquiries -->
+      <div class="lg:col-span-4 space-y-4">
+        <h4 class="text-xs font-semibold uppercase tracking-widest text-amber-400">
+          Contact & Admissions
+        </h4>
+        <p class="text-sm text-slate-300">
+          Reach out to initiate your leadership journey or propose institutional partnerships.
+        </p>
+
+        <div class="space-y-2">
+          <div class="flex items-center gap-2.5 text-sm">
+            <svg class="h-4 w-4 text-sap-terracotta" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            <a href="mailto:info@schoolofawakenedpolitics.org" class="text-amber-200 hover:text-white underline transition">
+              info@schoolofawakenedpolitics.org
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <button 
+            type="button" 
+            class="trigger-apply-modal w-full rounded-lg bg-sap-terracotta px-4 py-2.5 text-center text-xs font-semibold uppercase tracking-wider text-white shadow hover:bg-sap-terracottaDark transition"
+          >
+            Apply for Fellowship
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="my-10 border-t border-slate-800"></div>
+
+    <!-- Intellectual Property & Rights -->
+    <div class="flex flex-col gap-4 text-xs text-slate-400 md:flex-row md:items-center md:justify-between">
+      <p>
+        © {currentYear} School of Awakened Politics (SAP). All rights reserved.
+      </p>
+      <p class="max-w-xl text-[11px] leading-relaxed text-slate-400">
+        The content, programs, frameworks, and materials on this website are the intellectual property of SAP and may not be reproduced without prior written permission.
+      </p>
+    </div>
+  </div>
+</footer>

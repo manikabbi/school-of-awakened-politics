@@ -1,0 +1,126 @@
+---
+// src/pages/blogs.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const articles = [
+  {
+    title: "Why Leadership Preformation Must Precede Electoral Politics",
+    category: "Manifesto & Theory",
+    date: "October 2026",
+    excerpt: "Reforming political systems procedurally without transforming the human consciousness of the leaders will only reproduce corruption under newer legal banners.",
+    readTime: "7 min read"
+  },
+  {
+    title: "The Lost Art of Deliberation: Why Multiparty Democracies Need Empathy",
+    category: "Governance & Ethics",
+    date: "September 2026",
+    excerpt: "When politics becomes an algorithmic popularity game, empathy is dismissed as weakness. Yet without empathy, laws cannot heal systemic societal wounds.",
+    readTime: "5 min read"
+  },
+  {
+    title: "Rajadharma in the 21st Century: Ancient Insights for Modern Statecraft",
+    category: "Civilisational Thought",
+    date: "August 2026",
+    excerpt: "How Indian civilisational philosophy articulated public duty as a sacred trust (Lokasamgraha) rather than personal entitlement or factional triumph.",
+    readTime: "9 min read"
+  }
+];
+---
+
+<BaseLayout
+  title="Publishing Platform | School of Awakened Politics"
+  description="Bold, ethical, and transformative policy ideas and civilisational thought shaping public discourse."
+>
+  <!-- Page Header -->
+  <section class="bg-sap-navy text-white py-20 border-b border-stone-800">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl space-y-4">
+        <span class="inline-block text-xs font-semibold uppercase tracking-widest text-amber-300 bg-white/10 px-3.5 py-1 rounded-full">
+          Publishing Platform
+        </span>
+        <h1 class="font-serif text-4xl sm:text-5xl font-bold leading-tight">
+          Essays, Research & Public Discourse
+        </h1>
+        <p class="font-cinzel text-base text-amber-200">
+          Shaping Ideas for Conscious Leadership & Systemic Governance
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Editorial Section -->
+  <section class="py-20 bg-white">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <div class="lg:col-span-8 space-y-10">
+          <h2 class="font-serif text-2xl sm:text-3xl font-bold text-sap-navy border-b border-stone-200 pb-4">
+            Featured Perspectives
+          </h2>
+
+          <div class="space-y-8">
+            {articles.map((item) => (
+              <article class="group rounded-2xl border border-stone-200 bg-sap-sand p-8 transition hover:border-sap-terracotta hover:shadow-md">
+                <div class="flex items-center gap-3 text-xs font-semibold uppercase tracking-wider text-sap-terracotta mb-2">
+                  <span>{item.category}</span>
+                  <span>•</span>
+                  <span class="text-slate-500">{item.date}</span>
+                  <span>•</span>
+                  <span class="text-slate-500">{item.readTime}</span>
+                </div>
+
+                <h3 class="font-serif text-2xl font-bold text-sap-navy group-hover:text-sap-terracotta transition">
+                  <a href="#">{item.title}</a>
+                </h3>
+
+                <p class="mt-3 text-sm text-slate-700 leading-relaxed">
+                  {item.excerpt}
+                </p>
+
+                <div class="mt-4 pt-4 border-t border-stone-200/60 flex items-center justify-between text-xs font-semibold">
+                  <span class="text-sap-navy group-hover:text-sap-terracotta transition">Read Full Article →</span>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+
+        <!-- Sidebar / Call for Submissions -->
+        <div class="lg:col-span-4 space-y-6">
+          <div class="rounded-2xl border border-stone-200 bg-sap-sand p-6 space-y-4">
+            <h3 class="font-serif text-lg font-bold text-sap-navy">Call for Papers & Essays</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              We welcome original contributions from scholars, active civil servants, and civic practitioners on ethical governance, depolarizing communication, and institutional reform.
+            </p>
+            <a
+              href="mailto:info@schoolofawakenedpolitics.org?subject=Publishing%20Submission"
+              class="inline-block text-xs font-semibold uppercase tracking-wider text-sap-terracotta hover:underline"
+            >
+              Submit an Article Proposal →
+            </a>
+          </div>
+
+          <div class="rounded-2xl bg-sap-navy p-6 text-white space-y-4">
+            <h4 class="font-serif text-lg font-bold">Subscribe to the SAP Gazette</h4>
+            <p class="text-xs text-slate-300">
+              Receive monthly essays, fellowship announcements, and policy briefings directly in your inbox.
+            </p>
+            <form class="space-y-3" onsubmit="event.preventDefault(); alert('Thank you for subscribing!'); this.reset();">
+              <input
+                type="email"
+                required
+                placeholder="Your email address"
+                class="w-full rounded-lg border border-slate-600 bg-white/10 px-3 py-2 text-xs text-white placeholder-slate-400 focus:border-amber-400 focus:outline-none"
+              />
+              <button
+                type="submit"
+                class="w-full rounded-lg bg-sap-terracotta py-2 text-xs font-semibold uppercase tracking-wider text-white hover:bg-sap-terracottaDark transition"
+              >
+                Subscribe
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

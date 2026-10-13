@@ -1,0 +1,156 @@
+---
+// src/components/ProgramsGrid.astro
+const programs = [
+  {
+    id: "world-leaders-fellowship",
+    title: "SAP World Leaders Fellowship",
+    tag: "Flagship Program",
+    icon: "🌟",
+    description: "An intensive leadership journey cultivating conscious, purpose-driven political leaders. It integrates political literacy, inner transformation, and real-world governance exposure.",
+    link: "/fellowship",
+    featured: true,
+    highlights: ["Inner Self-Mastery", "Comparative Politics & Policy", "Field Immersion", "Mentorship from Eminent Statespeople"]
+  },
+  {
+    id: "governance-circuits",
+    title: "Governance Circuits",
+    tag: "Experiential Journeys",
+    icon: "🏛️",
+    description: "Immersive journeys to historically and politically significant sites. Learn governance through lived experience, administrative interaction, and field realities, not just textbooks.",
+    link: "/courses#governance-circuits",
+    featured: false,
+    highlights: ["State Assemblies & Parliament Visits", "Panchayati Raj & District Administrations", "Civilisational Heritage Sites"]
+  },
+  {
+    id: "conscious-parliament",
+    title: "Conscious Parliament Circles",
+    tag: "Constructive Dialogue",
+    icon: "🗣️",
+    description: "Structured dialogue spaces for reflective and respectful discourse that rise above partisan divides, cultivating empathy, active listening, and consensus-building.",
+    link: "/courses#conscious-parliament",
+    featured: false,
+    highlights: ["Non-Adversarial Debate", "Multi-Stakeholder Consensus", "Emotional & Moral Clarity in Discourse"]
+  },
+  {
+    id: "leadership-retreats",
+    title: "Leadership Retreats",
+    tag: "Inner Mastery",
+    icon: "🌿",
+    description: "Executive and youth leadership gatherings centered on inner clarity, civilisational insight, and authentic public responsibility away from daily political noise.",
+    link: "/courses#leadership-retreats",
+    featured: false,
+    highlights: ["Mindfulness & Clarity Practices", "Ethics Under Political Pressure", "Visionary Statesmanship"]
+  },
+  {
+    id: "publishing-platform",
+    title: "Publishing Platform",
+    tag: "Public Discourse",
+    icon: "📘",
+    description: "A prestigious editorial platform to share bold, ethical, and transformative policy ideas, academic papers, and philosophical essays that elevate public intellect.",
+    link: "/blogs",
+    featured: false,
+    highlights: ["Policy Whitepapers", "Civilisational Thought", "Independent Commentary"]
+  },
+  {
+    id: "policy-research-lab",
+    title: "Policy Research Lab",
+    tag: "Applied Governance",
+    icon: "🤝",
+    description: "Gain practical exposure to policy drafting through collaborative research participation — offering firsthand insight into legislative and executive action.",
+    link: "/courses#policy-lab",
+    featured: false,
+    highlights: ["Bill Drafting & Analysis", "Data-Driven Public Impact", "Grassroots Citizen Feedback"]
+  }
+];
+---
+
+<section id="programs" class="py-20 lg:py-28 bg-sap-sand">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between mb-16 gap-6">
+      <div class="max-w-2xl">
+        <span class="text-xs font-semibold uppercase tracking-widest text-sap-terracotta bg-amber-100/60 px-3.5 py-1 rounded-full border border-amber-300">
+          SAP's Core Programs
+        </span>
+        <h2 class="mt-3 font-serif text-3xl font-bold text-sap-navy sm:text-4xl">
+          What We Offer
+        </h2>
+        <p class="mt-2 text-slate-600 text-base leading-relaxed">
+          Comprehensive pathways bridging philosophical self-awareness with rigorous institutional governance.
+        </p>
+      </div>
+
+      <div>
+        <button
+          type="button"
+          class="trigger-apply-modal inline-flex items-center gap-2 rounded-lg bg-sap-terracotta px-6 py-3 text-xs font-semibold uppercase tracking-wider text-white shadow hover:bg-sap-terracottaDark transition"
+        >
+          <span>Apply to a Program</span>
+          <span>→</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Programs Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {programs.map((item) => (
+        <div class={`group flex flex-col justify-between rounded-2xl border p-8 transition-all hover:-translate-y-1 hover:shadow-xl ${
+          item.featured 
+            ? 'border-sap-terracotta/40 bg-white ring-1 ring-sap-terracotta/20 relative shadow-md' 
+            : 'border-stone-200 bg-white hover:border-sap-navy/30'
+        }`}>
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-3xl">{item.icon}</span>
+              <span class={`rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-wider ${
+                item.featured 
+                  ? 'bg-amber-100 text-sap-terracotta font-bold' 
+                  : 'bg-stone-100 text-slate-600'
+              }`}>
+                {item.tag}
+              </span>
+            </div>
+
+            <h3 class="font-serif text-xl font-bold text-sap-navy group-hover:text-sap-terracotta transition">
+              {item.title}
+            </h3>
+
+            <p class="mt-3 text-sm text-slate-600 leading-relaxed">
+              {item.description}
+            </p>
+
+            <div class="mt-6 border-t border-stone-100 pt-4">
+              <div class="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-2">Key Focus:</div>
+              <ul class="space-y-1.5 text-xs text-slate-600">
+                {item.highlights.map((point) => (
+                  <li class="flex items-start gap-1.5">
+                    <span class="text-sap-terracotta font-bold">•</span>
+                    <span>{point}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <div class="mt-8 pt-4 border-t border-stone-100 flex items-center justify-between">
+            <a 
+              href={item.link} 
+              class="text-xs font-semibold uppercase tracking-wider text-sap-navy group-hover:text-sap-terracotta flex items-center gap-1.5 transition"
+            >
+              Learn More
+              <svg class="h-3.5 w-3.5 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
+
+            <button 
+              type="button" 
+              class="trigger-apply-modal text-xs font-semibold text-sap-terracotta hover:underline"
+            >
+              Apply →
+            </button>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,116 @@
+---
+// src/pages/about.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="About SAP | School of Awakened Politics"
+  description="Learn about the origins, leadership philosophy, and non-partisan mission of the School of Awakened Politics."
+>
+  <!-- Page Header -->
+  <section class="bg-sap-navy text-white py-20 border-b border-stone-800">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl space-y-4">
+        <span class="inline-block text-xs font-semibold uppercase tracking-widest text-amber-300 bg-white/10 px-3.5 py-1 rounded-full">
+          About SAP
+        </span>
+        <h1 class="font-serif text-4xl sm:text-5xl font-bold leading-tight">
+          Cultivating Conscious Statesmanship for a Divided World
+        </h1>
+        <p class="font-cinzel text-base text-amber-200">
+          Made In India For The World • Lead From Your Authentic Self
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Narrative Content -->
+  <section class="py-20 bg-white">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <div class="lg:col-span-8 space-y-8 text-slate-700 leading-relaxed text-base sm:text-lg">
+          <div>
+            <h2 class="font-serif text-2xl sm:text-3xl font-bold text-sap-navy mb-4">
+              The Genesis of Awakened Politics
+            </h2>
+            <p>
+              Contemporary politics across the world is plagued by toxic polarization, cynicism, and systemic short-termism. Most political training institutions treat politics purely as a technological machine: teaching election campaign algorithms, voter micro-targeting, narrative spinning, and the ruthless acquisition of power.
+            </p>
+            <p class="mt-4">
+              Almost none ask the fundamental question: <strong class="text-slate-900 font-semibold">What is the moral and psychological condition of the human being wielding that power?</strong>
+            </p>
+            <p class="mt-4">
+              The <strong>School of Awakened Politics (SAP)</strong> was created to address this historic void. We believe that outer political transformation is impossible without inner personal transformation. Politics at its highest calling is not a battlefield for personal ego — it is the sacred stewardship of society.
+            </p>
+          </div>
+
+          <div class="rounded-2xl bg-sap-sand p-8 border border-stone-200 my-8">
+            <h3 class="font-serif text-xl font-bold text-sap-navy mb-2">Our Guiding Definition</h3>
+            <blockquote class="italic text-slate-800 text-lg">
+              "To be <strong>Awakened</strong> is to be conscious of oneself, conscious of society, and conscious of long-term consequences — possessing the clarity and courage to act for the collective good rather than personal vanity."
+            </blockquote>
+          </div>
+
+          <div>
+            <h2 class="font-serif text-2xl sm:text-3xl font-bold text-sap-navy mb-4">
+              Civilisational Roots, Global Horizon
+            </h2>
+            <p>
+              Born in India — a civilisation with millennia of philosophical discourse on <em>Rajadharma</em> (the ethical duty of governance), <em>Lokasamgraha</em> (holding society together in universal welfare), and compassionate leadership — SAP draws from rich timeless wisdom while mastering modern democratic institutions, constitutional law, data science, and global public policy.
+            </p>
+            <p class="mt-4">
+              We prepare leaders who can navigate the complexities of local panchayats, national parliaments, and international multilateral bodies with unshakeable moral grounding.
+            </p>
+          </div>
+
+          <div class="border-t border-stone-200 pt-8">
+            <h2 class="font-serif text-2xl sm:text-3xl font-bold text-sap-navy mb-4">
+              Our Non-Partisanship Charter
+            </h2>
+            <p>
+              SAP is proudly independent and strictly non-partisan. We are not backed by, nor do we endorse, any political party or sectarian movement. We invite aspiring leaders, civil servants, activists, and thinkers from across ideological traditions who are united by a commitment to truth, empathy, institutional integrity, and democratic service.
+            </p>
+          </div>
+        </div>
+
+        <!-- Sidebar / Fast Facts -->
+        <div class="lg:col-span-4 space-y-6">
+          <div class="rounded-2xl bg-sap-sand p-6 border border-stone-200">
+            <h3 class="font-serif text-lg font-bold text-sap-navy mb-4">Core Commitments</h3>
+            <ul class="space-y-3 text-sm text-slate-700">
+              <li class="flex items-start gap-2">
+                <span class="text-sap-terracotta font-bold">1.</span>
+                <span><strong>Authenticity:</strong> Alignment between personal values and public action.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-sap-terracotta font-bold">2.</span>
+                <span><strong>Empathy:</strong> Understanding lived human suffering before drafting policy.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-sap-terracotta font-bold">3.</span>
+                <span><strong>Stewardship:</strong> Protecting democratic institutions for future generations.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-sap-terracotta font-bold">4.</span>
+                <span><strong>Deliberation:</strong> Elevated discourse that builds bridges across divides.</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="rounded-2xl bg-sap-navy p-6 text-white text-center space-y-4">
+            <h4 class="font-serif text-lg font-bold">Ready to Join Us?</h4>
+            <p class="text-xs text-slate-300">
+              Applications for the SAP World Leaders Fellowship are evaluated on a rolling basis.
+            </p>
+            <button
+              type="button"
+              class="trigger-apply-modal w-full rounded-lg bg-sap-terracotta py-2.5 text-xs font-semibold uppercase tracking-wider text-white shadow hover:bg-sap-terracottaDark transition"
+            >
+              Apply for Fellowship
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

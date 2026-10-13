@@ -1,0 +1,179 @@
+---
+// src/components/ApplicationModal.astro
+---
+
+<div id="application-modal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-slate-900/70 backdrop-blur-sm transition-opacity">
+  <div class="flex min-h-screen items-center justify-center p-4">
+    <div class="relative w-full max-w-lg rounded-2xl bg-white p-8 shadow-2xl ring-1 ring-slate-900/5 transition-all">
+      <!-- Close Button -->
+      <button 
+        type="button" 
+        id="close-modal-btn"
+        class="absolute right-5 top-5 rounded-full p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-600 transition"
+        aria-label="Close modal"
+      >
+        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+
+      <!-- Header -->
+      <div class="mb-6">
+        <span class="inline-block rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-sap-terracotta">
+          Leadership Fellowship
+        </span>
+        <h3 class="mt-2 text-2xl font-serif font-bold text-sap-navy">
+          Apply to SAP Programs
+        </h3>
+        <p class="mt-1 text-sm text-slate-600">
+          Begin your journey towards authentic public leadership and conscious governance.
+        </p>
+      </div>
+
+      <!-- Application Form -->
+      <form id="sap-application-form" class="space-y-4">
+        <div>
+          <label for="fullName" class="block text-xs font-semibold uppercase tracking-wider text-slate-700">
+            Full Name <span class="text-rose-500">*</span>
+          </label>
+          <input 
+            type="text" 
+            id="fullName" 
+            name="fullName" 
+            required 
+            placeholder="e.g. Aarav Sharma"
+            class="mt-1 w-full rounded-lg border border-slate-300 px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:border-sap-terracotta focus:outline-none focus:ring-1 focus:ring-sap-terracotta"
+          />
+        </div>
+
+        <div>
+          <label for="email" class="block text-xs font-semibold uppercase tracking-wider text-slate-700">
+            Email ID <span class="text-rose-500">*</span>
+          </label>
+          <input 
+            type="email" 
+            id="email" 
+            name="email" 
+            required 
+            placeholder="aarav@example.com"
+            class="mt-1 w-full rounded-lg border border-slate-300 px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:border-sap-terracotta focus:outline-none focus:ring-1 focus:ring-sap-terracotta"
+          />
+        </div>
+
+        <div>
+          <label for="phone" class="block text-xs font-semibold uppercase tracking-wider text-slate-700">
+            Phone / WhatsApp Number
+          </label>
+          <input 
+            type="tel" 
+            id="phone" 
+            name="phone" 
+            placeholder="+91 98765 43210"
+            class="mt-1 w-full rounded-lg border border-slate-300 px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:border-sap-terracotta focus:outline-none focus:ring-1 focus:ring-sap-terracotta"
+          />
+        </div>
+
+        <div>
+          <label for="program" class="block text-xs font-semibold uppercase tracking-wider text-slate-700">
+            Program of Interest
+          </label>
+          <select 
+            id="program" 
+            name="program"
+            class="mt-1 w-full rounded-lg border border-slate-300 px-4 py-2.5 text-sm text-slate-900 focus:border-sap-terracotta focus:outline-none focus:ring-1 focus:ring-sap-terracotta"
+          >
+            <option value="world-leaders-fellowship">SAP World Leaders Fellowship Program</option>
+            <option value="governance-circuits">Governance Circuits (Immersive Study)</option>
+            <option value="conscious-parliament">Conscious Parliament Circles</option>
+            <option value="leadership-retreats">Leadership Retreats</option>
+            <option value="policy-lab">Policy Research Lab</option>
+            <option value="general-inquiry">General Inquiry / Collaboration</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="statement" class="block text-xs font-semibold uppercase tracking-wider text-slate-700">
+            Why do you seek to lead? (Optional brief note)
+          </label>
+          <textarea 
+            id="statement" 
+            name="statement" 
+            rows="3" 
+            placeholder="Share your background or aspirations in public service..."
+            class="mt-1 w-full rounded-lg border border-slate-300 px-4 py-2 text-sm text-slate-900 placeholder-slate-400 focus:border-sap-terracotta focus:outline-none focus:ring-1 focus:ring-sap-terracotta"
+          ></textarea>
+        </div>
+
+        <div id="form-feedback" class="hidden rounded-lg p-3 text-xs font-medium"></div>
+
+        <button 
+          type="submit" 
+          id="submit-btn"
+          class="w-full rounded-lg bg-sap-terracotta px-6 py-3 text-sm font-semibold text-white shadow-md hover:bg-sap-terracottaDark transition focus:outline-none focus:ring-2 focus:ring-sap-terracotta focus:ring-offset-2"
+        >
+          Submit Application
+        </button>
+      </form>
+
+      <p class="mt-4 text-center text-xs text-slate-500">
+        Applications are reviewed on a rolling basis. Inquiries: <a href="mailto:info@schoolofawakenedpolitics.org" class="text-sap-terracotta underline">info@schoolofawakenedpolitics.org</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+  function setupModal() {
+    const modal = document.getElementById('application-modal');
+    const closeBtn = document.getElementById('close-modal-btn');
+    const openBtns = document.querySelectorAll('.trigger-apply-modal');
+    const form = document.getElementById('sap-application-form') as HTMLFormElement | null;
+    const feedback = document.getElementById('form-feedback');
+
+    function openModal() {
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeModal() {
+      if (modal) modal.classList.add('hidden');
+    }
+
+    openBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        openModal();
+      });
+    });
+
+    closeBtn?.addEventListener('click', closeModal);
+
+    modal?.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const submitBtn = document.getElementById('submit-btn');
+      if (submitBtn) submitBtn.textContent = 'Submitting...';
+
+      // Simulation of submission (or webhook dispatch)
+      setTimeout(() => {
+        if (feedback) {
+          feedback.classList.remove('hidden');
+          feedback.className = 'rounded-lg p-3 text-xs font-medium bg-emerald-50 text-emerald-800 border border-emerald-200';
+          feedback.textContent = 'Thank you! Your application has been received. Our admissions team will reach out to you shortly via email.';
+        }
+        form.reset();
+        if (submitBtn) submitBtn.textContent = 'Application Submitted ✓';
+        setTimeout(() => {
+          closeModal();
+          if (submitBtn) submitBtn.textContent = 'Submit Application';
+          if (feedback) feedback.classList.add('hidden');
+        }, 3000);
+      }, 700);
+    });
+  }
+
+  // Setup on initial page load & client navigation
+  document.addEventListener('DOMContentLoaded', setupModal);
+</script>

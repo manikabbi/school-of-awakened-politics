@@ -1,0 +1,138 @@
+---
+// src/pages/vision-mission.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Our Vision & Mission | School of Awakened Politics"
+  description="Discover the vision, mission, and institutional pillars guiding the School of Awakened Politics."
+>
+  <!-- Page Header -->
+  <section class="bg-sap-navy text-white py-20 border-b border-stone-800">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl space-y-4">
+        <span class="inline-block text-xs font-semibold uppercase tracking-widest text-amber-300 bg-white/10 px-3.5 py-1 rounded-full">
+          Guiding Compass
+        </span>
+        <h1 class="font-serif text-4xl sm:text-5xl font-bold leading-tight">
+          Vision, Mission & Manifesto
+        </h1>
+        <p class="font-cinzel text-base text-amber-200">
+          The Moral and Strategic Blueprint of Awakened Governance
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Vision & Mission Grid -->
+  <section class="py-20 bg-white">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+        <!-- Vision -->
+        <div class="rounded-3xl border border-stone-200 bg-sap-sand p-8 sm:p-12 shadow-sm">
+          <div class="flex items-center gap-3 mb-6">
+            <span class="text-3xl">👁️</span>
+            <h2 class="font-serif text-2xl sm:text-3xl font-bold text-sap-navy">Our Vision</h2>
+          </div>
+          <p class="text-lg text-slate-800 font-serif leading-relaxed italic">
+            "A world where political leadership is recognized not by the power it commands, but by the empathy it embodies, the integrity it upholds, and the collective harmony it fosters."
+          </p>
+          <div class="mt-8 border-t border-stone-200 pt-6">
+            <h4 class="text-xs font-semibold uppercase tracking-wider text-sap-terracotta mb-2">Long-term Aspiration</h4>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              To inspire a global network of conscious leaders across parliamentary, local, and administrative tiers who make decisions rooted in long-term societal well-being and generational stewardship.
+            </p>
+          </div>
+        </div>
+
+        <!-- Mission -->
+        <div class="rounded-3xl border border-stone-200 bg-sap-sand p-8 sm:p-12 shadow-sm">
+          <div class="flex items-center gap-3 mb-6">
+            <span class="text-3xl">🎯</span>
+            <h2 class="font-serif text-2xl sm:text-3xl font-bold text-sap-navy">Our Mission</h2>
+          </div>
+          <p class="text-lg text-slate-800 font-serif leading-relaxed italic">
+            "To discover, train, and support purposeful leaders by integrating profound inner transformation, constitutional literacy, experiential governance, and evidence-driven policy making."
+          </p>
+          <div class="mt-8 border-t border-stone-200 pt-6">
+            <h4 class="text-xs font-semibold uppercase tracking-wider text-sap-navy mb-2">Operational Commitment</h4>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              We provide immersive fellowships, policy labs, governance circuits, and retreat circles that equip citizens of all ages with the wisdom and skill to navigate contemporary governance.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- The Manifesto -->
+      <div class="mt-16 rounded-3xl bg-sap-navy p-8 sm:p-14 text-white shadow-xl relative overflow-hidden">
+        <div class="max-w-3xl mx-auto text-center space-y-6">
+          <span class="text-xs font-semibold uppercase tracking-widest text-amber-300 bg-white/10 px-4 py-1.5 rounded-full">
+            The SAP Manifesto
+          </span>
+          <h3 class="font-serif text-3xl sm:text-4xl font-bold text-white">
+            "This is a space for those who refuse blind ideology."
+          </h3>
+          <div class="space-y-4 text-base sm:text-lg text-slate-200 leading-relaxed text-left sm:text-center">
+            <p>For those who question before they comply.</p>
+            <p>For those who seek clarity before they seek power.</p>
+            <p class="text-amber-200 font-semibold">For those who want to serve — not dominate.</p>
+          </div>
+          <div class="pt-6">
+            <button
+              type="button"
+              class="trigger-apply-modal inline-flex items-center gap-2 rounded-lg bg-sap-terracotta px-8 py-3.5 text-sm font-semibold uppercase tracking-wider text-white shadow hover:bg-sap-terracottaDark transition"
+            >
+              Join the Fellowship
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Four Pillars of Awakened Governance -->
+      <div class="mt-20">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+          <span class="text-xs font-semibold uppercase tracking-widest text-sap-terracotta bg-amber-50 px-3 py-1 rounded-full border border-amber-200">
+            Strategic Pillars
+          </span>
+          <h2 class="mt-3 font-serif text-3xl font-bold text-sap-navy sm:text-4xl">
+            The Pillars of Awakened Governance
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm hover:border-sap-terracotta transition">
+            <div class="text-2xl mb-3">🧘</div>
+            <h4 class="font-serif text-lg font-bold text-sap-navy mb-2">1. Inner Mastery</h4>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Cultivating self-awareness, emotional balance, and clarity to withstand the corrupting pressures of political power.
+            </p>
+          </div>
+
+          <div class="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm hover:border-sap-terracotta transition">
+            <div class="text-2xl mb-3">🤝</div>
+            <h4 class="font-serif text-lg font-bold text-sap-navy mb-2">2. Radical Empathy</h4>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Centering public policies around genuine human welfare, vulnerable communities, and social cohesion.
+            </p>
+          </div>
+
+          <div class="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm hover:border-sap-terracotta transition">
+            <div class="text-2xl mb-3">🏛️</div>
+            <h4 class="font-serif text-lg font-bold text-sap-navy mb-2">3. Stewardship</h4>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Safeguarding democratic constitutions, institutional independence, and ethical governance standards.
+            </p>
+          </div>
+
+          <div class="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm hover:border-sap-terracotta transition">
+            <div class="text-2xl mb-3">🌐</div>
+            <h4 class="font-serif text-lg font-bold text-sap-navy mb-2">4. Civil Dialogue</h4>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Replacing partisan hostility with constructive, respectful, multi-stakeholder consensus building.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,47 @@
+---
+// src/layouts/BaseLayout.astro
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import ApplicationModal from '../components/ApplicationModal.astro';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "School of Awakened Politics (SAP) | Lead from Your Authentic Self",
+  description = "Centre for Excellence in Leadership and Governance. Cultivating conscious, purpose-driven political leaders through authentic stewardship and empathy."
+} = Astro.props;
+
+const currentPath = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <!-- Open Graph / Meta -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="/hero-parliament.jpg" />
+  </head>
+  <body class="flex min-h-screen flex-col bg-sap-sand text-slate-800">
+    <Navbar currentPath={currentPath} />
+    
+    <main class="flex-1">
+      <slot />
+    </main>
+
+    <Footer />
+    <ApplicationModal />
+  </body>
+</html>

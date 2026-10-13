@@ -1,0 +1,162 @@
+---
+// src/pages/index.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import PhilosophySection from '../components/PhilosophySection.astro';
+import ProgramsGrid from '../components/ProgramsGrid.astro';
+---
+
+<BaseLayout
+  title="School of Awakened Politics (SAP) | Lead from Your Authentic Self"
+  description="Centre for Excellence in Leadership and Governance. Inspiring conscious, purpose-driven political leaders through authentic stewardship and empathy."
+>
+  <!-- Hero Section -->
+  <Hero />
+
+  <!-- Foundational Philosophy & Stance -->
+  <PhilosophySection />
+
+  <!-- Core Programs Grid -->
+  <ProgramsGrid />
+
+  <!-- Audience & Eligibility Section -->
+  <section class="py-20 bg-white border-t border-stone-200">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-6 space-y-6">
+          <span class="text-xs font-semibold uppercase tracking-widest text-sap-terracotta bg-amber-50 px-3.5 py-1 rounded-full border border-amber-200">
+            Inclusivity & Calling
+          </span>
+          <h2 class="font-serif text-3xl font-bold text-sap-navy sm:text-4xl leading-tight">
+            Who Can Join the Movement?
+          </h2>
+          <p class="text-slate-600 leading-relaxed text-base">
+            Awakened politics is not reserved for dynastic elites or career politicians. It is a sacred calling open to all citizens who desire to see their communities thrive with justice, clarity, and dignity.
+          </p>
+
+          <div class="space-y-4 pt-2">
+            <div class="flex items-start gap-4">
+              <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-amber-100 text-sap-terracotta font-bold text-sm">
+                1
+              </div>
+              <div>
+                <h4 class="font-serif text-base font-bold text-sap-navy">Youth & College Students</h4>
+                <p class="text-xs text-slate-600 mt-0.5">Cultivate constitutional literacy, ethical courage, and statesmanship before entering the public arena.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-amber-100 text-sap-terracotta font-bold text-sm">
+                2
+              </div>
+              <div>
+                <h4 class="font-serif text-base font-bold text-sap-navy">Working Professionals & Civil Society</h4>
+                <p class="text-xs text-slate-600 mt-0.5">Apply your strategic expertise in law, technology, policy, and enterprise toward systemic governance.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-amber-100 text-sap-terracotta font-bold text-sm">
+                3
+              </div>
+              <div>
+                <h4 class="font-serif text-base font-bold text-sap-navy">Elders, Mentors & Active Citizens</h4>
+                <p class="text-xs text-slate-600 mt-0.5">Bring generational wisdom, civilisational memory, and guidance to nurture future civic leaders.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quote & Eligibility Callout -->
+        <div class="lg:col-span-6">
+          <div class="rounded-3xl bg-sap-sand p-8 sm:p-12 border border-stone-200 shadow-md space-y-6">
+            <div class="font-cinzel text-xs font-bold uppercase tracking-widest text-sap-terracotta">
+              The Only Prerequisite
+            </div>
+            <blockquote class="font-serif text-xl sm:text-2xl font-semibold text-sap-navy leading-relaxed">
+              "No prior political background is required. We look for integrity, empathy, and the genuine hunger to serve society rather than rule it."
+            </blockquote>
+
+            <div class="border-t border-stone-300 pt-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
+                <div class="text-xs font-semibold uppercase tracking-wider text-slate-500">Admissions Format</div>
+                <div class="text-sm font-bold text-sap-navy">Rolling Cohorts & Fellowships</div>
+              </div>
+
+              <button
+                type="button"
+                class="trigger-apply-modal inline-flex items-center justify-center rounded-lg bg-sap-navy px-6 py-3 text-xs font-semibold uppercase tracking-wider text-white hover:bg-sap-terracotta transition shadow"
+              >
+                Start Your Application
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Homepage Direct Application Section -->
+  <section class="py-20 bg-sap-navy text-white relative overflow-hidden">
+    <div class="absolute -right-24 -top-24 h-96 w-96 rounded-full bg-amber-500/10 blur-3xl pointer-events-none"></div>
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="max-w-2xl mx-auto text-center space-y-4">
+        <span class="text-xs font-semibold uppercase tracking-widest text-amber-300 bg-white/10 px-3.5 py-1 rounded-full">
+          Take The First Step
+        </span>
+        <h2 class="font-serif text-3xl font-bold sm:text-4xl text-white">
+          Join the School of Awakened Politics
+        </h2>
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+          Submit your application to participate in our upcoming fellowship cohorts, retreat circles, or governance circuits.
+        </p>
+
+        <!-- Quick Form -->
+        <div class="mt-8 rounded-2xl bg-white/10 backdrop-blur-md p-6 sm:p-8 border border-white/20 text-left">
+          <form class="space-y-4" onsubmit="event.preventDefault(); alert('Thank you! Application received. Our admissions team will contact you shortly.'); this.reset();">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-200">Full Name *</label>
+                <input 
+                  type="text" 
+                  required 
+                  placeholder="Your full name"
+                  class="mt-1 w-full rounded-lg border border-slate-600 bg-white/10 px-4 py-2.5 text-sm text-white placeholder-slate-400 focus:border-amber-400 focus:outline-none focus:ring-1 focus:ring-amber-400"
+                />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-200">Email ID *</label>
+                <input 
+                  type="email" 
+                  required 
+                  placeholder="name@example.com"
+                  class="mt-1 w-full rounded-lg border border-slate-600 bg-white/10 px-4 py-2.5 text-sm text-white placeholder-slate-400 focus:border-amber-400 focus:outline-none focus:ring-1 focus:ring-amber-400"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-slate-200">Program Interest</label>
+              <select class="mt-1 w-full rounded-lg border border-slate-600 bg-slate-900 px-4 py-2.5 text-sm text-white focus:border-amber-400 focus:outline-none focus:ring-1 focus:ring-amber-400">
+                <option value="fellowship">SAP World Leaders Fellowship Program</option>
+                <option value="circuits">Governance Circuits (Field Journeys)</option>
+                <option value="parliament">Conscious Parliament Circles</option>
+                <option value="retreats">Leadership Retreats</option>
+              </select>
+            </div>
+
+            <button 
+              type="submit" 
+              class="w-full rounded-lg bg-sap-terracotta py-3 text-sm font-semibold uppercase tracking-wider text-white shadow-lg hover:bg-sap-terracottaDark transition"
+            >
+              Submit Application
+            </button>
+          </form>
+          <p class="mt-3 text-center text-xs text-slate-400">
+            Official Contact: <a href="mailto:info@schoolofawakenedpolitics.org" class="text-amber-300 underline">info@schoolofawakenedpolitics.org</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

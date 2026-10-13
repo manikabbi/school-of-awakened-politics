@@ -1,0 +1,150 @@
+---
+// src/pages/courses.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const programsList = [
+  {
+    id: "governance-circuits",
+    title: "Governance Circuits",
+    subtitle: "Immersive Field Studies Across Democratic Institutions",
+    icon: "🏛️",
+    description: "Governance Circuits take emerging leaders out of lecture halls and place them into the living pulse of public institutions. Fellows observe court hearings, shadow municipal commissioners, participate in village gram sabhas, and study historical statecraft at civilisational monuments.",
+    duration: "7 - 14 Days Intensive Travel",
+    format: "Fieldwork & Experiential",
+    outcomes: [
+      "Firsthand comprehension of bureaucratic execution challenges",
+      "Direct interactions with frontline citizens and public servants",
+      "Historical understanding of governance failures and triumphs"
+    ]
+  },
+  {
+    id: "conscious-parliament",
+    title: "Conscious Parliament Circles",
+    subtitle: "Deliberative Democracy & Depolarization Lab",
+    icon: "🗣️",
+    description: "A structured, non-adversarial simulation designed to break the deadlock of partisan shouting matches. Participants are assigned challenging contemporary legislative dilemmas and trained in non-violent communication, empathy-based stakeholder modeling, and consensus drafting.",
+    duration: "Weekend Workshops & Monthly Circles",
+    format: "Interactive Deliberation",
+    outcomes: [
+      "Mastery of multi-party negotiation and mediation",
+      "Techniques to de-escalate ideological vitriol in public discourse",
+      "Skill in drafting bills that incorporate minority viewpoints with dignity"
+    ]
+  },
+  {
+    id: "leadership-retreats",
+    title: "Leadership Retreats",
+    subtitle: "Inner Mastery & Philosophical Grounding",
+    icon: "🌿",
+    description: "Immersive retreats set in tranquil natural environments dedicated to the inner lives of public servants and leaders. The program integrates mindfulness, ethical discernment (Viveka), civilisational texts, and deep personal reflection.",
+    duration: "3 - 5 Days Residential",
+    format: "Retreat & Contemplative",
+    outcomes: [
+      "Psychological immunization against political cynicism and burnout",
+      "Clear articulation of personal public mission and ethical boundaries",
+      "Lifelong peer support network of values-aligned public servants"
+    ]
+  },
+  {
+    id: "policy-lab",
+    title: "Policy Research Lab",
+    subtitle: "Action-Oriented Legislative & Public Policy Research",
+    icon: "🤝",
+    description: "A working incubator where fellows collaborate with domain experts, economists, and legal scholars to author evidence-based policy briefs, draft model bills, and analyze government budgets for efficiency, equity, and ethical coherence.",
+    duration: "Semester-Long Fellowships",
+    format: "Research & Applied Analytics",
+    outcomes: [
+      "Published policy papers and model legislative drafts",
+      "Proficiency in public budgetary analysis and regulatory evaluation",
+      "Direct briefings delivered to lawmakers and civic organizations"
+    ]
+  }
+];
+---
+
+<BaseLayout
+  title="Courses & Programs | School of Awakened Politics"
+  description="Explore SAP's specialized programs: Governance Circuits, Conscious Parliament Circles, Leadership Retreats, and the Policy Research Lab."
+>
+  <!-- Page Header -->
+  <section class="bg-sap-navy text-white py-20 border-b border-stone-800">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl space-y-4">
+        <span class="inline-block text-xs font-semibold uppercase tracking-widest text-amber-300 bg-white/10 px-3.5 py-1 rounded-full">
+          Curriculum Directory
+        </span>
+        <h1 class="font-serif text-4xl sm:text-5xl font-bold leading-tight">
+          Specialized Programs & Immersions
+        </h1>
+        <p class="font-cinzel text-base text-amber-200">
+          Transformative Pathways for Every Dimension of Public Service
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Programs List -->
+  <section class="py-20 bg-white">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-16">
+      {programsList.map((prog, index) => (
+        <div id={prog.id} class="rounded-3xl border border-stone-200 bg-sap-sand p-8 sm:p-12 shadow-sm transition hover:shadow-md">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            <div class="lg:col-span-8 space-y-4">
+              <div class="flex items-center gap-3">
+                <span class="text-3xl">{prog.icon}</span>
+                <span class="rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-sap-terracotta">
+                  Module 0{index + 1}
+                </span>
+              </div>
+
+              <h2 class="font-serif text-2xl sm:text-3xl font-bold text-sap-navy">
+                {prog.title}
+              </h2>
+              <p class="font-cinzel text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                {prog.subtitle}
+              </p>
+
+              <p class="text-sm sm:text-base text-slate-700 leading-relaxed pt-2">
+                {prog.description}
+              </p>
+
+              <div class="pt-4 border-t border-stone-200">
+                <h4 class="text-xs font-semibold uppercase tracking-wider text-sap-navy mb-2">Key Learning Outcomes:</h4>
+                <ul class="space-y-1.5 text-xs sm:text-sm text-slate-600">
+                  {prog.outcomes.map((out) => (
+                    <li class="flex items-start gap-2">
+                      <span class="text-sap-terracotta font-bold">✓</span>
+                      <span>{out}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <!-- Program Info Card -->
+            <div class="lg:col-span-4 rounded-2xl bg-white p-6 border border-stone-200 space-y-4 shadow-sm">
+              <div>
+                <span class="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Duration</span>
+                <div class="text-sm font-bold text-sap-navy">{prog.duration}</div>
+              </div>
+
+              <div>
+                <span class="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Format</span>
+                <div class="text-sm font-bold text-sap-navy">{prog.format}</div>
+              </div>
+
+              <div class="pt-2">
+                <button
+                  type="button"
+                  class="trigger-apply-modal w-full rounded-lg bg-sap-terracotta py-2.5 text-xs font-semibold uppercase tracking-wider text-white shadow hover:bg-sap-terracottaDark transition"
+                >
+                  Apply for This Program
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
