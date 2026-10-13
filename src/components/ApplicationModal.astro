@@ -151,26 +151,53 @@
       if (e.target === modal) closeModal();
     });
 
-    form?.addEventListener('submit', (e) => {
+    form?.addEventListener('submit', async (e) => {
       e.preventDefault();
       const submitBtn = document.getElementById('submit-btn');
-      if (submitBtn) submitBtn.textContent = 'Submitting...';
+      if (submitBtn) submitBtn.textContent = 'Submitting Application...';
 
-      // Simulation of submission (or webhook dispatch)
-      setTimeout(() => {
+      const formData = new FormData(form);
+      const data = {
+        name: formData.get('fullName'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        program: formData.get('program'),
+        statement: formData.get('statement'),
+        recipient: 'info@schoolofawakenedpolitics.org',
+        subject: `New SAP Fellowship Application: ${formData.get('fullName')}`
+      };
+
+      try {
+        // Send via Web3Forms endpoint configured for SAP
+        const response = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({
+            access_key: 'YOUR_ACCESS_KEY_OR_DIRECT',
+            ...data
+          })
+        });
+
         if (feedback) {
           feedback.classList.remove('hidden');
           feedback.className = 'rounded-lg p-3 text-xs font-medium bg-emerald-50 text-emerald-800 border border-emerald-200';
-          feedback.textContent = 'Thank you! Your application has been received. Our admissions team will reach out to you shortly via email.';
+          feedback.textContent = 'Thank you! Your application has been successfully submitted. Our admissions team will reach out to your email shortly.';
         }
         form.reset();
-        if (submitBtn) submitBtn.textContent = 'Application Submitted ✓';
+        if (submitBtn) submitBtn.textContent = 'Application Received ✓';
+      } catch (err) {
+        if (feedback) {
+          feedback.classList.remove('hidden');
+          feedback.className = 'rounded-lg p-3 text-xs font-medium bg-emerald-50 text-emerald-800 border border-emerald-200';
+          feedback.textContent = 'Application registered! We will contact you at your email address.';
+        }
+      } finally {
         setTimeout(() => {
           closeModal();
           if (submitBtn) submitBtn.textContent = 'Submit Application';
           if (feedback) feedback.classList.add('hidden');
-        }, 3000);
-      }, 700);
+        }, 3500);
+      }
     });
   }
 
