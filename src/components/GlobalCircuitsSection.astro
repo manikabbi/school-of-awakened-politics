@@ -1,0 +1,71 @@
+---
+// src/components/GlobalCircuitsSection.astro
+import InteractiveGlobe from './InteractiveGlobe.astro';
+---
+
+<section id="global-circuits" class="py-20 lg:py-28 bg-sap-navy text-white relative overflow-hidden border-b border-stone-800">
+  <!-- Subtle background texture & ambient lighting -->
+  <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-amber-500/10 via-transparent to-transparent pointer-events-none"></div>
+
+  <div class="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <!-- Section Header -->
+    <div class="text-center max-w-3xl mx-auto mb-14 space-y-4">
+      <div class="inline-flex items-center gap-2 rounded-full border border-amber-400/50 bg-amber-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-amber-300">
+        <span>🇮🇳</span> Made In India For The World
+      </div>
+      <h2 class="font-serif text-3xl font-bold sm:text-5xl text-white">
+        Global Leadership Circuits
+      </h2>
+      <p class="font-serif italic text-amber-200 text-lg">
+        Conscious Statecraft Radiating from Bharat to Democratic Capitals Worldwide
+      </p>
+      <p class="text-slate-300 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+        True statesmanship transcends narrow borders. The School of Awakened Politics connects fellows with living global governance institutions, establishing a network of ethical public leaders across the globe.
+      </p>
+    </div>
+
+    <!-- The 3D Globe Feature with Permanent City Names & Outward Light Beams -->
+    <div class="mb-16">
+      <InteractiveGlobe />
+    </div>
+
+    <!-- Key Global Circuit Highlights Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pt-4">
+      <div class="rounded-2xl border border-stone-700/80 bg-white/5 p-6 backdrop-blur-sm hover:border-amber-400/50 transition">
+        <div class="text-2xl mb-3">🏛️</div>
+        <div class="text-xs font-bold uppercase tracking-wider text-amber-300">Geneva & London</div>
+        <h3 class="font-serif text-lg font-bold text-white mt-1">Multilateral & Parliamentary</h3>
+        <p class="text-xs text-slate-300 mt-2 leading-relaxed">
+          Immersion in international human rights tribunals, the UN system, and Commonwealth parliamentary jurisprudence.
+        </p>
+      </div>
+
+      <div class="rounded-2xl border border-stone-700/80 bg-white/5 p-6 backdrop-blur-sm hover:border-amber-400/50 transition">
+        <div class="text-2xl mb-3">⚡</div>
+        <div class="text-xs font-bold uppercase tracking-wider text-amber-300">Singapore & Tokyo</div>
+        <h3 class="font-serif text-lg font-bold text-white mt-1">Civic Innovation & Tech</h3>
+        <p class="text-xs text-slate-300 mt-2 leading-relaxed">
+          Exploring high-efficiency Asian public administrations, data-driven governance, and AI policy ethics.
+        </p>
+      </div>
+
+      <div class="rounded-2xl border border-stone-700/80 bg-white/5 p-6 backdrop-blur-sm hover:border-amber-400/50 transition">
+        <div class="text-2xl mb-3">🌍</div>
+        <div class="text-xs font-bold uppercase tracking-wider text-amber-300">Nairobi & Global South</div>
+        <h3 class="font-serif text-lg font-bold text-white mt-1">Ecological & Grassroots</h3>
+        <p class="text-xs text-slate-300 mt-2 leading-relaxed">
+          Learning community-led environmental stewardship, public health delivery, and post-colonial governance.
+        </p>
+      </div>
+
+      <div class="rounded-2xl border border-stone-700/80 bg-white/5 p-6 backdrop-blur-sm hover:border-amber-400/50 transition">
+        <div class="text-2xl mb-3">📜</div>
+        <div class="text-xs font-bold uppercase tracking-wider text-amber-300">Washington & New York</div>
+        <h3 class="font-serif text-lg font-bold text-white mt-1">Constitutional Dialogue</h3>
+        <p class="text-xs text-slate-300 mt-2 leading-relaxed">
+          Comparative studies in constitutional checks-and-balances, federal diplomacy, and global economic institutions.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
