@@ -10,7 +10,7 @@
   <div class="relative w-[340px] h-[340px] sm:w-[480px] sm:h-[480px] md:w-[560px] md:h-[560px] flex items-center justify-center">
     <div 
       id="globe-three-container" 
-      class="w-full h-full cursor-grab active:cursor-grabbing rounded-full overflow-hidden shadow-2xl"
+      class="w-full h-full cursor-grab active:cursor-grabbing"
     ></div>
 
     <!-- Overlay Tooltip for Hubs -->
@@ -104,17 +104,6 @@
     });
     const earthMesh = new THREE.Mesh(earthGeo, earthMat);
     globeGroup.add(earthMesh);
-
-    // Atmospheric Outer Glow Shell
-    const atmosGeo = new THREE.SphereGeometry(R * 1.035, 48, 48);
-    const atmosMat = new THREE.MeshBasicMaterial({
-      color: 0x38bdf8,
-      transparent: true,
-      opacity: 0.18,
-      side: THREE.BackSide
-    });
-    const atmosMesh = new THREE.Mesh(atmosGeo, atmosMat);
-    scene.add(atmosMesh);
 
     // Lat/Lon to Vector3 helper
     function latLonToVector3(lat: number, lon: number, radius: number): THREE.Vector3 {
