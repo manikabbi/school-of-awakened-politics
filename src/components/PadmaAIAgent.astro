@@ -1,12 +1,12 @@
 ---
-// src/components/SitaAIAgent.astro
+// src/components/PadmaAIAgent.astro
 ---
 
-<!-- Floating Sita Launcher Button (Bottom-Right) -->
-<div id="sita-container" class="fixed bottom-6 right-6 z-40 select-none">
+<!-- Floating Padma Launcher Button (Bottom-Right) -->
+<div id="padma-container" class="fixed bottom-6 right-6 z-40 select-none">
   <!-- Teaser Speech Bubble (Displays on load then dismissible) -->
   <div 
-    id="sita-teaser" 
+    id="padma-teaser" 
     class="absolute bottom-16 right-0 mb-2 w-64 rounded-2xl bg-white dark:bg-[#0e223d] p-3.5 shadow-2xl border border-amber-400/40 dark:border-amber-400/30 text-xs transition-all duration-300 transform origin-bottom-right"
   >
     <div class="flex items-start justify-between gap-2">
@@ -14,7 +14,7 @@
         <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gradient-to-tr from-amber-500 to-sap-terracotta text-white text-xs shadow-sm">
           ✨
         </span>
-        <span class="font-serif font-bold text-sap-navy dark:text-white">Namaste! I'm Sita</span>
+        <span class="font-serif font-bold text-sap-navy dark:text-white">Namaste! I'm Padma</span>
       </div>
       <button 
         type="button" 
@@ -39,14 +39,14 @@
     </div>
   </div>
 
-  <!-- Primary Floating Action Button with Sita Wisdom Spark Icon -->
+  <!-- Primary Floating Action Button with Wisdom Spark Icon -->
   <button
     type="button"
-    id="sita-trigger-btn"
+    id="padma-trigger-btn"
     class="group relative flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-tr from-[#a3420c] via-[#c85a17] to-[#f59e0b] text-white shadow-2xl ring-4 ring-amber-400/20 hover:scale-105 active:scale-95 transition-all duration-200"
-    aria-label="Open Sita AI Student Help Agent"
+    aria-label="Open Padma AI Student Help Agent"
   >
-    <!-- Radiant Wisdom Flame / Star Crest -->
+    <!-- Radiant Wisdom Star Crest -->
     <svg class="h-6 w-6 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">
       <path d="M12 2L14.8 8.6L22 11L14.8 13.4L12 20L9.2 13.4L2 11L9.2 8.6L12 2Z" />
     </svg>
@@ -59,9 +59,9 @@
   </button>
 </div>
 
-<!-- Sita AI Chat Window Modal -->
+<!-- Padma AI Chat Window Modal -->
 <div 
-  id="sita-chat-modal" 
+  id="padma-chat-modal" 
   class="fixed bottom-6 right-6 z-50 hidden w-[92vw] sm:w-[420px] max-w-[440px] h-[580px] max-h-[85vh] flex-col rounded-3xl bg-white dark:bg-[#0b192c] shadow-2xl border border-stone-200 dark:border-slate-700/80 overflow-hidden transition-all duration-300"
 >
   <!-- Chat Window Header -->
@@ -75,7 +75,7 @@
       </div>
       <div>
         <div class="flex items-center gap-1.5">
-          <h3 class="font-serif text-sm font-bold text-sap-navy dark:text-white">Sita</h3>
+          <h3 class="font-serif text-sm font-bold text-sap-navy dark:text-white">Padma</h3>
           <span class="rounded bg-amber-100 dark:bg-amber-500/20 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-sap-terracotta dark:text-amber-300">
             SAP AI Guide
           </span>
@@ -90,7 +90,7 @@
     <div class="flex items-center gap-1">
       <button 
         type="button" 
-        id="sita-reset-btn" 
+        id="padma-reset-btn" 
         class="rounded-lg p-1.5 text-slate-400 hover:bg-stone-200 dark:hover:bg-white/10 hover:text-slate-700 dark:hover:text-white transition" 
         title="Reset conversation"
       >
@@ -100,7 +100,7 @@
       </button>
       <button 
         type="button" 
-        id="sita-close-btn" 
+        id="padma-close-btn" 
         class="rounded-lg p-1.5 text-slate-400 hover:bg-stone-200 dark:hover:bg-white/10 hover:text-slate-700 dark:hover:text-white transition"
         title="Close chat"
       >
@@ -113,7 +113,7 @@
 
   <!-- Messages Scroll Area -->
   <div 
-    id="sita-messages-area" 
+    id="padma-messages-area" 
     class="flex-1 overflow-y-auto p-4 space-y-3.5 bg-stone-50/50 dark:bg-[#071322]/40 text-xs scroll-smooth"
   >
     <!-- Welcome Message Bubble -->
@@ -123,7 +123,7 @@
       </div>
       <div class="max-w-[85%] rounded-2xl rounded-tl-sm bg-white dark:bg-[#162d4a] p-3.5 shadow-sm border border-stone-200 dark:border-slate-700 text-slate-800 dark:text-slate-100 space-y-2">
         <p class="leading-relaxed">
-          <strong>Namaste!</strong> I am <strong>Sita</strong>, your admissions and learning guide at the <strong>School of Awakened Politics (SAP)</strong>.
+          <strong>Namaste!</strong> I am <strong>Padma</strong>, your admissions and learning guide at the <strong>School of Awakened Politics (SAP)</strong>.
         </p>
         <p class="leading-relaxed text-slate-600 dark:text-slate-300">
           I am here to answer your doubts on our <strong>1-Year World Leaders Fellowship</strong>, curriculum, eligibility, admissions, and our non-partisan charter.
@@ -136,28 +136,28 @@
 
     <!-- Initial Quick Suggestion Pills Container -->
     <div id="quick-suggestions" class="pt-1 flex flex-wrap gap-1.5 pl-9">
-      <button type="button" class="sita-suggestion-chip rounded-full border border-amber-300/80 dark:border-amber-500/40 bg-amber-50 dark:bg-amber-950/40 px-3 py-1 text-[11px] font-medium text-amber-900 dark:text-amber-200 hover:bg-amber-100 dark:hover:bg-amber-900/60 transition">
+      <button type="button" class="padma-suggestion-chip rounded-full border border-amber-300/80 dark:border-amber-500/40 bg-amber-50 dark:bg-amber-950/40 px-3 py-1 text-[11px] font-medium text-amber-900 dark:text-amber-200 hover:bg-amber-100 dark:hover:bg-amber-900/60 transition">
         🎯 Who is eligible to apply?
       </button>
-      <button type="button" class="sita-suggestion-chip rounded-full border border-amber-300/80 dark:border-amber-500/40 bg-amber-50 dark:bg-amber-950/40 px-3 py-1 text-[11px] font-medium text-amber-900 dark:text-amber-200 hover:bg-amber-100 dark:hover:bg-amber-900/60 transition">
+      <button type="button" class="padma-suggestion-chip rounded-full border border-amber-300/80 dark:border-amber-500/40 bg-amber-50 dark:bg-amber-950/40 px-3 py-1 text-[11px] font-medium text-amber-900 dark:text-amber-200 hover:bg-amber-100 dark:hover:bg-amber-900/60 transition">
         🌱 What is "Awakened Politics"?
       </button>
-      <button type="button" class="sita-suggestion-chip rounded-full border border-amber-300/80 dark:border-amber-500/40 bg-amber-50 dark:bg-amber-950/40 px-3 py-1 text-[11px] font-medium text-amber-900 dark:text-amber-200 hover:bg-amber-100 dark:hover:bg-amber-900/60 transition">
+      <button type="button" class="padma-suggestion-chip rounded-full border border-amber-300/80 dark:border-amber-500/40 bg-amber-50 dark:bg-amber-950/40 px-3 py-1 text-[11px] font-medium text-amber-900 dark:text-amber-200 hover:bg-amber-100 dark:hover:bg-amber-900/60 transition">
         ⚖️ Is SAP affiliated with any political party?
       </button>
-      <button type="button" class="sita-suggestion-chip rounded-full border border-amber-300/80 dark:border-amber-500/40 bg-amber-50 dark:bg-amber-950/40 px-3 py-1 text-[11px] font-medium text-amber-900 dark:text-amber-200 hover:bg-amber-100 dark:hover:bg-amber-900/60 transition">
+      <button type="button" class="padma-suggestion-chip rounded-full border border-amber-300/80 dark:border-amber-500/40 bg-amber-50 dark:bg-amber-950/40 px-3 py-1 text-[11px] font-medium text-amber-900 dark:text-amber-200 hover:bg-amber-100 dark:hover:bg-amber-900/60 transition">
         🏛️ What is the 1-Year Fellowship structure?
       </button>
-      <button type="button" class="sita-suggestion-chip rounded-full border border-amber-300/80 dark:border-amber-500/40 bg-amber-50 dark:bg-amber-950/40 px-3 py-1 text-[11px] font-medium text-amber-900 dark:text-amber-200 hover:bg-amber-100 dark:hover:bg-amber-900/60 transition">
+      <button type="button" class="padma-suggestion-chip rounded-full border border-amber-300/80 dark:border-amber-500/40 bg-amber-50 dark:bg-amber-950/40 px-3 py-1 text-[11px] font-medium text-amber-900 dark:text-amber-200 hover:bg-amber-100 dark:hover:bg-amber-900/60 transition">
         📝 How do I apply?
       </button>
     </div>
   </div>
 
   <!-- Typing Indicator (Hidden by default) -->
-  <div id="sita-typing-indicator" class="hidden px-4 py-2 bg-stone-50/50 dark:bg-[#071322]/40 text-[11px] text-slate-500 dark:text-slate-400 items-center gap-2 border-t border-stone-200/50 dark:border-slate-800">
+  <div id="padma-typing-indicator" class="hidden px-4 py-2 bg-stone-50/50 dark:bg-[#071322]/40 text-[11px] text-slate-500 dark:text-slate-400 items-center gap-2 border-t border-stone-200/50 dark:border-slate-800">
     <span class="flex h-4 w-4 items-center justify-center rounded-full bg-amber-500 text-white text-[9px]">✨</span>
-    <span>Sita is typing</span>
+    <span>Padma is typing</span>
     <span class="flex gap-1">
       <span class="h-1.5 w-1.5 rounded-full bg-amber-500 animate-bounce"></span>
       <span class="h-1.5 w-1.5 rounded-full bg-amber-500 animate-bounce [animation-delay:0.2s]"></span>
@@ -166,17 +166,17 @@
   </div>
 
   <!-- Chat Input Form -->
-  <form id="sita-chat-form" class="border-t border-stone-200 dark:border-slate-800 bg-white dark:bg-[#0b192c] p-3 flex items-center gap-2">
+  <form id="padma-chat-form" class="border-t border-stone-200 dark:border-slate-800 bg-white dark:bg-[#0b192c] p-3 flex items-center gap-2">
     <input 
       type="text" 
-      id="sita-input" 
-      placeholder="Ask Sita a question about SAP..." 
+      id="padma-input" 
+      placeholder="Ask Padma a question about SAP..." 
       autocomplete="off"
       class="flex-1 rounded-xl border border-stone-300 dark:border-slate-600 bg-stone-50 dark:bg-[#162d4a] px-3.5 py-2.5 text-xs text-slate-900 dark:text-white placeholder-slate-400 focus:border-amber-500 dark:focus:border-amber-400 focus:outline-none focus:ring-1 focus:ring-amber-500"
     />
     <button 
       type="submit" 
-      id="sita-send-btn"
+      id="padma-send-btn"
       class="rounded-xl bg-sap-terracotta hover:bg-sap-terracottaDark p-2.5 text-white transition focus:outline-none focus:ring-2 focus:ring-amber-400 shadow"
       aria-label="Send message"
     >
@@ -189,7 +189,7 @@
 
 <script>
   // ==========================================
-  // SITA AI KNOWLEDGE BASE & RESPONSE ENGINE
+  // PADMA AI KNOWLEDGE BASE & RESPONSE ENGINE
   // ==========================================
   interface KnowledgeEntry {
     keywords: string[];
@@ -198,7 +198,7 @@
     actionLabel?: string;
   }
 
-  const sitaKnowledgeBase: KnowledgeEntry[] = [
+  const padmaKnowledgeBase: KnowledgeEntry[] = [
     {
       keywords: ['eligible', 'eligibility', 'who can join', 'criteria', 'qualify', 'who can apply', 'age', 'background', 'prerequisite'],
       answer: `<strong>Anyone driven by integrity and service can apply!</strong><br/><br/>
@@ -313,20 +313,20 @@
       You can ask me about our <strong>Fellowship syllabus</strong>, <strong>eligibility</strong>, <strong>scholarships</strong>, or <strong>how to apply</strong>.`
     },
     {
-      keywords: ['who are you', 'who made you', 'sita', 'what is your name', 'ai', 'padma'],
-      answer: `I am <strong>Sita</strong>, the dedicated AI Admissions & Civic Leadership Guide for the <strong>School of Awakened Politics (SAP)</strong>.<br/><br/>
-      My name represents truth (Satya), moral courage, unwavering devotion to public duty, and ethical integrity in governance. I am trained on SAP's full academic curriculum and institutional charter to answer any doubts you may have!`
+      keywords: ['who are you', 'who made you', 'padma', 'what is your name', 'ai', 'sita'],
+      answer: `I am <strong>Padma</strong>, the dedicated AI Admissions & Civic Leadership Guide for the <strong>School of Awakened Politics (SAP)</strong>.<br/><br/>
+      My name represents purity, wisdom, and selfless public stewardship blooming even in turbulent waters. I am trained on SAP's full academic curriculum and institutional charter to answer any doubts you may have!`
     }
   ];
 
-  function getSitaResponse(query: string): KnowledgeEntry {
+  function getPadmaResponse(query: string): KnowledgeEntry {
     const clean = query.toLowerCase().trim();
 
     // 1. Exact or keyword score matching
     let bestMatch: KnowledgeEntry | null = null;
     let highestScore = 0;
 
-    for (const item of sitaKnowledgeBase) {
+    for (const item of padmaKnowledgeBase) {
       let score = 0;
       for (const kw of item.keywords) {
         if (clean.includes(kw)) {
@@ -358,19 +358,19 @@
   // ==========================================
   // CHAT UI CONTROLLER
   // ==========================================
-  function setupSitaChat() {
-    const container = document.getElementById('sita-container');
-    const teaser = document.getElementById('sita-teaser');
+  function setupPadmaChat() {
+    const container = document.getElementById('padma-container');
+    const teaser = document.getElementById('padma-teaser');
     const closeTeaserBtn = document.getElementById('close-teaser-btn');
     const openFromTeaserBtn = document.getElementById('open-from-teaser-btn');
-    const triggerBtn = document.getElementById('sita-trigger-btn');
-    const modal = document.getElementById('sita-chat-modal');
-    const closeBtn = document.getElementById('sita-close-btn');
-    const resetBtn = document.getElementById('sita-reset-btn');
-    const form = document.getElementById('sita-chat-form') as HTMLFormElement | null;
-    const input = document.getElementById('sita-input') as HTMLInputElement | null;
-    const messagesArea = document.getElementById('sita-messages-area');
-    const typingIndicator = document.getElementById('sita-typing-indicator');
+    const triggerBtn = document.getElementById('padma-trigger-btn');
+    const modal = document.getElementById('padma-chat-modal');
+    const closeBtn = document.getElementById('padma-close-btn');
+    const resetBtn = document.getElementById('padma-reset-btn');
+    const form = document.getElementById('padma-chat-form') as HTMLFormElement | null;
+    const input = document.getElementById('padma-input') as HTMLInputElement | null;
+    const messagesArea = document.getElementById('padma-messages-area');
+    const typingIndicator = document.getElementById('padma-typing-indicator');
 
     if (!container || !modal || !triggerBtn || !messagesArea) return;
 
@@ -416,19 +416,19 @@
           </div>
         </div>
         <div id="quick-suggestions" class="pt-1 flex flex-wrap gap-1.5 pl-9">
-          <button type="button" class="sita-suggestion-chip rounded-full border border-amber-300/80 dark:border-amber-500/40 bg-amber-50 dark:bg-amber-950/40 px-3 py-1 text-[11px] font-medium text-amber-900 dark:text-amber-200 hover:bg-amber-100 dark:hover:bg-amber-900/60 transition">
+          <button type="button" class="padma-suggestion-chip rounded-full border border-amber-300/80 dark:border-amber-500/40 bg-amber-50 dark:bg-amber-950/40 px-3 py-1 text-[11px] font-medium text-amber-900 dark:text-amber-200 hover:bg-amber-100 dark:hover:bg-amber-900/60 transition">
             🎯 Who is eligible to apply?
           </button>
-          <button type="button" class="sita-suggestion-chip rounded-full border border-amber-300/80 dark:border-amber-500/40 bg-amber-50 dark:bg-amber-950/40 px-3 py-1 text-[11px] font-medium text-amber-900 dark:text-amber-200 hover:bg-amber-100 dark:hover:bg-amber-900/60 transition">
+          <button type="button" class="padma-suggestion-chip rounded-full border border-amber-300/80 dark:border-amber-500/40 bg-amber-50 dark:bg-amber-950/40 px-3 py-1 text-[11px] font-medium text-amber-900 dark:text-amber-200 hover:bg-amber-100 dark:hover:bg-amber-900/60 transition">
             🌱 What is "Awakened Politics"?
           </button>
-          <button type="button" class="sita-suggestion-chip rounded-full border border-amber-300/80 dark:border-amber-500/40 bg-amber-50 dark:bg-amber-950/40 px-3 py-1 text-[11px] font-medium text-amber-900 dark:text-amber-200 hover:bg-amber-100 dark:hover:bg-amber-900/60 transition">
+          <button type="button" class="padma-suggestion-chip rounded-full border border-amber-300/80 dark:border-amber-500/40 bg-amber-50 dark:bg-amber-950/40 px-3 py-1 text-[11px] font-medium text-amber-900 dark:text-amber-200 hover:bg-amber-100 dark:hover:bg-amber-900/60 transition">
             ⚖️ Is SAP affiliated with any political party?
           </button>
-          <button type="button" class="sita-suggestion-chip rounded-full border border-amber-300/80 dark:border-amber-500/40 bg-amber-50 dark:bg-amber-950/40 px-3 py-1 text-[11px] font-medium text-amber-900 dark:text-amber-200 hover:bg-amber-100 dark:hover:bg-amber-900/60 transition">
+          <button type="button" class="padma-suggestion-chip rounded-full border border-amber-300/80 dark:border-amber-500/40 bg-amber-50 dark:bg-amber-950/40 px-3 py-1 text-[11px] font-medium text-amber-900 dark:text-amber-200 hover:bg-amber-100 dark:hover:bg-amber-900/60 transition">
             🏛️ What is the 1-Year Fellowship structure?
           </button>
-          <button type="button" class="sita-suggestion-chip rounded-full border border-amber-300/80 dark:border-amber-500/40 bg-amber-50 dark:bg-amber-950/40 px-3 py-1 text-[11px] font-medium text-amber-900 dark:text-amber-200 hover:bg-amber-100 dark:hover:bg-amber-900/60 transition">
+          <button type="button" class="padma-suggestion-chip rounded-full border border-amber-300/80 dark:border-amber-500/40 bg-amber-50 dark:bg-amber-950/40 px-3 py-1 text-[11px] font-medium text-amber-900 dark:text-amber-200 hover:bg-amber-100 dark:hover:bg-amber-900/60 transition">
             📝 How do I apply?
           </button>
         </div>
@@ -448,7 +448,7 @@
       messagesArea.scrollTop = messagesArea.scrollHeight;
     }
 
-    function appendSitaMessage(entry: KnowledgeEntry) {
+    function appendPadmaMessage(entry: KnowledgeEntry) {
       const bubble = document.createElement('div');
       bubble.className = 'flex items-start gap-2.5';
 
@@ -465,7 +465,7 @@
         } else if (entry.actionType === 'quiz') {
           actionHtml = `
             <div class="pt-2">
-              <a href="#assessment" class="sita-action-link inline-flex items-center gap-1.5 rounded-lg bg-amber-600 hover:bg-amber-700 px-3.5 py-1.5 text-[11px] font-semibold text-white shadow transition">
+              <a href="#assessment" class="padma-action-link inline-flex items-center gap-1.5 rounded-lg bg-amber-600 hover:bg-amber-700 px-3.5 py-1.5 text-[11px] font-semibold text-white shadow transition">
                 <span>🎯</span> <span>${entry.actionLabel}</span>
               </a>
             </div>
@@ -473,7 +473,7 @@
         } else if (entry.actionType === 'curriculum') {
           actionHtml = `
             <div class="pt-2">
-              <a href="/fellowship#curriculum" class="sita-action-link inline-flex items-center gap-1.5 rounded-lg border border-amber-400 bg-amber-500/10 px-3.5 py-1.5 text-[11px] font-semibold text-sap-terracotta dark:text-amber-300 hover:bg-amber-500/20 transition">
+              <a href="/fellowship#curriculum" class="padma-action-link inline-flex items-center gap-1.5 rounded-lg border border-amber-400 bg-amber-500/10 px-3.5 py-1.5 text-[11px] font-semibold text-sap-terracotta dark:text-amber-300 hover:bg-amber-500/20 transition">
                 <span>📖</span> <span>${entry.actionLabel}</span>
               </a>
             </div>
@@ -481,7 +481,7 @@
         } else if (entry.actionType === 'contact') {
           actionHtml = `
             <div class="pt-2">
-              <a href="/contact" class="sita-action-link inline-flex items-center gap-1.5 rounded-lg bg-sap-navy dark:bg-white/10 px-3.5 py-1.5 text-[11px] font-semibold text-white hover:bg-sap-terracotta transition">
+              <a href="/contact" class="padma-action-link inline-flex items-center gap-1.5 rounded-lg bg-sap-navy dark:bg-white/10 px-3.5 py-1.5 text-[11px] font-semibold text-white hover:bg-sap-terracotta transition">
                 <span>✉️</span> <span>${entry.actionLabel}</span>
               </a>
             </div>
@@ -503,7 +503,7 @@
       messagesArea.appendChild(bubble);
       messagesArea.scrollTop = messagesArea.scrollHeight;
 
-      // Wire action buttons inside Sita message
+      // Wire action buttons inside Padma message
       const applyTrigger = bubble.querySelector('.trigger-apply-modal');
       applyTrigger?.addEventListener('click', () => {
         closeChat();
@@ -511,7 +511,7 @@
         appModal?.classList.remove('hidden');
       });
 
-      const actionLinks = bubble.querySelectorAll('.sita-action-link');
+      const actionLinks = bubble.querySelectorAll('.padma-action-link');
       actionLinks.forEach(link => {
         link.addEventListener('click', () => {
           closeChat();
@@ -535,8 +535,8 @@
       if (typingIndicator) typingIndicator.classList.add('hidden');
       typingIndicator?.classList.remove('flex');
 
-      const response = getSitaResponse(query);
-      appendSitaMessage(response);
+      const response = getPadmaResponse(query);
+      appendPadmaMessage(response);
     }
 
     form?.addEventListener('submit', (e) => {
@@ -550,7 +550,7 @@
     });
 
     function wireSuggestionChips() {
-      const chips = document.querySelectorAll('.sita-suggestion-chip');
+      const chips = document.querySelectorAll('.padma-suggestion-chip');
       chips.forEach(chip => {
         chip.addEventListener('click', () => {
           const text = chip.textContent?.replace(/^[^\w]+/, '').trim() || '';
@@ -565,8 +565,8 @@
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', setupSitaChat);
+    document.addEventListener('DOMContentLoaded', setupPadmaChat);
   } else {
-    setupSitaChat();
+    setupPadmaChat();
   }
 </script>
