@@ -49,35 +49,35 @@ const articles = [
   </section>
 
   <!-- Editorial Section -->
-  <section class="py-20 bg-white">
+  <section class="py-20 bg-white dark:bg-[#071322] transition-colors duration-200">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
         <div class="lg:col-span-8 space-y-10">
-          <h2 class="font-serif text-2xl sm:text-3xl font-bold text-sap-navy border-b border-stone-200 pb-4">
+          <h2 class="font-serif text-2xl sm:text-3xl font-bold text-sap-navy dark:text-white border-b border-stone-200 dark:border-slate-800 pb-4">
             Featured Perspectives
           </h2>
 
           <div class="space-y-8">
             {articles.map((item) => (
-              <article class="group rounded-2xl border border-stone-200 bg-sap-sand p-8 transition hover:border-sap-terracotta hover:shadow-md">
-                <div class="flex items-center gap-3 text-xs font-semibold uppercase tracking-wider text-sap-terracotta mb-2">
+              <article class="group rounded-2xl border border-stone-200 dark:border-slate-700 bg-sap-sand dark:bg-[#0e223d] p-8 transition hover:border-sap-terracotta dark:hover:border-amber-400 hover:shadow-md">
+                <div class="flex items-center gap-3 text-xs font-semibold uppercase tracking-wider text-sap-terracotta dark:text-amber-300 mb-2">
                   <span>{item.category}</span>
                   <span>•</span>
-                  <span class="text-slate-500">{item.date}</span>
+                  <span class="text-slate-500 dark:text-slate-400">{item.date}</span>
                   <span>•</span>
-                  <span class="text-slate-500">{item.readTime}</span>
+                  <span class="text-slate-500 dark:text-slate-400">{item.readTime}</span>
                 </div>
 
-                <h3 class="font-serif text-2xl font-bold text-sap-navy group-hover:text-sap-terracotta transition">
+                <h3 class="font-serif text-2xl font-bold text-sap-navy dark:text-white group-hover:text-sap-terracotta dark:group-hover:text-amber-300 transition">
                   <a href="#">{item.title}</a>
                 </h3>
 
-                <p class="mt-3 text-sm text-slate-700 leading-relaxed">
+                <p class="mt-3 text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
                   {item.excerpt}
                 </p>
 
-                <div class="mt-4 pt-4 border-t border-stone-200/60 flex items-center justify-between text-xs font-semibold">
-                  <span class="text-sap-navy group-hover:text-sap-terracotta transition">Read Full Article →</span>
+                <div class="mt-4 pt-4 border-t border-stone-200/60 dark:border-slate-700/80 flex items-center justify-between text-xs font-semibold">
+                  <span class="text-sap-navy dark:text-amber-300 group-hover:text-sap-terracotta transition">Read Full Article →</span>
                 </div>
               </article>
             ))}
@@ -86,20 +86,20 @@ const articles = [
 
         <!-- Sidebar / Call for Submissions -->
         <div class="lg:col-span-4 space-y-6">
-          <div class="rounded-2xl border border-stone-200 bg-sap-sand p-6 space-y-4">
-            <h3 class="font-serif text-lg font-bold text-sap-navy">Call for Papers & Essays</h3>
-            <p class="text-xs text-slate-600 leading-relaxed">
+          <div class="rounded-2xl border border-stone-200 dark:border-slate-700 bg-sap-sand dark:bg-[#0e223d] p-6 space-y-4">
+            <h3 class="font-serif text-lg font-bold text-sap-navy dark:text-white">Call for Papers & Essays</h3>
+            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
               We welcome original contributions from scholars, active civil servants, and civic practitioners on ethical governance, depolarizing communication, and institutional reform.
             </p>
             <a
               href="mailto:info@schoolofawakenedpolitics.org?subject=Publishing%20Submission"
-              class="inline-block text-xs font-semibold uppercase tracking-wider text-sap-terracotta hover:underline"
+              class="inline-block text-xs font-semibold uppercase tracking-wider text-sap-terracotta dark:text-amber-400 hover:underline"
             >
               Submit an Article Proposal →
             </a>
           </div>
 
-          <div class="rounded-2xl bg-sap-navy p-6 text-white space-y-4">
+          <div class="rounded-2xl bg-sap-navy dark:bg-[#122845] p-6 text-white space-y-4 border border-transparent dark:border-slate-700">
             <h4 class="font-serif text-lg font-bold">Subscribe to the SAP Gazette</h4>
             <p class="text-xs text-slate-300">
               Receive monthly essays, fellowship announcements, and policy briefings directly in your inbox.

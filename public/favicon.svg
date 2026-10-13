@@ -1,24 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 70 70">
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 100 100">
   <defs>
-    <linearGradient id="sapGold" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#fbbf24" />
-      <stop offset="100%" stop-color="#c85a17" />
+    <linearGradient id="sapFaviconGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="50%" stop-color="#ea580c" />
+      <stop offset="100%" stop-color="#c2410c" />
     </linearGradient>
-    <style>
-      .g{fill:url(#sapGold);stroke:url(#sapGold)}
-      .s{fill:none;stroke:url(#sapGold);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
-    </style>
   </defs>
-  
-  <g transform="translate(5 5)">
-    <path class="s" d="M10,32 A22,22 0 0 1 50,32"></path>
-    <path class="s" d="M17,32 A15,15 0 0 1 43,32" opacity=".85"></path>
-    <line x1="20" y1="32" x2="20" y2="47" class="s"></line>
-    <line x1="27" y1="32" x2="27" y2="47" class="s"></line>
-    <line x1="33" y1="32" x2="33" y2="47" class="s"></line>
-    <line x1="40" y1="32" x2="40" y2="47" class="s"></line>
-    <rect x1="16" y="47" width="28" height="4.5" rx="1.5" class="g" opacity=".9"></rect>
-    <circle cx="30" cy="15" r="2.6" class="g"></circle>
-    <path class="s" d="M23,19 A8,8 0 0 1 37,19"></path>
+  <rect width="100" height="100" rx="20" fill="#0b192c" />
+  <g id="sap-emblem" transform="scale(0.85) translate(8.8 8.8)">
+    <circle cx="50" cy="19" r="4" fill="url(#sapFaviconGrad)" />
+    <path d="M37,27 A14,14 0 0 1 63,27" fill="none" stroke="url(#sapFaviconGrad)" stroke-width="2.5" stroke-linecap="round" />
+    <path d="M20,54 A30,30 0 0 1 80,54" fill="none" stroke="url(#sapFaviconGrad)" stroke-width="3" stroke-linecap="round" />
+    <path d="M29,54 A21,21 0 0 1 71,54" fill="none" stroke="url(#sapFaviconGrad)" stroke-width="2.5" stroke-linecap="round" opacity="0.88" />
+    <line x1="28" y1="54" x2="28" y2="73" stroke="url(#sapFaviconGrad)" stroke-width="2.8" stroke-linecap="round" />
+    <line x1="39" y1="54" x2="39" y2="73" stroke="url(#sapFaviconGrad)" stroke-width="2.8" stroke-linecap="round" />
+    <line x1="50" y1="54" x2="50" y2="73" stroke="url(#sapFaviconGrad)" stroke-width="3" stroke-linecap="round" />
+    <line x1="61" y1="54" x2="61" y2="73" stroke="url(#sapFaviconGrad)" stroke-width="2.8" stroke-linecap="round" />
+    <line x1="72" y1="54" x2="72" y2="73" stroke="url(#sapFaviconGrad)" stroke-width="2.8" stroke-linecap="round" />
+    <rect x="22" y="73" width="56" height="4" rx="2" fill="url(#sapFaviconGrad)" opacity="0.9" />
+    <rect x="16" y="78" width="68" height="5.5" rx="2.75" fill="url(#sapFaviconGrad)" />
   </g>
 </svg>

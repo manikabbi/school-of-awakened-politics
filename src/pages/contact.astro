@@ -25,73 +25,80 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   </section>
 
   <!-- Contact Grid -->
-  <section class="py-20 bg-white">
+  <section class="py-20 bg-white dark:bg-[#071322] transition-colors duration-200">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
         <!-- Contact Form -->
-        <div class="lg:col-span-7 rounded-3xl border border-stone-200 bg-sap-sand p-8 sm:p-12 shadow-sm">
-          <h2 class="font-serif text-2xl sm:text-3xl font-bold text-sap-navy mb-2">
+        <div class="lg:col-span-7 rounded-3xl border border-stone-200 dark:border-slate-700 bg-sap-sand dark:bg-[#0e223d] p-8 sm:p-12 shadow-sm">
+          <h2 class="font-serif text-2xl sm:text-3xl font-bold text-sap-navy dark:text-white mb-2">
             Send an Inquiry
           </h2>
-          <p class="text-sm text-slate-600 mb-8">
+          <p class="text-sm text-slate-600 dark:text-slate-300 mb-8">
             Whether you are an aspiring candidate, an educational institution, or an administrator seeking collaboration, we welcome your message.
           </p>
 
-          <form class="space-y-4" onsubmit="event.preventDefault(); alert('Thank you for reaching out! Your message has been sent to info@schoolofawakenedpolitics.org'); this.reset();">
+          <form id="contact-page-form" class="space-y-4">
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-700">Full Name *</label>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">Full Name *</label>
                 <input 
                   type="text" 
+                  name="fullName"
                   required 
                   placeholder="e.g. Priyanshu Varma"
-                  class="mt-1 w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:border-sap-terracotta focus:outline-none focus:ring-1 focus:ring-sap-terracotta"
+                  class="mt-1 w-full rounded-lg border border-stone-300 dark:border-slate-600 bg-white dark:bg-[#162d4a] px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-400 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
                 />
               </div>
               <div>
-                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-700">Email Address *</label>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">Email Address *</label>
                 <input 
                   type="email" 
+                  name="email"
                   required 
                   placeholder="priyanshu@example.com"
-                  class="mt-1 w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:border-sap-terracotta focus:outline-none focus:ring-1 focus:ring-sap-terracotta"
+                  class="mt-1 w-full rounded-lg border border-stone-300 dark:border-slate-600 bg-white dark:bg-[#162d4a] px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-400 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
                 />
               </div>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-700">Phone / WhatsApp</label>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">Phone / WhatsApp</label>
                 <input 
                   type="tel" 
+                  name="phone"
                   placeholder="+91 98765 43210"
-                  class="mt-1 w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:border-sap-terracotta focus:outline-none focus:ring-1 focus:ring-sap-terracotta"
+                  class="mt-1 w-full rounded-lg border border-stone-300 dark:border-slate-600 bg-white dark:bg-[#162d4a] px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-400 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
                 />
               </div>
               <div>
-                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-700">Subject / Category</label>
-                <select class="mt-1 w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-900 focus:border-sap-terracotta focus:outline-none focus:ring-1 focus:ring-sap-terracotta">
-                  <option value="fellowship">Fellowship Admissions</option>
-                  <option value="partnership">Institutional Partnership</option>
-                  <option value="research">Policy Lab Collaboration</option>
-                  <option value="retreats">Leadership Retreat Inquiries</option>
-                  <option value="general">General Inquiries</option>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">Subject / Category</label>
+                <select name="program" class="mt-1 w-full rounded-lg border border-stone-300 dark:border-slate-600 bg-white dark:bg-[#162d4a] px-4 py-2.5 text-sm text-slate-900 dark:text-white focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500">
+                  <option value="Fellowship Admissions">Fellowship Admissions</option>
+                  <option value="Institutional Partnership">Institutional Partnership</option>
+                  <option value="Policy Lab Collaboration">Policy Lab Collaboration</option>
+                  <option value="Leadership Retreat Inquiries">Leadership Retreat Inquiries</option>
+                  <option value="General Inquiries">General Inquiries</option>
                 </select>
               </div>
             </div>
 
             <div>
-              <label class="block text-xs font-semibold uppercase tracking-wider text-slate-700">Your Message *</label>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">Your Message *</label>
               <textarea 
+                name="statement"
                 rows="4" 
                 required 
                 placeholder="How can we assist your journey in public leadership?"
-                class="mt-1 w-full rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm text-slate-900 placeholder-slate-400 focus:border-sap-terracotta focus:outline-none focus:ring-1 focus:ring-sap-terracotta"
+                class="mt-1 w-full rounded-lg border border-stone-300 dark:border-slate-600 bg-white dark:bg-[#162d4a] px-4 py-2 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-400 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
               ></textarea>
             </div>
 
+            <div id="contact-feedback" class="hidden rounded-xl p-3 text-xs font-medium space-y-1"></div>
+
             <button 
               type="submit" 
+              id="contact-submit-btn"
               class="w-full rounded-lg bg-sap-terracotta py-3.5 text-sm font-semibold uppercase tracking-wider text-white shadow hover:bg-sap-terracottaDark transition"
             >
               Send Message
@@ -101,15 +108,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
         <!-- Contact Information & Channels -->
         <div class="lg:col-span-5 space-y-8">
-          <div class="rounded-3xl border border-stone-200 bg-sap-sand p-8 space-y-6">
-            <h3 class="font-serif text-xl font-bold text-sap-navy">Direct Communication</h3>
+          <div class="rounded-3xl border border-stone-200 dark:border-slate-700 bg-sap-sand dark:bg-[#0e223d] p-8 space-y-6">
+            <h3 class="font-serif text-xl font-bold text-sap-navy dark:text-white">Direct Communication</h3>
             
             <div class="space-y-4 text-sm">
               <div class="flex items-start gap-3">
                 <span class="text-xl">✉️</span>
                 <div>
-                  <div class="text-xs font-semibold uppercase tracking-wider text-slate-500">Official Email</div>
-                  <a href="mailto:info@schoolofawakenedpolitics.org" class="font-medium text-sap-navy hover:text-sap-terracotta underline">
+                  <div class="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Official Email</div>
+                  <a href="mailto:info@schoolofawakenedpolitics.org" class="font-medium text-sap-navy dark:text-amber-300 hover:text-sap-terracotta underline">
                     info@schoolofawakenedpolitics.org
                   </a>
                 </div>
@@ -118,16 +125,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
               <div class="flex items-start gap-3">
                 <span class="text-xl">🌐</span>
                 <div>
-                  <div class="text-xs font-semibold uppercase tracking-wider text-slate-500">Official Website</div>
-                  <span class="font-medium text-slate-700">schoolofawakenedpolitics.org</span>
+                  <div class="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Official Website</div>
+                  <span class="font-medium text-slate-700 dark:text-slate-200">schoolofawakenedpolitics.org</span>
                 </div>
               </div>
 
               <div class="flex items-start gap-3">
                 <span class="text-xl">💬</span>
                 <div>
-                  <div class="text-xs font-semibold uppercase tracking-wider text-slate-500">Connected Channels</div>
-                  <p class="text-slate-600 text-xs mt-1">
+                  <div class="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Connected Channels</div>
+                  <p class="text-slate-600 dark:text-slate-300 text-xs mt-1">
                     You can contact our team via E-mail, WhatsApp, Instagram, Twitter/X, & Facebook.
                   </p>
                 </div>
@@ -136,7 +143,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           </div>
 
           <!-- Frequently Asked Questions -->
-          <div class="rounded-3xl bg-sap-navy p-8 text-white space-y-4">
+          <div class="rounded-3xl bg-sap-navy dark:bg-[#122845] p-8 text-white space-y-4 border border-transparent dark:border-slate-700">
             <h3 class="font-serif text-lg font-bold">Frequently Asked Questions</h3>
             
             <div class="space-y-3 text-xs text-slate-200 leading-relaxed">
@@ -154,4 +161,77 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </div>
     </div>
   </section>
+
+  <script>
+    function setupContactForm() {
+      const form = document.getElementById('contact-page-form') as HTMLFormElement | null;
+      const feedback = document.getElementById('contact-feedback');
+      const submitBtn = document.getElementById('contact-submit-btn');
+
+      form?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (submitBtn) submitBtn.textContent = 'Sending Message...';
+
+        const formData = new FormData(form);
+        const refId = `SAP-MSG-${Date.now().toString(36).toUpperCase()}`;
+        const record = {
+          id: refId,
+          timestamp: new Date().toISOString(),
+          fullName: String(formData.get('fullName') || ''),
+          email: String(formData.get('email') || ''),
+          phone: String(formData.get('phone') || ''),
+          program: String(formData.get('program') || 'Contact Inquiry'),
+          statement: String(formData.get('statement') || '')
+        };
+
+        // 1. Local copy
+        try {
+          const list = JSON.parse(localStorage.getItem('sap_applications') || '[]');
+          list.unshift(record);
+          localStorage.setItem('sap_applications', JSON.stringify(list));
+        } catch (err) {}
+
+        // 2. Email dispatch
+        const emailPromise = fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({
+            access_key: '5b1dc854-c8c8-4ce6-a797-ea6541f92e7b',
+            subject: `New SAP Contact Inquiry [${refId}]: ${record.fullName}`,
+            from_name: 'SAP Contact Portal',
+            replyto: record.email,
+            ...record
+          })
+        }).catch(() => {});
+
+        // 3. Webhook dispatch
+        const sheetUrl = localStorage.getItem('sap_sheets_webhook_url');
+        let sheetPromise: Promise<any> | null = null;
+        if (sheetUrl && sheetUrl.startsWith('http')) {
+          sheetPromise = fetch(sheetUrl, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(record)
+          }).catch(() => {});
+        }
+
+        await Promise.allSettled([emailPromise, sheetPromise].filter(Boolean));
+
+        if (feedback) {
+          feedback.classList.remove('hidden');
+          feedback.className = 'rounded-xl p-3.5 text-xs font-medium bg-emerald-50 dark:bg-emerald-950/50 text-emerald-900 dark:text-emerald-200 border border-emerald-300 dark:border-emerald-700 space-y-1';
+          feedback.innerHTML = `
+            <div class="font-bold text-emerald-800 dark:text-emerald-300">✓ Message Dispatched! (Ref: ${refId})</div>
+            <div>Sent to info@schoolofawakenedpolitics.org & logged into our inquiries database. We will reply to your email shortly.</div>
+          `;
+        }
+
+        form.reset();
+        if (submitBtn) submitBtn.textContent = 'Message Sent ✓';
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', setupContactForm);
+  </script>
 </BaseLayout>

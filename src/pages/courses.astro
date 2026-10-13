@@ -84,36 +84,36 @@ const programsList = [
   </section>
 
   <!-- Programs List -->
-  <section class="py-20 bg-white">
+  <section class="py-20 bg-white dark:bg-[#071322] transition-colors duration-200">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-16">
       {programsList.map((prog, index) => (
-        <div id={prog.id} class="rounded-3xl border border-stone-200 bg-sap-sand p-8 sm:p-12 shadow-sm transition hover:shadow-md">
+        <div id={prog.id} class="rounded-3xl border border-stone-200 dark:border-slate-700 bg-sap-sand dark:bg-[#0e223d] p-8 sm:p-12 shadow-sm transition hover:shadow-md">
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             <div class="lg:col-span-8 space-y-4">
               <div class="flex items-center gap-3">
                 <span class="text-3xl">{prog.icon}</span>
-                <span class="rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-sap-terracotta">
+                <span class="rounded-full bg-amber-100 dark:bg-amber-500/20 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-sap-terracotta dark:text-amber-300">
                   Module 0{index + 1}
                 </span>
               </div>
 
-              <h2 class="font-serif text-2xl sm:text-3xl font-bold text-sap-navy">
+              <h2 class="font-serif text-2xl sm:text-3xl font-bold text-sap-navy dark:text-white">
                 {prog.title}
               </h2>
-              <p class="font-cinzel text-xs font-semibold text-slate-500 uppercase tracking-wider">
+              <p class="font-cinzel text-xs font-semibold text-sap-terracotta dark:text-amber-300 uppercase tracking-wider">
                 {prog.subtitle}
               </p>
 
-              <p class="text-sm sm:text-base text-slate-700 leading-relaxed pt-2">
+              <p class="text-sm sm:text-base text-slate-700 dark:text-slate-300 leading-relaxed pt-2">
                 {prog.description}
               </p>
 
-              <div class="pt-4 border-t border-stone-200">
-                <h4 class="text-xs font-semibold uppercase tracking-wider text-sap-navy mb-2">Key Learning Outcomes:</h4>
-                <ul class="space-y-1.5 text-xs sm:text-sm text-slate-600">
+              <div class="pt-4 border-t border-stone-200 dark:border-slate-700/80">
+                <h4 class="text-xs font-semibold uppercase tracking-wider text-sap-navy dark:text-white mb-2">Key Learning Outcomes:</h4>
+                <ul class="space-y-1.5 text-xs sm:text-sm text-slate-600 dark:text-slate-300">
                   {prog.outcomes.map((out) => (
                     <li class="flex items-start gap-2">
-                      <span class="text-sap-terracotta font-bold">✓</span>
+                      <span class="text-sap-terracotta dark:text-amber-400 font-bold">✓</span>
                       <span>{out}</span>
                     </li>
                   ))}
@@ -122,15 +122,15 @@ const programsList = [
             </div>
 
             <!-- Program Info Card -->
-            <div class="lg:col-span-4 rounded-2xl bg-white p-6 border border-stone-200 space-y-4 shadow-sm">
+            <div class="lg:col-span-4 rounded-2xl bg-white dark:bg-[#162d4a] p-6 border border-stone-200 dark:border-slate-700 space-y-4 shadow-sm">
               <div>
-                <span class="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Duration</span>
-                <div class="text-sm font-bold text-sap-navy">{prog.duration}</div>
+                <span class="text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-400">Duration</span>
+                <div class="text-sm font-bold text-sap-navy dark:text-white">{prog.duration}</div>
               </div>
 
               <div>
-                <span class="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Format</span>
-                <div class="text-sm font-bold text-sap-navy">{prog.format}</div>
+                <span class="text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-400">Format</span>
+                <div class="text-sm font-bold text-sap-navy dark:text-white">{prog.format}</div>
               </div>
 
               <div class="pt-2">
