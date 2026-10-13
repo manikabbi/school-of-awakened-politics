@@ -100,36 +100,39 @@
     text: string;
     options: {
       label: string;
-      archetype: 'architect' | 'steward' | 'guardian' | 'consensus';
+      archetype: 'architect' | 'steward' | 'guardian' | 'consensus' | 'holistic';
     }[];
   }
 
   const questions: Question[] = [
     {
-      text: "A toxic, polarising legislative deadlock has paralyzed local administration. What is your immediate instinct?",
+      text: "A toxic, polarising legislative deadlock has paralyzed public administration. What is your primary leadership instinct?",
       options: [
-        { label: "Convene closed-door, respectful dialogue to uncover common underlying human needs beyond partisan rhetoric.", archetype: "consensus" },
-        { label: "Draft a rigorous, data-backed policy amendment with objective impact metrics to break the technical impasse.", archetype: "architect" },
-        { label: "Engage directly with affected citizens on the ground to amplify frontline realities and community needs.", archetype: "steward" },
-        { label: "Uphold constitutional standards and rule of law impartially without capitulating to political bullying.", archetype: "guardian" }
+        { label: "Convene closed-door, respectful dialogue to uncover common human interests beneath partisan posturing.", archetype: "consensus" },
+        { label: "Draft a rigorous, data-backed policy amendment with clear impact metrics to break the technical impasse.", archetype: "architect" },
+        { label: "Engage directly with affected citizens on the ground to bring lived community realities into the chamber.", archetype: "steward" },
+        { label: "Uphold constitutional standards and rule of law impartially without capitulating to political coercion.", archetype: "guardian" },
+        { label: "Synthesize all four: ground the issue in citizen truth, address systemic policy flaws, and broker ethical consensus.", archetype: "holistic" }
       ]
     },
     {
-      text: "In your view, what is the most dangerous failure in contemporary politics?",
+      text: "All of the following are catastrophic failures in contemporary politics. Which systemic crisis does your conscience compel you to confront first?",
       options: [
-        { label: "Extreme partisan hostility and the collapse of empathetic, dignified civil deliberation.", archetype: "consensus" },
+        { label: "The collapse of empathetic dialogue, deep social polarization, and the dehumanization of political opponents.", archetype: "consensus" },
         { label: "Incompetent, reactionary legislation detached from economic realities and evidence-based science.", archetype: "architect" },
-        { label: "The abandonment of ordinary working families by self-serving, insulated elites.", archetype: "steward" },
-        { label: "The decay of independent institutions, corruption of ethics, and loss of constitutional morality.", archetype: "guardian" }
+        { label: "The abandonment and exploitation of ordinary working families by self-serving, insulated elites.", archetype: "steward" },
+        { label: "The decay of independent institutions, corruption of ethics, and loss of constitutional morality.", archetype: "guardian" },
+        { label: "All of the above — they are deeply interconnected symptoms of a broken, unawakened political culture.", archetype: "holistic" }
       ]
     },
     {
-      text: "In an authentic leadership curriculum, which mastery area do you consider most essential?",
+      text: "In an authentic leadership curriculum, which mastery area do you consider most essential for transforming public life?",
       options: [
-        { label: "Depolarizing mediation, emotional intelligence, and bridging fractured groups.", archetype: "consensus" },
+        { label: "Depolarizing mediation, emotional intelligence, and bridging fractured ideological factions.", archetype: "consensus" },
         { label: "Parliamentary bill drafting, budgetary scrutiny, and systemic policy architecture.", archetype: "architect" },
         { label: "Grassroots organizing, lived community listening, and public service mobilization.", archetype: "steward" },
-        { label: "Ethical courage under extreme pressure, constitutional law, and anti-corruption frameworks.", archetype: "guardian" }
+        { label: "Ethical courage under extreme pressure, constitutional law, and anti-corruption frameworks.", archetype: "guardian" },
+        { label: "The complete synthesis: inner self-mastery (Viveka) directly integrated with institutional governance craft.", archetype: "holistic" }
       ]
     },
     {
@@ -138,12 +141,21 @@
         { label: "Healing deep societal wounds and fostering a culture of mutual trust and civic brotherhood.", archetype: "consensus" },
         { label: "Enduring legislative frameworks and public institutions that function seamlessly for generations.", archetype: "architect" },
         { label: "Empowered communities whose dignity and voice are permanently enshrined in governance.", archetype: "steward" },
-        { label: "Restoring inviolable moral reverence, justice, and unyielding integrity to the Republic.", archetype: "guardian" }
+        { label: "Restoring inviolable moral reverence, justice, and unyielding integrity to the Republic.", archetype: "guardian" },
+        { label: "Igniting a civilisational renaissance of awakened statesmanship that inspires the world.", archetype: "holistic" }
       ]
     }
   ];
 
   const archetypes = {
+    holistic: {
+      title: "The Awakened Statesperson",
+      subtitle: "Integrated Systems & Moral Statesmanship",
+      icon: "🌟",
+      description: "You recognize that political decay cannot be solved with piecemeal fixes. Institutional erosion, policy incompetence, grassroots alienation, and bitter polarization are interconnected fruits of an unawakened political culture. You are called to holistic leadership that unites inner integrity with nationwide institutional renewal.",
+      strength: "360° systemic vision, moral synthesis, bridging inner self-mastery with rigorous public stewardship.",
+      program: "SAP World Leaders Fellowship (Comprehensive Track)"
+    },
     architect: {
       title: "The Policy Architect",
       subtitle: "Systemic Thinker & Institutional Designer",
@@ -180,7 +192,7 @@
 
   function initQuiz() {
     let currentStep = 0;
-    const scores = { architect: 0, steward: 0, guardian: 0, consensus: 0 };
+    const scores = { architect: 0, steward: 0, guardian: 0, consensus: 0, holistic: 0 };
 
     const quizContainer = document.getElementById('quiz-container');
     const resultContainer = document.getElementById('result-container');
@@ -231,8 +243,8 @@
       quizContainer.classList.add('hidden');
       resultContainer.classList.remove('hidden');
 
-      // Find highest scoring archetype
-      let topKey: 'architect' | 'steward' | 'guardian' | 'consensus' = 'architect';
+      // Find highest scoring archetype (bias towards holistic if chosen)
+      let topKey: 'architect' | 'steward' | 'guardian' | 'consensus' | 'holistic' = 'holistic';
       let maxScore = -1;
       for (const [key, val] of Object.entries(scores)) {
         if (val > maxScore) {
@@ -263,6 +275,7 @@
       scores.steward = 0;
       scores.guardian = 0;
       scores.consensus = 0;
+      scores.holistic = 0;
       quizContainer?.classList.remove('hidden');
       resultContainer?.classList.add('hidden');
       renderQuestion(0);
