@@ -2,18 +2,16 @@
 // src/components/InteractiveGlobe.astro
 ---
 
-<div class="relative w-full max-w-4xl mx-auto flex flex-col items-center select-none py-4">
+<div class="relative w-full max-w-4xl mx-auto flex flex-col items-center select-none py-2">
   <!-- Glowing golden & cosmic aura -->
-  <div class="absolute inset-0 bg-gradient-to-r from-amber-500/20 via-orange-500/15 to-cyan-500/20 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="absolute inset-0 bg-gradient-to-r from-amber-500/25 via-orange-500/15 to-blue-600/20 rounded-full blur-3xl pointer-events-none"></div>
 
-  <!-- 3D Canvas Container -->
-  <div class="relative w-[340px] h-[340px] sm:w-[480px] sm:h-[480px] md:w-[540px] md:h-[540px] flex items-center justify-center">
-    <canvas 
-      id="globe-3d-canvas" 
-      class="w-full h-full cursor-grab active:cursor-grabbing rounded-full shadow-2xl"
-      width="1080" 
-      height="1080"
-    ></canvas>
+  <!-- 3D Three.js Container -->
+  <div class="relative w-[340px] h-[340px] sm:w-[480px] sm:h-[480px] md:w-[560px] md:h-[560px] flex items-center justify-center">
+    <div 
+      id="globe-three-container" 
+      class="w-full h-full cursor-grab active:cursor-grabbing rounded-full overflow-hidden shadow-2xl"
+    ></div>
 
     <!-- Overlay Tooltip for Hubs -->
     <div 
@@ -40,11 +38,11 @@
   <div class="mt-4 flex flex-wrap items-center justify-center gap-6 text-xs text-slate-300">
     <div class="flex items-center gap-2">
       <span class="w-3 h-3 rounded-full bg-amber-400 shadow-md shadow-amber-400/80 ring-2 ring-amber-300/40"></span>
-      <span class="font-bold text-white text-sm">Bharat (India) • Source of Awakened Governance</span>
+      <span class="font-bold text-white text-sm">Real 3D Earth • Bharat (India) at Center</span>
     </div>
     <div class="flex items-center gap-2">
       <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 shadow-sm shadow-cyan-400/80"></span>
-      <span class="text-slate-200">Global Governance Cities</span>
+      <span class="text-slate-200">Cities with Names Displayed</span>
     </div>
     <div class="flex items-center gap-2">
       <span class="inline-block w-5 h-0.5 bg-gradient-to-r from-amber-400 to-cyan-400"></span>
@@ -54,30 +52,127 @@
 </div>
 
 <script>
-  function init3DGlobe() {
-    const canvas = document.getElementById('globe-3d-canvas') as HTMLCanvasElement | null;
+  import * as THREE from 'three';
+
+  function initRealEarthGlobe() {
+    const container = document.getElementById('globe-three-container');
     const tooltip = document.getElementById('globe-tooltip');
     const tooltipCity = document.getElementById('tooltip-city');
     const tooltipRole = document.getElementById('tooltip-role');
     const recenterBtn = document.getElementById('recenter-india-btn');
-    if (!canvas) return;
+    if (!container) return;
 
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
+    const width = container.clientWidth || 540;
+    const height = container.clientHeight || 540;
 
-    const dpr = window.devicePixelRatio || 2;
-    const rect = canvas.getBoundingClientRect();
-    canvas.width = rect.width * dpr;
-    canvas.height = rect.height * dpr;
-    ctx.scale(dpr, dpr);
+    // Three.js Scene, Camera, Renderer
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+    camera.position.z = 2.85;
 
-    const width = rect.width;
-    const height = rect.height;
-    const cx = width / 2;
-    const cy = height / 2;
-    const R = Math.min(width, height) * 0.43;
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(width, height);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    container.innerHTML = '';
+    container.appendChild(renderer.domElement);
 
-    // Detailed Coordinates for India Subcontinent
+    const R = 1.0;
+
+    // Lighting: Realistic Golden Sun on India
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1.35);
+    scene.add(ambientLight);
+
+    const sunLight = new THREE.DirectionalLight(0xfff5e6, 2.0);
+    sunLight.position.set(2.5, 2, 4);
+    scene.add(sunLight);
+
+    // Root Group for interactive rotation
+    const globeGroup = new THREE.Group();
+    scene.add(globeGroup);
+
+    // Load Realistic Photorealistic Earth Texture
+    const textureLoader = new THREE.TextureLoader();
+    const earthTexture = textureLoader.load('/earth-blue-marble.jpg');
+    earthTexture.colorSpace = THREE.SRGBColorSpace;
+
+    // Earth Mesh
+    const earthGeo = new THREE.SphereGeometry(R, 64, 64);
+    const earthMat = new THREE.MeshStandardMaterial({
+      map: earthTexture,
+      roughness: 0.6,
+      metalness: 0.1
+    });
+    const earthMesh = new THREE.Mesh(earthGeo, earthMat);
+    globeGroup.add(earthMesh);
+
+    // Atmospheric Outer Glow Shell
+    const atmosGeo = new THREE.SphereGeometry(R * 1.035, 48, 48);
+    const atmosMat = new THREE.MeshBasicMaterial({
+      color: 0x38bdf8,
+      transparent: true,
+      opacity: 0.18,
+      side: THREE.BackSide
+    });
+    const atmosMesh = new THREE.Mesh(atmosGeo, atmosMat);
+    scene.add(atmosMesh);
+
+    // Lat/Lon to Vector3 helper
+    function latLonToVector3(lat: number, lon: number, radius: number): THREE.Vector3 {
+      const phi = (90 - lat) * (Math.PI / 180);
+      const theta = (lon + 180) * (Math.PI / 180);
+      const x = -radius * Math.sin(phi) * Math.cos(theta);
+      const z = radius * Math.sin(phi) * Math.sin(theta);
+      const y = radius * Math.cos(phi);
+      return new THREE.Vector3(x, y, z);
+    }
+
+    // Helper: Create Text Sprite with city name
+    function createTextSprite(text: string, isHome: boolean = false): THREE.Sprite {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = 384;
+      canvas.height = 96;
+
+      if (ctx) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Pill background
+        ctx.fillStyle = isHome ? "rgba(245, 158, 11, 0.9)" : "rgba(11, 25, 44, 0.85)";
+        ctx.strokeStyle = isHome ? "#fef08a" : "rgba(56, 189, 248, 0.8)";
+        ctx.lineWidth = 3;
+
+        const padX = 14;
+        const padY = 16;
+        const pillW = canvas.width - padX * 2;
+        const pillH = canvas.height - padY * 2;
+        const radius = 18;
+
+        ctx.beginPath();
+        ctx.roundRect(padX, padY, pillW, pillH, radius);
+        ctx.fill();
+        ctx.stroke();
+
+        // City Name Text
+        ctx.font = isHome ? "bold 32px sans-serif" : "600 28px sans-serif";
+        ctx.fillStyle = isHome ? "#0b192c" : "#ffffff";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(text, canvas.width / 2, canvas.height / 2);
+      }
+
+      const texture = new THREE.CanvasTexture(canvas);
+      texture.minFilter = THREE.LinearFilter;
+      const spriteMat = new THREE.SpriteMaterial({
+        map: texture,
+        transparent: true,
+        depthTest: false
+      });
+      const sprite = new THREE.Sprite(spriteMat);
+      sprite.scale.set(isHome ? 0.42 : 0.32, isHome ? 0.105 : 0.08, 1);
+      return sprite;
+    }
+
+    // India Subcontinent Border Coordinates
     const indiaPolygon: [number, number][] = [
       [35.5, 74.8], [34.5, 77.5], [32.0, 78.8], [30.5, 80.8], [28.0, 84.0], [27.5, 88.5], 
       [27.0, 92.5], [28.2, 96.5], [26.5, 95.0], [24.5, 93.5], [22.5, 91.8], [21.5, 87.0], 
@@ -86,365 +181,210 @@
       [24.5, 68.5], [27.0, 71.0], [30.5, 73.5], [33.0, 74.0], [35.5, 74.8]
     ];
 
-    // Major World Continents (Realistic vector outlines)
-    const continents: [number, number][][] = [
-      // Africa
-      [
-        [36.0, 10.0], [32.0, 32.0], [22.0, 37.0], [12.0, 44.0], [2.0, 42.0], 
-        [-12.0, 40.5], [-26.0, 33.0], [-34.5, 20.0], [-20.0, 12.0], [-5.0, 12.0], 
-        [5.0, 1.0], [5.0, -10.0], [15.0, -17.0], [28.0, -13.0], [36.0, -5.0], [36.0, 10.0]
-      ],
-      // Europe & Western Eurasia
-      [
-        [36.0, -9.0], [43.0, -9.0], [48.0, -5.0], [54.0, 5.0], [58.0, 12.0], 
-        [65.0, 25.0], [70.0, 30.0], [60.0, 50.0], [55.0, 60.0], [45.0, 50.0], 
-        [41.0, 28.0], [38.0, 24.0], [36.0, 15.0], [36.0, -9.0]
-      ],
-      // East & Southeast Asia
-      [
-        [45.0, 60.0], [60.0, 70.0], [65.0, 100.0], [60.0, 140.0], [45.0, 135.0], 
-        [35.0, 120.0], [22.0, 114.0], [10.0, 105.0], [1.0, 104.0], [15.0, 100.0], 
-        [22.0, 92.0], [30.0, 85.0], [40.0, 75.0], [45.0, 60.0]
-      ],
-      // Australia
-      [
-        [-12.0, 130.0], [-15.0, 145.0], [-25.0, 152.0], [-38.0, 145.0], 
-        [-35.0, 115.0], [-22.0, 113.0], [-15.0, 125.0], [-12.0, 130.0]
-      ],
-      // North America
-      [
-        [25.0, -80.0], [35.0, -75.0], [45.0, -65.0], [55.0, -60.0], [65.0, -90.0], 
-        [70.0, -140.0], [60.0, -140.0], [48.0, -125.0], [32.0, -117.0], [20.0, -105.0], 
-        [15.0, -90.0], [25.0, -80.0]
-      ],
-      // South America
-      [
-        [12.0, -72.0], [5.0, -52.0], [-8.0, -35.0], [-23.0, -42.0], [-40.0, -62.0], 
-        [-54.0, -68.0], [-40.0, -73.0], [-20.0, -70.0], [-5.0, -80.0], [8.0, -77.0], [12.0, -72.0]
-      ]
-    ];
+    // 3D Golden Boundary around India
+    const indiaLinePoints: THREE.Vector3[] = [];
+    indiaPolygon.forEach(([lat, lon]) => {
+      indiaLinePoints.push(latLonToVector3(lat, lon, R * 1.008));
+    });
+    const indiaLineGeo = new THREE.BufferGeometry().setFromPoints(indiaLinePoints);
+    const indiaLineMat = new THREE.LineBasicMaterial({
+      color: 0xfbbf24,
+      linewidth: 3
+    });
+    const indiaLine = new THREE.Line(indiaLineGeo, indiaLineMat);
+    globeGroup.add(indiaLine);
 
-    // Global Governance Cities with names clearly shown
+    // Global Governance Cities
     const hubs = [
-      { name: "New Delhi (SAP Core)", role: "Centre for Awakened Governance & Rajadharma", lat: 28.61, lon: 77.20, isHome: true },
+      { name: "★ New Delhi (SAP Core)", role: "Centre for Awakened Governance & Rajadharma", lat: 28.61, lon: 77.20, isHome: true },
       { name: "Geneva", role: "Multilateral Human Rights & International Law", lat: 46.20, lon: 6.14, isHome: false },
       { name: "London", role: "Parliamentary Jurisprudence & Commonwealth", lat: 51.50, lon: -0.12, isHome: false },
-      { name: "Dubai", role: "Middle Eastern Civic & Strategic Crossroads", lat: 25.20, lon: 55.27, isHome: false },
-      { name: "Nairobi", role: "Global South Environmental & Public Stewardship", lat: -1.29, lon: 36.82, isHome: false },
+      { name: "Dubai", role: "Middle Eastern Strategic Crossroads", lat: 25.20, lon: 55.27, isHome: false },
+      { name: "Nairobi", role: "Global South Ecological & Public Stewardship", lat: -1.29, lon: 36.82, isHome: false },
       { name: "Singapore", role: "Asian Governance & Innovation Hub", lat: 1.35, lon: 103.81, isHome: false },
       { name: "Tokyo", role: "Democratic Technology & Consensus Governance", lat: 35.67, lon: 139.65, isHome: false },
-      { name: "Washington D.C.", role: "Constitutional Systems & Global Policy Dialogue", lat: 38.90, lon: -77.03, isHome: false },
+      { name: "Washington D.C.", role: "Constitutional Systems & Global Policy", lat: 38.90, lon: -77.03, isHome: false },
       { name: "Sydney", role: "Pacific Democratic & Institutional Circuit", lat: -33.86, lon: 151.20, isHome: false }
     ];
 
-    // Perfect centering on India (Bharat)
-    const INDIA_LAT = 22.0;
-    const INDIA_LON = 78.0;
+    const hubMarkers: { mesh: THREE.Mesh; sprite: THREE.Sprite; hub: any }[] = [];
+    const delhiPos = latLonToVector3(28.61, 77.20, R * 1.012);
 
-    const initialRotX = INDIA_LAT * (Math.PI / 180);
-    const initialRotY = -(INDIA_LON + 90) * (Math.PI / 180);
+    hubs.forEach((hub) => {
+      const pos = latLonToVector3(hub.lat, hub.lon, R * 1.012);
 
-    let rotX = initialRotX;
-    let rotY = initialRotY;
-    let targetRotX = rotX;
-    let targetRotY = rotY;
+      // Marker Sphere
+      const markerGeo = new THREE.SphereGeometry(hub.isHome ? 0.024 : 0.016, 16, 16);
+      const markerMat = new THREE.MeshBasicMaterial({
+        color: hub.isHome ? 0xf59e0b : 0x38bdf8
+      });
+      const marker = new THREE.Mesh(markerGeo, markerMat);
+      marker.position.copy(pos);
+      globeGroup.add(marker);
+
+      // Permanent City Name Sprite
+      const sprite = createTextSprite(hub.name, hub.isHome);
+      // Place label just above the marker
+      const labelOffset = pos.clone().normalize().multiplyScalar(0.06);
+      sprite.position.copy(pos).add(labelOffset);
+      globeGroup.add(sprite);
+
+      hubMarkers.push({ mesh: marker, sprite, hub });
+    });
+
+    // Golden Concentric Wave Rings Expanding from New Delhi
+    const pulseRingGeo = new THREE.RingGeometry(0.015, 0.05, 32);
+    const pulseRingMat = new THREE.MeshBasicMaterial({
+      color: 0xf59e0b,
+      side: THREE.DoubleSide,
+      transparent: true,
+      opacity: 0.85
+    });
+    const pulseRing = new THREE.Mesh(pulseRingGeo, pulseRingMat);
+    pulseRing.position.copy(latLonToVector3(28.61, 77.20, R * 1.014));
+    pulseRing.lookAt(delhiPos.clone().multiplyScalar(2));
+    globeGroup.add(pulseRing);
+
+    // 3D Light Arcs & Outward Light Beams Streaming from India to Cities
+    interface ArcData {
+      curve: THREE.QuadraticBezierCurve3;
+      pulse1: THREE.Mesh;
+      pulse2: THREE.Mesh;
+      offset: number;
+    }
+    const arcs: ArcData[] = [];
+
+    hubs.filter(h => !h.isHome).forEach((target, index) => {
+      const targetPos = latLonToVector3(target.lat, target.lon, R * 1.012);
+      const mid = delhiPos.clone().add(targetPos).multiplyScalar(0.5);
+      const dist = delhiPos.distanceTo(targetPos);
+      mid.normalize().multiplyScalar(R * (1.0 + dist * 0.28));
+
+      const curve = new THREE.QuadraticBezierCurve3(delhiPos, mid, targetPos);
+      const points = curve.getPoints(45);
+      const arcGeo = new THREE.BufferGeometry().setFromPoints(points);
+      const arcMat = new THREE.LineBasicMaterial({
+        color: 0xfbbf24,
+        transparent: true,
+        opacity: 0.5
+      });
+      const arcLine = new THREE.Line(arcGeo, arcMat);
+      globeGroup.add(arcLine);
+
+      // Light Photons Traveling Outward From India
+      const pGeo = new THREE.SphereGeometry(0.014, 12, 12);
+      const pMat = new THREE.MeshBasicMaterial({ color: 0x38bdf8 });
+      const pulse1 = new THREE.Mesh(pGeo, pMat);
+      const pulse2 = new THREE.Mesh(pGeo, pMat);
+      globeGroup.add(pulse1);
+      globeGroup.add(pulse2);
+
+      arcs.push({
+        curve,
+        pulse1,
+        pulse2,
+        offset: index * 0.15
+      });
+    });
+
+    // Initial Camera Position: INDIA IN CENTER
+    const initialRotX = 22 * (Math.PI / 180);
+    const initialRotY = -(78 + 90) * (Math.PI / 180);
+
+    globeGroup.rotation.x = initialRotX;
+    globeGroup.rotation.y = initialRotY;
+
+    let targetRotX = initialRotX;
+    let targetRotY = initialRotY;
 
     let isDragging = false;
-    let lastMouseX = 0;
-    let lastMouseY = 0;
-    let pulseTime = 0;
+    let prevMouseX = 0;
+    let prevMouseY = 0;
+    let animTime = 0;
 
-    // 3D coordinate projection
-    function to3D(lat: number, lon: number, r: number) {
-      const phi = (90 - lat) * (Math.PI / 180);
-      const theta = (lon + 180) * (Math.PI / 180);
-      let x = -r * Math.sin(phi) * Math.cos(theta);
-      let z = r * Math.sin(phi) * Math.sin(theta);
-      let y = r * Math.cos(phi);
+    // Animation Render Loop
+    function animate() {
+      requestAnimationFrame(animate);
+      animTime += 0.016;
 
-      // Rotate around X (latitude tilt)
-      const cosX = Math.cos(rotX);
-      const sinX = Math.sin(rotX);
-      const y1 = y * cosX - z * sinX;
-      const z1 = y * sinX + z * cosX;
+      // Smooth camera dampening
+      globeGroup.rotation.x += (targetRotX - globeGroup.rotation.x) * 0.08;
+      globeGroup.rotation.y += (targetRotY - globeGroup.rotation.y) * 0.08;
 
-      // Rotate around Y (longitude spin)
-      const cosY = Math.cos(rotY);
-      const sinY = Math.sin(rotY);
-      const x2 = x * cosY + z1 * sinY;
-      const z2 = -x * sinY + z1 * cosY;
+      // Pulsing Delhi Rings
+      const scale = 1 + Math.sin(animTime * 3.5) * 0.5;
+      pulseRing.scale.set(scale, scale, scale);
+      pulseRingMat.opacity = Math.max(0.15, 0.9 - (scale - 1) * 1.5);
 
-      return { x: x2, y: y1, z: z2 };
+      // Streaming Light Outward from India to Many Cities
+      arcs.forEach((arc) => {
+        const t1 = (animTime * 0.55 + arc.offset) % 1;
+        const t2 = (animTime * 0.55 + arc.offset + 0.5) % 1;
+        arc.pulse1.position.copy(arc.curve.getPoint(t1));
+        arc.pulse2.position.copy(arc.curve.getPoint(t2));
+      });
+
+      // City Name Visibility check (Fade out when city is behind the Earth)
+      const worldPos = new THREE.Vector3();
+      hubMarkers.forEach(({ mesh, sprite }) => {
+        mesh.getWorldPosition(worldPos);
+        // If z > 0, the city faces the camera
+        const isFacing = worldPos.z > -0.1;
+        sprite.visible = isFacing;
+        if (isFacing) {
+          sprite.material.opacity = Math.min(1, (worldPos.z + 0.2) * 1.5);
+        }
+      });
+
+      renderer.render(scene, camera);
     }
+    animate();
 
-    function draw3DPolygon(points: [number, number][], fillStyle: string, strokeStyle: string, lineWidth: number = 1) {
-      ctx!.beginPath();
-      let firstVisible = false;
-      let hasVisiblePoint = false;
-
-      for (let i = 0; i < points.length; i++) {
-        const p = points[i];
-        const pt = to3D(p[0], p[1], R);
-        const screenX = cx + pt.x;
-        const screenY = cy - pt.y;
-
-        if (pt.z > -R * 0.15) {
-          hasVisiblePoint = true;
-          if (!firstVisible) {
-            ctx!.moveTo(screenX, screenY);
-            firstVisible = true;
-          } else {
-            ctx!.lineTo(screenX, screenY);
-          }
-        }
-      }
-
-      if (hasVisiblePoint) {
-        ctx!.closePath();
-        ctx!.fillStyle = fillStyle;
-        ctx!.fill();
-        ctx!.strokeStyle = strokeStyle;
-        ctx!.lineWidth = lineWidth;
-        ctx!.stroke();
-      }
-    }
-
-    function render() {
-      if (!ctx) return;
-      ctx.clearRect(0, 0, width, height);
-
-      rotX += (targetRotX - rotX) * 0.08;
-      rotY += (targetRotY - rotY) * 0.08;
-
-      pulseTime += 0.035;
-
-      // Cosmic Golden Outer Atmosphere
-      const glowGrad = ctx.createRadialGradient(cx, cy, R * 0.85, cx, cy, R * 1.3);
-      glowGrad.addColorStop(0, "rgba(245, 158, 11, 0.22)");
-      glowGrad.addColorStop(0.5, "rgba(194, 65, 12, 0.1)");
-      glowGrad.addColorStop(1, "rgba(0, 0, 0, 0)");
-      ctx.fillStyle = glowGrad;
-      ctx.beginPath();
-      ctx.arc(cx, cy, R * 1.3, 0, Math.PI * 2);
-      ctx.fill();
-
-      // Deep Regal Ocean Sphere Base
-      const oceanGrad = ctx.createRadialGradient(cx - R * 0.25, cy - R * 0.25, R * 0.1, cx, cy, R);
-      oceanGrad.addColorStop(0, "#12253f");
-      oceanGrad.addColorStop(0.7, "#081424");
-      oceanGrad.addColorStop(1, "#030811");
-      ctx.fillStyle = oceanGrad;
-      ctx.beginPath();
-      ctx.arc(cx, cy, R, 0, Math.PI * 2);
-      ctx.fill();
-
-      // Golden Edge Rim
-      ctx.strokeStyle = "rgba(245, 158, 11, 0.5)";
-      ctx.lineWidth = 1.8;
-      ctx.stroke();
-
-      // Delicate Longitude & Latitude Grid
-      ctx.strokeStyle = "rgba(255, 255, 255, 0.07)";
-      ctx.lineWidth = 0.8;
-      for (let lat = -60; lat <= 60; lat += 30) {
-        ctx.beginPath();
-        for (let lon = -180; lon <= 180; lon += 8) {
-          const pt = to3D(lat, lon, R);
-          if (pt.z > 0) {
-            ctx.lineTo(cx + pt.x, cy - pt.y);
-          } else {
-            ctx.moveTo(cx + pt.x, cy - pt.y);
-          }
-        }
-        ctx.stroke();
-      }
-
-      // Render World Continents
-      for (const cont of continents) {
-        draw3DPolygon(
-          cont, 
-          "rgba(30, 58, 88, 0.8)", 
-          "rgba(71, 85, 105, 0.85)", 
-          1
-        );
-      }
-
-      // RENDER INDIA SUB-CONTINENT: Radiant Golden Core
-      draw3DPolygon(
-        indiaPolygon, 
-        "rgba(245, 158, 11, 0.4)", 
-        "rgba(251, 191, 36, 1)", 
-        2.5
-      );
-
-      // Home Node: New Delhi / Bharat
-      const homeHub = hubs[0];
-      const home3D = to3D(homeHub.lat, homeHub.lon, R);
-      const homeX = cx + home3D.x;
-      const homeY = cy - home3D.y;
-
-      // Radiant Concentric Rings Pulsing Outward From India
-      if (home3D.z > 0) {
-        for (let ring = 1; ring <= 4; ring++) {
-          const ringR = ((pulseTime * 28 + ring * 20) % 75);
-          const ringAlpha = Math.max(0, 1 - ringR / 75) * 0.5;
-          ctx.strokeStyle = `rgba(245, 158, 11, ${ringAlpha})`;
-          ctx.lineWidth = 1.4;
-          ctx.beginPath();
-          ctx.arc(homeX, homeY, ringR, 0, Math.PI * 2);
-          ctx.stroke();
-        }
-      }
-
-      // Outward Light Arcs Radiating from India to Many Cities
-      for (let i = 1; i < hubs.length; i++) {
-        const targetHub = hubs[i];
-        const target3D = to3D(targetHub.lat, targetHub.lon, R);
-        const targetX = cx + target3D.x;
-        const targetY = cy - target3D.y;
-
-        if (home3D.z > -R * 0.25 || target3D.z > -R * 0.25) {
-          const midX = (homeX + targetX) / 2;
-          const midY = (homeY + targetY) / 2 - R * 0.28;
-
-          // Glowing Arc Beam
-          ctx.beginPath();
-          ctx.moveTo(homeX, homeY);
-          ctx.quadraticCurveTo(midX, midY, targetX, targetY);
-          ctx.strokeStyle = "rgba(251, 191, 36, 0.45)";
-          ctx.lineWidth = 1.3;
-          ctx.setLineDash([5, 4]);
-          ctx.stroke();
-          ctx.setLineDash([]);
-
-          // Multiple Light Pulses Streaming Outward From India to Each City
-          for (let p = 0; p < 2; p++) {
-            const t = (pulseTime * 0.55 + i * 0.22 + p * 0.5) % 1;
-            const px = (1 - t) * (1 - t) * homeX + 2 * (1 - t) * t * midX + t * t * targetX;
-            const py = (1 - t) * (1 - t) * homeY + 2 * (1 - t) * t * midY + t * t * targetY;
-
-            ctx.fillStyle = "#38bdf8";
-            ctx.shadowColor = "#38bdf8";
-            ctx.shadowBlur = 12;
-            ctx.beginPath();
-            ctx.arc(px, py, 3.2, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.shadowBlur = 0;
-          }
-        }
-      }
-
-      // Render Hub Markers & PERMANENT CITY NAMES WRITTEN ON THE GLOBE
-      for (const hub of hubs) {
-        const pt = to3D(hub.lat, hub.lon, R);
-        if (pt.z > -R * 0.1) {
-          const sx = cx + pt.x;
-          const sy = cy - pt.y;
-          const isFacing = pt.z > 0;
-
-          if (hub.isHome) {
-            // New Delhi Golden Pin & Radiant Label
-            ctx.fillStyle = "#f59e0b";
-            ctx.shadowColor = "#fbbf24";
-            ctx.shadowBlur = 18;
-            ctx.beginPath();
-            ctx.arc(sx, sy, 6, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.shadowBlur = 0;
-
-            if (isFacing) {
-              // Draw high-visibility label with background pill
-              ctx.font = "bold 13px sans-serif";
-              const textWidth = ctx.measureText(hub.name).width;
-              
-              ctx.fillStyle = "rgba(15, 23, 42, 0.85)";
-              ctx.fillRect(sx + 8, sy - 18, textWidth + 14, 22);
-              ctx.strokeStyle = "#f59e0b";
-              ctx.lineWidth = 1;
-              ctx.strokeRect(sx + 8, sy - 18, textWidth + 14, 22);
-
-              ctx.fillStyle = "#fef08a";
-              ctx.fillText(hub.name, sx + 15, sy - 3);
-            }
-          } else {
-            // Global Cities Pins & PERMANENT LABELS
-            ctx.fillStyle = isFacing ? "#38bdf8" : "rgba(56, 189, 248, 0.4)";
-            ctx.shadowColor = "#38bdf8";
-            ctx.shadowBlur = 8;
-            ctx.beginPath();
-            ctx.arc(sx, sy, 3.8, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.shadowBlur = 0;
-
-            if (isFacing) {
-              // Permanently write city names directly on globe
-              ctx.font = "bold 11px sans-serif";
-              const textWidth = ctx.measureText(hub.name).width;
-
-              ctx.fillStyle = "rgba(6, 15, 28, 0.75)";
-              ctx.fillRect(sx + 7, sy - 10, textWidth + 8, 16);
-              
-              ctx.fillStyle = "#e0f2fe";
-              ctx.fillText(hub.name, sx + 11, sy + 2);
-            }
-          }
-        }
-      }
-
-      requestAnimationFrame(render);
-    }
-
-    render();
-
-    // Recenter on India Button Handler
+    // Recenter on India Button Action
     recenterBtn?.addEventListener('click', (e) => {
       e.preventDefault();
       targetRotX = initialRotX;
       targetRotY = initialRotY;
     });
 
-    // Mouse & Touch Interaction
-    canvas.addEventListener('mousedown', (e) => {
+    // Raycaster for Hover Tooltip
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
+
+    container.addEventListener('mousedown', (e) => {
       isDragging = true;
-      lastMouseX = e.clientX;
-      lastMouseY = e.clientY;
+      prevMouseX = e.clientX;
+      prevMouseY = e.clientY;
     });
 
     window.addEventListener('mousemove', (e) => {
       if (!isDragging) {
-        const rRect = canvas.getBoundingClientRect();
-        const mx = e.clientX - rRect.left;
-        const my = e.clientY - rRect.top;
+        const rect = container.getBoundingClientRect();
+        mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+        mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
 
-        let hovered = null;
-        for (const hub of hubs) {
-          const pt = to3D(hub.lat, hub.lon, R);
-          if (pt.z > 0) {
-            const sx = cx + pt.x;
-            const sy = cy - pt.y;
-            if (Math.hypot(mx - sx, my - sy) < 16) {
-              hovered = hub;
-              break;
-            }
+        raycaster.setFromCamera(mouse, camera);
+        const intersects = raycaster.intersectObjects(hubMarkers.map(h => h.mesh));
+
+        if (intersects.length > 0 && tooltip && tooltipCity && tooltipRole) {
+          const hit = hubMarkers.find(h => h.mesh === intersects[0].object);
+          if (hit) {
+            tooltip.style.opacity = '1';
+            tooltip.style.left = `${e.clientX - rect.left + 15}px`;
+            tooltip.style.top = `${e.clientY - rect.top - 30}px`;
+            tooltipCity.textContent = hit.hub.name;
+            tooltipRole.textContent = hit.hub.role;
           }
-        }
-
-        if (hovered && tooltip && tooltipCity && tooltipRole) {
-          tooltip.style.opacity = '1';
-          tooltip.style.left = `${mx + 12}px`;
-          tooltip.style.top = `${my - 28}px`;
-          tooltipCity.textContent = hovered.name;
-          tooltipRole.textContent = hovered.role;
         } else if (tooltip) {
           tooltip.style.opacity = '0';
         }
         return;
       }
 
-      const dx = e.clientX - lastMouseX;
-      const dy = e.clientY - lastMouseY;
-      lastMouseX = e.clientX;
-      lastMouseY = e.clientY;
+      const dx = e.clientX - prevMouseX;
+      const dy = e.clientY - prevMouseY;
+      prevMouseX = e.clientX;
+      prevMouseY = e.clientY;
 
       targetRotY += dx * 0.007;
       targetRotX += dy * 0.007;
@@ -455,21 +395,21 @@
       isDragging = false;
     });
 
-    // Touch Support
-    canvas.addEventListener('touchstart', (e) => {
+    // Touch Support for Mobile
+    container.addEventListener('touchstart', (e) => {
       if (e.touches.length === 1) {
         isDragging = true;
-        lastMouseX = e.touches[0].clientX;
-        lastMouseY = e.touches[0].clientY;
+        prevMouseX = e.touches[0].clientX;
+        prevMouseY = e.touches[0].clientY;
       }
     });
 
-    canvas.addEventListener('touchmove', (e) => {
+    container.addEventListener('touchmove', (e) => {
       if (isDragging && e.touches.length === 1) {
-        const dx = e.touches[0].clientX - lastMouseX;
-        const dy = e.touches[0].clientY - lastMouseY;
-        lastMouseX = e.touches[0].clientX;
-        lastMouseY = e.touches[0].clientY;
+        const dx = e.touches[0].clientX - prevMouseX;
+        const dy = e.touches[0].clientY - prevMouseY;
+        prevMouseX = e.touches[0].clientX;
+        prevMouseY = e.touches[0].clientY;
 
         targetRotY += dx * 0.009;
         targetRotX += dy * 0.009;
@@ -477,10 +417,19 @@
       }
     });
 
-    canvas.addEventListener('touchend', () => {
+    container.addEventListener('touchend', () => {
       isDragging = false;
+    });
+
+    window.addEventListener('resize', () => {
+      if (!container) return;
+      const newW = container.clientWidth;
+      const newH = container.clientHeight;
+      camera.aspect = newW / newH;
+      camera.updateProjectionMatrix();
+      renderer.setSize(newW, newH);
     });
   }
 
-  document.addEventListener('DOMContentLoaded', init3DGlobe);
+  document.addEventListener('DOMContentLoaded', initRealEarthGlobe);
 </script>
