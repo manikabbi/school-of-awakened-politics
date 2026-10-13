@@ -1,0 +1,557 @@
+---
+// src/components/PadmaAIAgent.astro
+---
+
+<!-- Floating Padma Launcher Button (Bottom-Right) -->
+<div id="padma-container" class="fixed bottom-6 right-6 z-40 select-none">
+  <!-- Teaser Speech Bubble (Displays on load then dismissible) -->
+  <div 
+    id="padma-teaser" 
+    class="absolute bottom-16 right-0 mb-2 w-64 rounded-2xl bg-white dark:bg-[#0e223d] p-3.5 shadow-2xl border border-amber-400/40 dark:border-amber-400/30 text-xs transition-all duration-300 transform origin-bottom-right"
+  >
+    <div class="flex items-start justify-between gap-2">
+      <div class="flex items-center gap-2">
+        <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gradient-to-tr from-amber-500 to-sap-terracotta text-white text-xs shadow-sm">
+          🪷
+        </span>
+        <span class="font-serif font-bold text-sap-navy dark:text-white">Namaste! I'm Padma</span>
+      </div>
+      <button 
+        type="button" 
+        id="close-teaser-btn" 
+        class="text-slate-400 hover:text-slate-600 dark:hover:text-white text-xs p-0.5"
+        aria-label="Dismiss greeting"
+      >
+        ✕
+      </button>
+    </div>
+    <p class="mt-1.5 text-slate-600 dark:text-slate-300 text-[11px] leading-relaxed">
+      Have doubts about SAP fellowships, curriculum, or eligibility? I'm here to help!
+    </p>
+    <div class="mt-2 flex justify-end">
+      <button 
+        type="button" 
+        id="open-from-teaser-btn" 
+        class="text-[11px] font-semibold text-sap-terracotta dark:text-amber-400 hover:underline flex items-center gap-1"
+      >
+        Ask a Question →
+      </button>
+    </div>
+  </div>
+
+  <!-- Primary Floating Action Button -->
+  <button
+    type="button"
+    id="padma-trigger-btn"
+    class="group relative flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-tr from-[#a3420c] via-[#c85a17] to-[#f59e0b] text-white shadow-2xl ring-4 ring-amber-400/20 hover:scale-105 active:scale-95 transition-all duration-200"
+    aria-label="Open Padma AI Student Help Agent"
+  >
+    <!-- Lotus Icon / Emblem -->
+    <span class="text-2xl transition-transform duration-300 group-hover:rotate-12">🪷</span>
+
+    <!-- Online Pulse Indicator -->
+    <span class="absolute right-0 top-0 flex h-3.5 w-3.5">
+      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+      <span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-emerald-500 ring-2 ring-white dark:ring-slate-900"></span>
+    </span>
+  </button>
+</div>
+
+<!-- Padma AI Chat Window Modal -->
+<div 
+  id="padma-chat-modal" 
+  class="fixed bottom-6 right-6 z-50 hidden w-[92vw] sm:w-[420px] max-w-[440px] h-[580px] max-h-[85vh] flex-col rounded-3xl bg-white dark:bg-[#0b192c] shadow-2xl border border-stone-200 dark:border-slate-700/80 overflow-hidden transition-all duration-300"
+>
+  <!-- Chat Window Header -->
+  <div class="flex items-center justify-between border-b border-stone-200 dark:border-slate-800 bg-[#fbf8f2] dark:bg-[#071322] px-4 py-3.5">
+    <div class="flex items-center gap-3">
+      <div class="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-tr from-amber-500 to-sap-terracotta text-white shadow-md">
+        <span class="text-xl">🪷</span>
+        <span class="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full bg-emerald-500 ring-2 ring-white dark:ring-[#071322]"></span>
+      </div>
+      <div>
+        <div class="flex items-center gap-1.5">
+          <h3 class="font-serif text-sm font-bold text-sap-navy dark:text-white">Padma</h3>
+          <span class="rounded bg-amber-100 dark:bg-amber-500/20 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-sap-terracotta dark:text-amber-300">
+            SAP AI Guide
+          </span>
+        </div>
+        <p class="text-[10px] text-slate-500 dark:text-slate-400">
+          Civic Leadership & Admissions Assistant
+        </p>
+      </div>
+    </div>
+
+    <!-- Header Actions (Reset, Minimize) -->
+    <div class="flex items-center gap-1">
+      <button 
+        type="button" 
+        id="padma-reset-btn" 
+        class="rounded-lg p-1.5 text-slate-400 hover:bg-stone-200 dark:hover:bg-white/10 hover:text-slate-700 dark:hover:text-white transition" 
+        title="Reset conversation"
+      >
+        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+        </svg>
+      </button>
+      <button 
+        type="button" 
+        id="padma-close-btn" 
+        class="rounded-lg p-1.5 text-slate-400 hover:bg-stone-200 dark:hover:bg-white/10 hover:text-slate-700 dark:hover:text-white transition"
+        title="Close chat"
+      >
+        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Messages Scroll Area -->
+  <div 
+    id="padma-messages-area" 
+    class="flex-1 overflow-y-auto p-4 space-y-3.5 bg-stone-50/50 dark:bg-[#071322]/40 text-xs scroll-smooth"
+  >
+    <!-- Welcome Message Bubble -->
+    <div class="flex items-start gap-2.5">
+      <div class="flex h-7 w-7 shrink-0 items-center justify-center rounded-xl bg-amber-500/20 text-amber-500 text-sm">
+        🪷
+      </div>
+      <div class="max-w-[85%] rounded-2xl rounded-tl-sm bg-white dark:bg-[#162d4a] p-3.5 shadow-sm border border-stone-200 dark:border-slate-700 text-slate-800 dark:text-slate-100 space-y-2">
+        <p class="leading-relaxed">
+          <strong>Namaste!</strong> I am <strong>Padma</strong>, your guide at the <strong>School of Awakened Politics (SAP)</strong>.
+        </p>
+        <p class="leading-relaxed text-slate-600 dark:text-slate-300">
+          I am here to answer your doubts on our <strong>6-Month World Leaders Fellowship</strong>, curriculum, eligibility, admissions, and our non-partisan philosophy.
+        </p>
+        <div class="pt-1 text-[11px] font-semibold text-sap-terracotta dark:text-amber-300">
+          What would you like to explore today?
+        </div>
+      </div>
+    </div>
+
+    <!-- Initial Quick Suggestion Pills Container -->
+    <div id="quick-suggestions" class="pt-1 flex flex-wrap gap-1.5 pl-9">
+      <button type="button" class="padma-suggestion-chip rounded-full border border-amber-300/80 dark:border-amber-500/40 bg-amber-50 dark:bg-amber-950/40 px-3 py-1 text-[11px] font-medium text-amber-900 dark:text-amber-200 hover:bg-amber-100 dark:hover:bg-amber-900/60 transition">
+        🎯 Who is eligible to apply?
+      </button>
+      <button type="button" class="padma-suggestion-chip rounded-full border border-amber-300/80 dark:border-amber-500/40 bg-amber-50 dark:bg-amber-950/40 px-3 py-1 text-[11px] font-medium text-amber-900 dark:text-amber-200 hover:bg-amber-100 dark:hover:bg-amber-900/60 transition">
+        🌱 What is "Awakened Politics"?
+      </button>
+      <button type="button" class="padma-suggestion-chip rounded-full border border-amber-300/80 dark:border-amber-500/40 bg-amber-50 dark:bg-amber-950/40 px-3 py-1 text-[11px] font-medium text-amber-900 dark:text-amber-200 hover:bg-amber-100 dark:hover:bg-amber-900/60 transition">
+        ⚖️ Is SAP affiliated with any political party?
+      </button>
+      <button type="button" class="padma-suggestion-chip rounded-full border border-amber-300/80 dark:border-amber-500/40 bg-amber-50 dark:bg-amber-950/40 px-3 py-1 text-[11px] font-medium text-amber-900 dark:text-amber-200 hover:bg-amber-100 dark:hover:bg-amber-900/60 transition">
+        🏛️ What is the 6-Month Fellowship structure?
+      </button>
+      <button type="button" class="padma-suggestion-chip rounded-full border border-amber-300/80 dark:border-amber-500/40 bg-amber-50 dark:bg-amber-950/40 px-3 py-1 text-[11px] font-medium text-amber-900 dark:text-amber-200 hover:bg-amber-100 dark:hover:bg-amber-900/60 transition">
+        📝 How do I apply?
+      </button>
+    </div>
+  </div>
+
+  <!-- Typing Indicator (Hidden by default) -->
+  <div id="padma-typing-indicator" class="hidden px-4 py-2 bg-stone-50/50 dark:bg-[#071322]/40 text-[11px] text-slate-500 dark:text-slate-400 items-center gap-2 border-t border-stone-200/50 dark:border-slate-800">
+    <span class="flex h-4 w-4 items-center justify-center rounded-full bg-amber-500 text-white text-[9px]">🪷</span>
+    <span>Padma is typing</span>
+    <span class="flex gap-1">
+      <span class="h-1.5 w-1.5 rounded-full bg-amber-500 animate-bounce"></span>
+      <span class="h-1.5 w-1.5 rounded-full bg-amber-500 animate-bounce [animation-delay:0.2s]"></span>
+      <span class="h-1.5 w-1.5 rounded-full bg-amber-500 animate-bounce [animation-delay:0.4s]"></span>
+    </span>
+  </div>
+
+  <!-- Chat Input Form -->
+  <form id="padma-chat-form" class="border-t border-stone-200 dark:border-slate-800 bg-white dark:bg-[#0b192c] p-3 flex items-center gap-2">
+    <input 
+      type="text" 
+      id="padma-input" 
+      placeholder="Ask Padma a question about SAP..." 
+      autocomplete="off"
+      class="flex-1 rounded-xl border border-stone-300 dark:border-slate-600 bg-stone-50 dark:bg-[#162d4a] px-3.5 py-2.5 text-xs text-slate-900 dark:text-white placeholder-slate-400 focus:border-amber-500 dark:focus:border-amber-400 focus:outline-none focus:ring-1 focus:ring-amber-500"
+    />
+    <button 
+      type="submit" 
+      id="padma-send-btn"
+      class="rounded-xl bg-sap-terracotta hover:bg-sap-terracottaDark p-2.5 text-white transition focus:outline-none focus:ring-2 focus:ring-amber-400 shadow"
+      aria-label="Send message"
+    >
+      <svg class="h-4 w-4 transform rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+      </svg>
+    </button>
+  </form>
+</div>
+
+<script>
+  // ==========================================
+  // PADMA AI KNOWLEDGE BASE & RESPONSE ENGINE
+  // ==========================================
+  interface KnowledgeEntry {
+    keywords: string[];
+    answer: string;
+    actionType?: 'apply' | 'quiz' | 'curriculum' | 'contact';
+    actionLabel?: string;
+  }
+
+  const padmaKnowledgeBase: KnowledgeEntry[] = [
+    {
+      keywords: ['eligible', 'eligibility', 'who can join', 'criteria', 'qualify', 'who can apply', 'age', 'background', 'prerequisite'],
+      answer: `<strong>Anyone driven by integrity and service can apply!</strong><br/><br/>
+      • <strong>No prior political background is required:</strong> SAP is not reserved for dynastic elites or career politicians.<br/>
+      • <strong>Who participates:</strong><br/>
+      1. <em>Youth & College Students:</em> Building constitutional literacy and ethical courage.<br/>
+      2. <em>Working Professionals & Civil Society:</em> Bringing expertise in law, technology, policy, and enterprise.<br/>
+      3. <em>Elders & Mentors:</em> Contributing civilisational memory and generational wisdom.<br/><br/>
+      The only prerequisite is genuine empathy and the hunger to serve society rather than rule it.`,
+      actionType: 'apply',
+      actionLabel: 'Start Your Application →'
+    },
+    {
+      keywords: ['what is awakened politics', 'meaning', 'concept', 'philosophy', 'definition', 'why awakened', 'stewardship'],
+      answer: `<strong>"Awakened Politics" is stewardship above power.</strong><br/><br/>
+      Most institutions teach election algorithms, voter manipulation, and power acquisition. SAP asks the essential question: <em>What is the moral and psychological condition of the human wielding power?</em><br/><br/>
+      • <strong>Awakened:</strong> Deep self-awareness (Viveka), emotional balance, and clarity to discern what is right rather than reacting out of ego.<br/>
+      • <strong>Politics:</strong> The sacred stewardship of communities and protection of democratic institutions.<br/><br/>
+      Our civilisational roots draw from <em>Rajadharma</em> (ethical duty) and <em>Lokasamgraha</em> (universal welfare).`,
+      actionType: 'curriculum',
+      actionLabel: 'Explore Core Philosophy →'
+    },
+    {
+      keywords: ['party', 'parties', 'bjp', 'congress', 'aap', 'partisan', 'affiliation', 'political party', 'backed by', 'ideology', 'sectarian'],
+      answer: `<strong>SAP is 100% strictly non-partisan and independent.</strong><br/><br/>
+      • We do <strong>not</strong> endorse, receive backing from, or align with any political party or partisan movement.<br/>
+      • We welcome learners from across the ideological spectrum who agree on basic constitutional morality, truth, and human dignity.<br/>
+      • Our aim is not to promote a single ideology, but to reform leadership character and statesmanship before anyone assumes public office.`
+    },
+    {
+      keywords: ['fellowship', 'curriculum', 'duration', '6 month', 'timeline', 'syllabus', 'modules', 'structure', 'how long'],
+      answer: `<strong>The SAP World Leaders Fellowship is a 6-Month Hybrid Journey:</strong><br/><br/>
+      • <strong>Cohort Size:</strong> 30 Fellows per cohort.<br/>
+      • <strong>Time Commitment:</strong> ~6 hours/week (suitable for working professionals & students).<br/>
+      • <strong>The 6 Months:</strong><br/>
+      1. <em>Month 1:</em> Inner Alignment & Psychology of Power (Rishikesh Retreat)<br/>
+      2. <em>Month 2:</em> Constitutional Morality & Parliamentary Mechanics (Delhi Circuit)<br/>
+      3. <em>Month 3:</em> Ground Listening Lab & Panchayati Raj Immersion<br/>
+      4. <em>Month 4:</em> Policy Research Lab & Statutory Bill Drafting<br/>
+      5. <em>Month 5:</em> Conscious Parliament Circles & Depolarization<br/>
+      6. <em>Month 6:</em> Capstone Public Launch & Statesmanship Convocation`,
+      actionType: 'apply',
+      actionLabel: 'Apply for the Fellowship Cohort →'
+    },
+    {
+      keywords: ['how to apply', 'application', 'apply', 'admission', 'admissions', 'deadline', 'selection', 'process', 'how do i apply'],
+      answer: `<strong>Applying to SAP takes less than 2 minutes:</strong><br/><br/>
+      1. Click the <strong>Apply Now</strong> button on the site (or right below).<br/>
+      2. Enter your Name, Email, WhatsApp number, and selected program.<br/>
+      3. Share a brief note on why you seek to lead from authenticity.<br/>
+      4. <strong>Review:</strong> Applications are reviewed on a rolling basis. Our admissions team contacts shortlisted candidates within 48 hours for an exploratory conversation.`,
+      actionType: 'apply',
+      actionLabel: 'Open Application Form Now →'
+    },
+    {
+      keywords: ['fee', 'fees', 'cost', 'price', 'scholarship', 'financial aid', 'free', 'stipend'],
+      answer: `<strong>SAP operates under a Need-Blind Admissions Charter.</strong><br/><br/>
+      • We believe financial circumstance should never prevent an authentic leader from serving society.<br/>
+      • Generous need-based and merit scholarships are available for deserving candidates, grassroots changemakers, and students.<br/>
+      • Program costs cover residential immersions, field visits, and learning materials. Mention your scholarship requirement in your application note!`,
+      actionType: 'apply',
+      actionLabel: 'Submit Application with Scholarship Note →'
+    },
+    {
+      keywords: ['programs', 'courses', 'offerings', 'what do you offer', 'circuits', 'retreat', 'policy lab'],
+      answer: `<strong>SAP offers 5 Specialized Pathways:</strong><br/><br/>
+      1. 🌟 <strong>SAP World Leaders Fellowship:</strong> 6-month flagship cohort.<br/>
+      2. 🏛️ <strong>Governance Circuits:</strong> 7–14 day experiential journeys across Assemblies, Courts, and Panchayats.<br/>
+      3. 🗣️ <strong>Conscious Parliament Circles:</strong> Depolarizing dialogue & consensus building simulations.<br/>
+      4. 🌿 <strong>Leadership Retreats:</strong> 3–5 day residential immersions for inner clarity and Viveka.<br/>
+      5. 🤝 <strong>Policy Research Lab:</strong> Practical statutory drafting and evidence-based whitepapers.<br/>
+      6. 📘 <strong>Publishing Platform:</strong> Open editorial platform for civilisational essays.`,
+      actionType: 'quiz',
+      actionLabel: 'Take 60s Quiz to Find Your Path →'
+    },
+    {
+      keywords: ['quiz', 'diagnostic', 'assessment', 'archetype', 'test', 'find my path'],
+      answer: `<strong>Discover Your Civic Leadership Archetype:</strong><br/><br/>
+      Take our <strong>60-second Civic Diagnostic Quiz</strong> to find whether you are:<br/>
+      • <em>The System Architect</em> (Policy & Statutory Science)<br/>
+      • <em>The Grassroots Steward</em> (Community & Public Welfare)<br/>
+      • <em>The Constitutional Guardian</em> (Institutional Integrity)<br/>
+      • <em>The Consensus Builder</em> (Depolarization & Deliberation)<br/>
+      • <em>The Holistic Awakened Statesperson</em> (Integral Synthesis)`,
+      actionType: 'quiz',
+      actionLabel: 'Take 60s Diagnostic Quiz ↓'
+    },
+    {
+      keywords: ['contact', 'email', 'phone', 'location', 'where are you', 'address', 'reach out', 'talk to someone'],
+      answer: `<strong>Connect Directly with the SAP Admissions & Academic Team:</strong><br/><br/>
+      • <strong>Official Email:</strong> <a href="mailto:info@schoolofawakenedpolitics.org" class="text-sap-terracotta dark:text-amber-400 underline font-medium">info@schoolofawakenedpolitics.org</a><br/>
+      • <strong>Web Portal:</strong> schoolofawakenedpolitics.org<br/>
+      • <strong>Field Hubs:</strong> New Delhi, Bengaluru, Rishikesh foothills, and international parliamentary hubs.<br/>
+      • You can also submit an inquiry on our Contact page or right here through the chat!`,
+      actionType: 'contact',
+      actionLabel: 'Go to Contact Page →'
+    },
+    {
+      keywords: ['hello', 'hi', 'hey', 'namaste', 'namaskar', 'greetings', 'good morning', 'good afternoon', 'good evening'],
+      answer: `<strong>Namaste!</strong> I am thrilled to connect with you. How can I assist your journey toward authentic statesmanship and conscious governance today?<br/><br/>
+      You can ask me about our <strong>Fellowship syllabus</strong>, <strong>eligibility</strong>, <strong>scholarships</strong>, or <strong>how to apply</strong>.`
+    },
+    {
+      keywords: ['who are you', 'who made you', 'padma', 'what is your name', 'ai'],
+      answer: `I am <strong>Padma</strong>, the dedicated AI Admissions & Civic Leadership Guide for the <strong>School of Awakened Politics (SAP)</strong>.<br/><br/>
+      My name reflects the lotus (<em>Padma</em>) — symbolizing purity of public purpose, freedom from selfish ego, and wisdom blossoming amidst complex waters. I am trained on SAP's full academic curriculum and institutional charter to answer any doubts you may have!`
+    }
+  ];
+
+  function getPadmaResponse(query: string): KnowledgeEntry {
+    const clean = query.toLowerCase().trim();
+
+    // 1. Exact or keyword score matching
+    let bestMatch: KnowledgeEntry | null = null;
+    let highestScore = 0;
+
+    for (const item of padmaKnowledgeBase) {
+      let score = 0;
+      for (const kw of item.keywords) {
+        if (clean.includes(kw)) {
+          // Weight longer/more specific keyword matches higher
+          score += kw.length > 5 ? 3 : 1;
+        }
+      }
+      if (score > highestScore) {
+        highestScore = score;
+        bestMatch = item;
+      }
+    }
+
+    if (bestMatch && highestScore > 0) {
+      return bestMatch;
+    }
+
+    // Default Fallback
+    return {
+      keywords: [],
+      answer: `That is an insightful question regarding public leadership. At the <strong>School of Awakened Politics</strong>, we believe true governance begins with authentic inner transformation and constitutional stewardship.<br/><br/>
+      Would you like to know about our <strong>6-Month World Leaders Fellowship</strong>, our <strong>eligibility guidelines</strong>, or our <strong>non-partisan charter</strong>?<br/><br/>
+      You can also reach our academic committee directly at <a href="mailto:info@schoolofawakenedpolitics.org" class="text-sap-terracotta dark:text-amber-400 underline">info@schoolofawakenedpolitics.org</a>.`,
+      actionType: 'apply',
+      actionLabel: 'Explore Fellowship Application →'
+    };
+  }
+
+  // ==========================================
+  // CHAT UI CONTROLLER
+  // ==========================================
+  function setupPadmaChat() {
+    const container = document.getElementById('padma-container');
+    const teaser = document.getElementById('padma-teaser');
+    const closeTeaserBtn = document.getElementById('close-teaser-btn');
+    const openFromTeaserBtn = document.getElementById('open-from-teaser-btn');
+    const triggerBtn = document.getElementById('padma-trigger-btn');
+    const modal = document.getElementById('padma-chat-modal');
+    const closeBtn = document.getElementById('padma-close-btn');
+    const resetBtn = document.getElementById('padma-reset-btn');
+    const form = document.getElementById('padma-chat-form') as HTMLFormElement | null;
+    const input = document.getElementById('padma-input') as HTMLInputElement | null;
+    const messagesArea = document.getElementById('padma-messages-area');
+    const typingIndicator = document.getElementById('padma-typing-indicator');
+
+    if (!container || !modal || !triggerBtn || !messagesArea) return;
+
+    // Auto-hide teaser after 10 seconds if not clicked
+    setTimeout(() => {
+      teaser?.classList.add('opacity-0', 'pointer-events-none');
+    }, 12000);
+
+    closeTeaserBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      teaser?.remove();
+    });
+
+    function openChat() {
+      modal?.classList.remove('hidden');
+      modal?.classList.add('flex');
+      container?.classList.add('hidden');
+      teaser?.remove();
+      input?.focus();
+    }
+
+    function closeChat() {
+      modal?.classList.add('hidden');
+      modal?.classList.remove('flex');
+      container?.classList.remove('hidden');
+    }
+
+    triggerBtn.addEventListener('click', openChat);
+    openFromTeaserBtn?.addEventListener('click', openChat);
+    closeBtn?.addEventListener('click', closeChat);
+
+    // Reset Chat to initial greeting
+    resetBtn?.addEventListener('click', () => {
+      messagesArea.innerHTML = `
+        <div class="flex items-start gap-2.5">
+          <div class="flex h-7 w-7 shrink-0 items-center justify-center rounded-xl bg-amber-500/20 text-amber-500 text-sm">
+            🪷
+          </div>
+          <div class="max-w-[85%] rounded-2xl rounded-tl-sm bg-white dark:bg-[#162d4a] p-3.5 shadow-sm border border-stone-200 dark:border-slate-700 text-slate-800 dark:text-slate-100 space-y-2">
+            <p class="leading-relaxed">
+              Conversation refreshed. How can I help you today?
+            </p>
+          </div>
+        </div>
+        <div id="quick-suggestions" class="pt-1 flex flex-wrap gap-1.5 pl-9">
+          <button type="button" class="padma-suggestion-chip rounded-full border border-amber-300/80 dark:border-amber-500/40 bg-amber-50 dark:bg-amber-950/40 px-3 py-1 text-[11px] font-medium text-amber-900 dark:text-amber-200 hover:bg-amber-100 dark:hover:bg-amber-900/60 transition">
+            🎯 Who is eligible to apply?
+          </button>
+          <button type="button" class="padma-suggestion-chip rounded-full border border-amber-300/80 dark:border-amber-500/40 bg-amber-50 dark:bg-amber-950/40 px-3 py-1 text-[11px] font-medium text-amber-900 dark:text-amber-200 hover:bg-amber-100 dark:hover:bg-amber-900/60 transition">
+            🌱 What is "Awakened Politics"?
+          </button>
+          <button type="button" class="padma-suggestion-chip rounded-full border border-amber-300/80 dark:border-amber-500/40 bg-amber-50 dark:bg-amber-950/40 px-3 py-1 text-[11px] font-medium text-amber-900 dark:text-amber-200 hover:bg-amber-100 dark:hover:bg-amber-900/60 transition">
+            ⚖️ Is SAP affiliated with any political party?
+          </button>
+          <button type="button" class="padma-suggestion-chip rounded-full border border-amber-300/80 dark:border-amber-500/40 bg-amber-50 dark:bg-amber-950/40 px-3 py-1 text-[11px] font-medium text-amber-900 dark:text-amber-200 hover:bg-amber-100 dark:hover:bg-amber-900/60 transition">
+            🏛️ What is the 6-Month Fellowship structure?
+          </button>
+          <button type="button" class="padma-suggestion-chip rounded-full border border-amber-300/80 dark:border-amber-500/40 bg-amber-50 dark:bg-amber-950/40 px-3 py-1 text-[11px] font-medium text-amber-900 dark:text-amber-200 hover:bg-amber-100 dark:hover:bg-amber-900/60 transition">
+            📝 How do I apply?
+          </button>
+        </div>
+      `;
+      wireSuggestionChips();
+    });
+
+    function appendUserMessage(text: string) {
+      const bubble = document.createElement('div');
+      bubble.className = 'flex justify-end';
+      bubble.innerHTML = `
+        <div class="max-w-[85%] rounded-2xl rounded-tr-sm bg-sap-terracotta text-white p-3 shadow-sm font-medium leading-relaxed">
+          ${text}
+        </div>
+      `;
+      messagesArea.appendChild(bubble);
+      messagesArea.scrollTop = messagesArea.scrollHeight;
+    }
+
+    function appendPadmaMessage(entry: KnowledgeEntry) {
+      const bubble = document.createElement('div');
+      bubble.className = 'flex items-start gap-2.5';
+
+      let actionHtml = '';
+      if (entry.actionType && entry.actionLabel) {
+        if (entry.actionType === 'apply') {
+          actionHtml = `
+            <div class="pt-2">
+              <button type="button" class="trigger-apply-modal inline-flex items-center gap-1.5 rounded-lg bg-sap-terracotta hover:bg-sap-terracottaDark px-3.5 py-1.5 text-[11px] font-semibold text-white shadow transition">
+                <span>📝</span> <span>${entry.actionLabel}</span>
+              </button>
+            </div>
+          `;
+        } else if (entry.actionType === 'quiz') {
+          actionHtml = `
+            <div class="pt-2">
+              <a href="#assessment" class="padma-action-link inline-flex items-center gap-1.5 rounded-lg bg-amber-600 hover:bg-amber-700 px-3.5 py-1.5 text-[11px] font-semibold text-white shadow transition">
+                <span>🎯</span> <span>${entry.actionLabel}</span>
+              </a>
+            </div>
+          `;
+        } else if (entry.actionType === 'curriculum') {
+          actionHtml = `
+            <div class="pt-2">
+              <a href="/fellowship#curriculum" class="padma-action-link inline-flex items-center gap-1.5 rounded-lg border border-amber-400 bg-amber-500/10 px-3.5 py-1.5 text-[11px] font-semibold text-sap-terracotta dark:text-amber-300 hover:bg-amber-500/20 transition">
+                <span>📖</span> <span>${entry.actionLabel}</span>
+              </a>
+            </div>
+          `;
+        } else if (entry.actionType === 'contact') {
+          actionHtml = `
+            <div class="pt-2">
+              <a href="/contact" class="padma-action-link inline-flex items-center gap-1.5 rounded-lg bg-sap-navy dark:bg-white/10 px-3.5 py-1.5 text-[11px] font-semibold text-white hover:bg-sap-terracotta transition">
+                <span>✉️</span> <span>${entry.actionLabel}</span>
+              </a>
+            </div>
+          `;
+        }
+      }
+
+      bubble.innerHTML = `
+        <div class="flex h-7 w-7 shrink-0 items-center justify-center rounded-xl bg-amber-500/20 text-amber-500 text-sm">
+          🪷
+        </div>
+        <div class="max-w-[85%] rounded-2xl rounded-tl-sm bg-white dark:bg-[#162d4a] p-3.5 shadow-sm border border-stone-200 dark:border-slate-700 text-slate-800 dark:text-slate-100 space-y-2">
+          <div class="leading-relaxed">
+            ${entry.answer}
+          </div>
+          ${actionHtml}
+        </div>
+      `;
+      messagesArea.appendChild(bubble);
+      messagesArea.scrollTop = messagesArea.scrollHeight;
+
+      // Wire action buttons inside Padma message
+      const applyTrigger = bubble.querySelector('.trigger-apply-modal');
+      applyTrigger?.addEventListener('click', () => {
+        closeChat();
+        const appModal = document.getElementById('application-modal');
+        appModal?.classList.remove('hidden');
+      });
+
+      const actionLinks = bubble.querySelectorAll('.padma-action-link');
+      actionLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          closeChat();
+        });
+      });
+    }
+
+    async function handleUserQuery(query: string) {
+      if (!query.trim()) return;
+
+      appendUserMessage(query);
+
+      // Show typing indicator
+      if (typingIndicator) typingIndicator.classList.remove('hidden');
+      typingIndicator?.classList.add('flex');
+      messagesArea.scrollTop = messagesArea.scrollHeight;
+
+      // Realistic thoughtful thinking delay (500ms)
+      await new Promise(r => setTimeout(r, 550));
+
+      if (typingIndicator) typingIndicator.classList.add('hidden');
+      typingIndicator?.classList.remove('flex');
+
+      const response = getPadmaResponse(query);
+      appendPadmaMessage(response);
+    }
+
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (!input) return;
+      const text = input.value.trim();
+      if (text) {
+        handleUserQuery(text);
+        input.value = '';
+      }
+    });
+
+    function wireSuggestionChips() {
+      const chips = document.querySelectorAll('.padma-suggestion-chip');
+      chips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          const text = chip.textContent?.replace(/^[^\w]+/, '').trim() || '';
+          if (text) {
+            handleUserQuery(text);
+          }
+        });
+      });
+    }
+
+    wireSuggestionChips();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupPadmaChat);
+  } else {
+    setupPadmaChat();
+  }
+</script>
