@@ -1,0 +1,236 @@
+---
+// src/components/FellowshipCurriculumExplorer.astro
+---
+
+<div class="w-full max-w-5xl mx-auto rounded-3xl border border-stone-200 bg-white p-6 sm:p-10 shadow-lg">
+  <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-stone-200 pb-6 mb-8 gap-4">
+    <div>
+      <span class="text-xs font-bold uppercase tracking-widest text-sap-terracotta">
+        Academic & Experiential Architecture
+      </span>
+      <h3 class="font-serif text-2xl sm:text-3xl font-bold text-sap-navy mt-1">
+        6-Month Fellowship Journey
+      </h3>
+    </div>
+    <div class="text-xs text-slate-500 font-medium">
+      Hybrid Model • 6 hrs/week • 3 In-Person Immersions
+    </div>
+  </div>
+
+  <!-- Month Navigation Tabs -->
+  <div class="flex items-center gap-2 overflow-x-auto pb-4 scrollbar-none" id="timeline-tabs">
+    <button type="button" data-month="0" class="timeline-tab shrink-0 rounded-full px-5 py-2 text-xs font-bold uppercase tracking-wider transition bg-sap-navy text-white shadow">
+      Month 1
+    </button>
+    <button type="button" data-month="1" class="timeline-tab shrink-0 rounded-full px-5 py-2 text-xs font-bold uppercase tracking-wider transition bg-stone-100 text-slate-600 hover:bg-stone-200">
+      Month 2
+    </button>
+    <button type="button" data-month="2" class="timeline-tab shrink-0 rounded-full px-5 py-2 text-xs font-bold uppercase tracking-wider transition bg-stone-100 text-slate-600 hover:bg-stone-200">
+      Month 3
+    </button>
+    <button type="button" data-month="3" class="timeline-tab shrink-0 rounded-full px-5 py-2 text-xs font-bold uppercase tracking-wider transition bg-stone-100 text-slate-600 hover:bg-stone-200">
+      Month 4
+    </button>
+    <button type="button" data-month="4" class="timeline-tab shrink-0 rounded-full px-5 py-2 text-xs font-bold uppercase tracking-wider transition bg-stone-100 text-slate-600 hover:bg-stone-200">
+      Month 5
+    </button>
+    <button type="button" data-month="5" class="timeline-tab shrink-0 rounded-full px-5 py-2 text-xs font-bold uppercase tracking-wider transition bg-stone-100 text-slate-600 hover:bg-stone-200">
+      Month 6
+    </button>
+  </div>
+
+  <!-- Active Month Detail Card -->
+  <div id="month-card" class="mt-6 rounded-2xl bg-sap-sand p-6 sm:p-8 border border-stone-200 transition-all duration-300">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <div class="lg:col-span-8 space-y-4">
+        <div class="flex items-center gap-2.5">
+          <span class="rounded-md bg-amber-100 px-2.5 py-1 text-xs font-bold uppercase text-sap-terracotta" id="month-badge">
+            Month 01 • Foundation
+          </span>
+          <span class="text-xs text-slate-500 font-medium" id="month-focus">
+            Internal Mastery & Viveka
+          </span>
+        </div>
+
+        <h4 class="font-serif text-2xl sm:text-3xl font-bold text-sap-navy" id="month-title">
+          Inner Alignment & The Psychology of Power
+        </h4>
+
+        <p class="text-sm sm:text-base text-slate-700 leading-relaxed" id="month-desc">
+          Examining the shadow of ego in political life. Fellows undergo intensive self-reflection, mindfulness practices, and ethics discernment to build psychological immunity against corruption, vanity, and partisan hostility.
+        </p>
+
+        <div class="border-t border-stone-200 pt-4">
+          <div class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Key Modules Studied:</div>
+          <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-700" id="month-modules">
+            <li class="flex items-center gap-1.5">• <span>Ego, Power & The Moral Compass</span></li>
+            <li class="flex items-center gap-1.5">• <span>Rajadharma: Ethics of Ancient Statecraft</span></li>
+            <li class="flex items-center gap-1.5">• <span>Emotional Regulation Under Scrutiny</span></li>
+            <li class="flex items-center gap-1.5">• <span>Authentic Leadership Foundations (Gardner et al.)</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Sidebar Highlights -->
+      <div class="lg:col-span-4 rounded-xl bg-white p-5 border border-stone-200 space-y-4 shadow-sm">
+        <div>
+          <span class="text-[10px] font-bold uppercase tracking-wider text-sap-terracotta">Field Immersion / Circuit</span>
+          <p class="text-xs font-semibold text-sap-navy mt-0.5" id="month-circuit">
+            3-Day Opening Leadership Retreat (Himalayan / Rishikesh Foothills)
+          </p>
+        </div>
+
+        <div class="border-t border-stone-100 pt-3">
+          <span class="text-[10px] font-bold uppercase tracking-wider text-sap-terracotta">Practitioner Dialogue</span>
+          <p class="text-xs font-semibold text-sap-navy mt-0.5" id="month-mentor">
+            Masterclass with Former Supreme Court Jurist & Civil Servants
+          </p>
+        </div>
+
+        <div class="border-t border-stone-100 pt-3">
+          <span class="text-[10px] font-bold uppercase tracking-wider text-sap-terracotta">Tangible Deliverable</span>
+          <p class="text-xs font-semibold text-slate-700 mt-0.5" id="month-deliverable">
+            Personal Leadership Charter & Moral Code of Public Conduct
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const monthsData = [
+    {
+      badge: "Month 01 • Foundation",
+      focus: "Internal Mastery & Viveka",
+      title: "Inner Alignment & The Psychology of Power",
+      desc: "Examining the shadow of ego in political life. Fellows undergo intensive self-reflection, mindfulness practices, and ethics discernment to build psychological immunity against corruption, vanity, and partisan hostility.",
+      modules: [
+        "Ego, Power & The Moral Compass",
+        "Rajadharma: Ethics of Ancient Statecraft",
+        "Emotional Regulation Under Scrutiny",
+        "Authentic Leadership Foundations (Gardner et al.)"
+      ],
+      circuit: "3-Day Opening Leadership Retreat (Rishikesh Foothills)",
+      mentor: "Masterclass with Former Jurists & Meditative Mentors",
+      deliverable: "Personal Leadership Charter & Moral Code of Conduct"
+    },
+    {
+      badge: "Month 02 • Systems",
+      focus: "Constitutional Morality & Institutions",
+      title: "Constitutional Architecture & Democratic Mechanics",
+      desc: "Rigorous immersion in constitutional law, separation of powers, legislative drafting procedure, and federal governance. Understanding the democratic machine from the inside out.",
+      modules: [
+        "Constitutional Morality & Landmark Jurisprudence",
+        "Parliamentary Procedures & Committee Rules",
+        "Federalism, State Autonomy & Local Governance",
+        "Public Finance & State Budget Deconstruction"
+      ],
+      circuit: "Delhi Circuit: Parliament & Supreme Court Observation",
+      mentor: "Dialogue with Senior Parliamentarians & Constitutional Scholars",
+      deliverable: "Critical Analysis of Pending Parliamentary Legislation"
+    },
+    {
+      badge: "Month 03 • The Grassroots",
+      focus: "Living Reality & Empathy",
+      title: "Governance Circuit: Ground-Level Listening Lab",
+      desc: "Moving beyond urban policy think tanks into rural and semi-urban India. Fellows live alongside community members, observe Panchayati Raj governance, and shadow municipal commissioners.",
+      modules: [
+        "Panchayati Raj & Grassroots Deliberation",
+        "Public Health & Primary Education Delivery",
+        "Deep Listening Circles with Vulnerable Groups",
+        "Agrarian Realities & Rural Economic Cycles"
+      ],
+      circuit: "7-Day Immersion in District Administrations & Gram Sabhas",
+      mentor: "Roundtable with Grassroots Changemakers & District Magistrates",
+      deliverable: "Ground Reality Field Audit & Citizen Needs Assessment"
+    },
+    {
+      badge: "Month 04 • The Policy Lab",
+      focus: "Applied Legislation & Science",
+      title: "Policy Research Lab & Legislative Drafting",
+      desc: "Translating moral conviction into rigorous statutory language. Fellows collaborate with economists and legal draftsmen to author comprehensive model bills addressing pressing national dilemmas.",
+      modules: [
+        "Statutory Drafting & Regulatory Impact Assessment",
+        "Data-Driven Public Impact & Policy Modeling",
+        "Economic Tradeoffs & Budgetary Coherence",
+        "Technology, AI Governance & Privacy Rights"
+      ],
+      circuit: "Policy Incubator Hackathon (Bangalore / Hyderabad)",
+      mentor: "Working sessions with Senior Legislative Counsel & Economists",
+      deliverable: "Full Model Legislative Bill & Accompanying Policy Whitepaper"
+    },
+    {
+      badge: "Month 05 • Depolarization",
+      focus: "The Art of Deliberation",
+      title: "Conscious Parliament Circles: Bridging Divides",
+      desc: "Training in high-stakes deliberative diplomacy. Fellows engage in simulations of contentious national deadlocks, practicing non-violent communication, empathetic negotiation, and bipartisan consensus creation.",
+      modules: [
+        "Non-Violent Civic Communication & Media Ethics",
+        "Depolarization Strategy & Conflict Mediation",
+        "Consensus-Building with Ideological Opponents",
+        "Ethical Campaigning & Countering Misinformation"
+      ],
+      circuit: "National Mock Deliberative Assembly Simulation",
+      mentor: "Masterclass with Diplomatic Negotiators & Veteran Statespeople",
+      deliverable: "Bipartisan Consensus Accord on a Contested National Dilemma"
+    },
+    {
+      badge: "Month 06 • The Public Arena",
+      focus: "Statesmanship & Launch",
+      title: "Capstone Public Launch & Leadership Cohort Induction",
+      desc: "Culmination of the fellowship. Fellows present their capstone public service projects before eminent leaders, receiving lifelong induction into the SAP Global Statesmanship Network.",
+      modules: [
+        "Strategic Public Communication & Statesman Oratory",
+        "Building Values-Aligned Civic Coalitions",
+        "Fundraising with Uncompromised Integrity",
+        "Lifelong Mentorship & Peer Accountability Circles"
+      ],
+      circuit: "Closing Convocation & Public Governance Symposium (New Delhi)",
+      mentor: "Keynote Addresses by Eminent International Statespeople",
+      deliverable: "Public Presentation of Capstone Initiative & Lifetime Induction"
+    }
+  ];
+
+  function initTimeline() {
+    const tabs = document.querySelectorAll('.timeline-tab');
+    const badge = document.getElementById('month-badge');
+    const focus = document.getElementById('month-focus');
+    const title = document.getElementById('month-title');
+    const desc = document.getElementById('month-desc');
+    const modules = document.getElementById('month-modules');
+    const circuit = document.getElementById('month-circuit');
+    const mentor = document.getElementById('month-mentor');
+    const deliverable = document.getElementById('month-deliverable');
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const index = parseInt(tab.getAttribute('data-month') || '0', 10);
+        const data = monthsData[index];
+
+        // Update active tab style
+        tabs.forEach(t => {
+          t.className = 'timeline-tab shrink-0 rounded-full px-5 py-2 text-xs font-bold uppercase tracking-wider transition bg-stone-100 text-slate-600 hover:bg-stone-200';
+        });
+        tab.className = 'timeline-tab shrink-0 rounded-full px-5 py-2 text-xs font-bold uppercase tracking-wider transition bg-sap-navy text-white shadow';
+
+        // Update card content with subtle fade
+        if (badge) badge.textContent = data.badge;
+        if (focus) focus.textContent = data.focus;
+        if (title) title.textContent = data.title;
+        if (desc) desc.textContent = data.desc;
+        if (circuit) circuit.textContent = data.circuit;
+        if (mentor) mentor.textContent = data.mentor;
+        if (deliverable) deliverable.textContent = data.deliverable;
+
+        if (modules) {
+          modules.innerHTML = data.modules.map(m => `
+            <li class="flex items-center gap-1.5">• <span>${m}</span></li>
+          `).join('');
+        }
+      });
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', initTimeline);
+</script>

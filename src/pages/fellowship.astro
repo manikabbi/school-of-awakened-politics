@@ -1,6 +1,7 @@
 ---
 // src/pages/fellowship.astro
 import BaseLayout from '../layouts/BaseLayout.astro';
+import FellowshipCurriculumExplorer from '../components/FellowshipCurriculumExplorer.astro';
 ---
 
 <BaseLayout
@@ -145,6 +146,23 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             <li>• Public Speaking & Dignified Civic Oratory</li>
           </ul>
         </div>
+      </div>
+
+      <!-- 6-Month Interactive Timeline Architecture -->
+      <div class="mt-20">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+          <span class="text-xs font-semibold uppercase tracking-widest text-sap-terracotta bg-amber-50 px-3.5 py-1 rounded-full border border-amber-200">
+            Chronological Journey
+          </span>
+          <h3 class="mt-2 font-serif text-3xl font-bold text-sap-navy">
+            6-Month Cohort Timeline
+          </h3>
+          <p class="mt-2 text-slate-600 text-sm">
+            Click across each month below to explore the modules, field trips, guest statespeople, and deliverables.
+          </p>
+        </div>
+
+        <FellowshipCurriculumExplorer />
       </div>
     </div>
   </section>

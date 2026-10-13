@@ -1,0 +1,390 @@
+---
+// src/components/InteractiveGlobe.astro
+---
+
+<div class="relative w-full max-w-lg mx-auto flex flex-col items-center select-none">
+  <!-- Glowing backdrop aura -->
+  <div class="absolute -inset-4 bg-gradient-to-r from-amber-500/20 via-orange-500/10 to-blue-600/20 rounded-full blur-3xl pointer-events-none"></div>
+
+  <!-- 3D Canvas Container -->
+  <div class="relative w-[340px] h-[340px] sm:w-[420px] sm:h-[420px] flex items-center justify-center">
+    <canvas 
+      id="globe-3d-canvas" 
+      class="w-full h-full cursor-grab active:cursor-grabbing transition-transform duration-300"
+      width="840" 
+      height="840"
+    ></canvas>
+
+    <!-- Overlay Tooltip for Hubs -->
+    <div 
+      id="globe-tooltip" 
+      class="pointer-events-none absolute opacity-0 transition-opacity duration-200 rounded-lg bg-slate-950/90 border border-amber-400/50 px-3 py-1.5 text-xs text-white shadow-xl backdrop-blur-md z-20 whitespace-nowrap"
+    >
+      <span id="tooltip-city" class="font-bold text-amber-300">New Delhi</span>
+      <span id="tooltip-role" class="block text-[10px] text-slate-300 font-medium">Headquarters & Civic Heart</span>
+    </div>
+
+    <!-- Drag Hint Badge -->
+    <div class="absolute bottom-2 left-1/2 -translate-x-1/2 pointer-events-none flex items-center gap-1.5 rounded-full bg-slate-950/70 border border-white/10 px-3 py-1 text-[10px] font-semibold tracking-wider text-slate-300 backdrop-blur-sm">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+      <span>Click & drag to rotate 3D globe</span>
+    </div>
+  </div>
+
+  <!-- Legend / Global Circuits Badge -->
+  <div class="mt-4 flex flex-wrap items-center justify-center gap-4 text-xs text-slate-300">
+    <div class="flex items-center gap-1.5">
+      <span class="w-2.5 h-2.5 rounded-full bg-amber-400 shadow-sm shadow-amber-400/50"></span>
+      <span class="font-medium text-white">SAP Hub: New Delhi</span>
+    </div>
+    <div class="flex items-center gap-1.5">
+      <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+      <span>Global Governance Circuits</span>
+    </div>
+    <div class="flex items-center gap-1.5">
+      <span class="inline-block w-4 h-0.5 bg-gradient-to-r from-amber-400 to-cyan-400"></span>
+      <span>Diplomatic Arcs</span>
+    </div>
+  </div>
+</div>
+
+<script>
+  function init3DGlobe() {
+    const canvas = document.getElementById('globe-3d-canvas') as HTMLCanvasElement | null;
+    const tooltip = document.getElementById('globe-tooltip');
+    const tooltipCity = document.getElementById('tooltip-city');
+    const tooltipRole = document.getElementById('tooltip-role');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    // Retina display resolution scaling
+    const dpr = window.devicePixelRatio || 2;
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    ctx.scale(dpr, dpr);
+
+    const width = rect.width;
+    const height = rect.height;
+    const cx = width / 2;
+    const cy = height / 2;
+    const R = Math.min(width, height) * 0.42;
+
+    // Global Governance Hubs (Latitude, Longitude in degrees)
+    const hubs = [
+      { name: "New Delhi", role: "SAP Global Headquarters • Rajadharma Core", lat: 28.61, lon: 77.20, isHome: true },
+      { name: "Geneva", role: "Multilateral Human Rights & Governance Circuit", lat: 46.20, lon: 6.14, isHome: false },
+      { name: "London", role: "Parliamentary Jurisprudence & Commonwealth Circuit", lat: 51.50, lon: -0.12, isHome: false },
+      { name: "Singapore", role: "Asian Governance & Public Policy Hub", lat: 1.35, lon: 103.81, isHome: false },
+      { name: "Nairobi", role: "Global South Stewardship & Environmental Forum", lat: -1.29, lon: 36.82, isHome: false },
+      { name: "Washington D.C.", role: "Constitutional Systems & Global Policy Circuit", lat: 38.90, lon: -77.03, isHome: false },
+      { name: "Tokyo", role: "East Asian Democratic Innovation Circuit", lat: 35.67, lon: 139.65, isHome: false }
+    ];
+
+    // Generate 450 ambient surface points for the sphere
+    const surfacePoints: { lat: number; lon: number }[] = [];
+    const numPoints = 400;
+    for (let i = 0; i < numPoints; i++) {
+      const phi = Math.acos(-1 + (2 * i) / numPoints);
+      const theta = Math.sqrt(numPoints * Math.PI) * phi;
+      const lat = (phi - Math.PI / 2) * (180 / Math.PI);
+      const lon = (theta * (180 / Math.PI)) % 360 - 180;
+      surfacePoints.push({ lat, lon });
+    }
+
+    // Rotation angles in radians
+    let rotX = 0.25; // tilt
+    let rotY = -1.2; // initial focus on India
+    let targetRotX = rotX;
+    let targetRotY = rotY;
+
+    // Drag interaction states
+    let isDragging = false;
+    let lastMouseX = 0;
+    let lastMouseY = 0;
+    let autoSpin = true;
+    let autoSpinTimeout: any;
+
+    function to3D(lat: number, lon: number, r: number) {
+      const phi = (90 - lat) * (Math.PI / 180);
+      const theta = (lon + 180) * (Math.PI / 180);
+      let x = -r * Math.sin(phi) * Math.cos(theta);
+      let z = r * Math.sin(phi) * Math.sin(theta);
+      let y = r * Math.cos(phi);
+
+      // Rotate around X axis (tilt)
+      const cosX = Math.cos(rotX);
+      const sinX = Math.sin(rotX);
+      const y1 = y * cosX - z * sinX;
+      const z1 = y * sinX + z * cosX;
+
+      // Rotate around Y axis (spin)
+      const cosY = Math.cos(rotY);
+      const sinY = Math.sin(rotY);
+      const x2 = x * cosY + z1 * sinY;
+      const z2 = -x * sinY + z1 * cosY;
+
+      return { x: x2, y: y1, z: z2 };
+    }
+
+    let pulseTime = 0;
+
+    function render() {
+      if (!ctx) return;
+      ctx.clearRect(0, 0, width, height);
+
+      // Smooth dampening towards target rotation
+      rotX += (targetRotX - rotX) * 0.08;
+      rotY += (targetRotY - rotY) * 0.08;
+
+      if (autoSpin && !isDragging) {
+        targetRotY += 0.0035;
+      }
+
+      pulseTime += 0.03;
+
+      // Draw Atmospheric Outer Glow Ring
+      const glowGrad = ctx.createRadialGradient(cx, cy, R * 0.85, cx, cy, R * 1.15);
+      glowGrad.addColorStop(0, "rgba(234, 179, 8, 0.08)");
+      glowGrad.addColorStop(0.5, "rgba(200, 90, 23, 0.04)");
+      glowGrad.addColorStop(1, "rgba(0, 0, 0, 0)");
+      ctx.fillStyle = glowGrad;
+      ctx.beginPath();
+      ctx.arc(cx, cy, R * 1.15, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Draw Globe Base Sphere
+      const sphereGrad = ctx.createRadialGradient(cx - R * 0.3, cy - R * 0.3, R * 0.1, cx, cy, R);
+      sphereGrad.addColorStop(0, "#162a45");
+      sphereGrad.addColorStop(0.7, "#0b192c");
+      sphereGrad.addColorStop(1, "#060f1c");
+      ctx.fillStyle = sphereGrad;
+      ctx.beginPath();
+      ctx.arc(cx, cy, R, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Sphere border
+      ctx.strokeStyle = "rgba(234, 179, 8, 0.3)";
+      ctx.lineWidth = 1.2;
+      ctx.stroke();
+
+      // Draw subtle latitude/longitude rings
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.06)";
+      ctx.lineWidth = 0.8;
+      for (let lat = -60; lat <= 60; lat += 30) {
+        ctx.beginPath();
+        for (let lon = -180; lon <= 180; lon += 10) {
+          const pt = to3D(lat, lon, R);
+          if (pt.z > 0) {
+            const screenX = cx + pt.x;
+            const screenY = cy - pt.y;
+            ctx.lineTo(screenX, screenY);
+          } else {
+            ctx.moveTo(cx + pt.x, cy - pt.y);
+          }
+        }
+        ctx.stroke();
+      }
+
+      // Draw ambient constellation dots
+      for (const p of surfacePoints) {
+        const pt = to3D(p.lat, p.lon, R);
+        if (pt.z > -R * 0.1) {
+          const screenX = cx + pt.x;
+          const screenY = cy - pt.y;
+          const alpha = Math.max(0.08, (pt.z / R) * 0.6);
+          ctx.fillStyle = `rgba(217, 119, 6, ${alpha})`;
+          ctx.beginPath();
+          ctx.arc(screenX, screenY, (pt.z > 0 ? 1.4 : 0.8), 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      // Calculate Home Hub (New Delhi)
+      const homeHub = hubs[0];
+      const home3D = to3D(homeHub.lat, homeHub.lon, R);
+      const homeScreenX = cx + home3D.x;
+      const homeScreenY = cy - home3D.y;
+
+      // Draw Arcs from New Delhi to other hubs
+      for (let i = 1; i < hubs.length; i++) {
+        const targetHub = hubs[i];
+        const target3D = to3D(targetHub.lat, targetHub.lon, R);
+        const targetScreenX = cx + target3D.x;
+        const targetScreenY = cy - target3D.y;
+
+        // Draw arc if at least one node is facing front
+        if (home3D.z > -R * 0.3 || target3D.z > -R * 0.3) {
+          const midX = (homeScreenX + targetScreenX) / 2;
+          const midY = (homeScreenY + targetScreenY) / 2 - R * 0.28;
+
+          ctx.beginPath();
+          ctx.moveTo(homeScreenX, homeScreenY);
+          ctx.quadraticCurveTo(midX, midY, targetScreenX, targetScreenY);
+          ctx.strokeStyle = "rgba(234, 179, 8, 0.25)";
+          ctx.lineWidth = 1;
+          ctx.setLineDash([4, 4]);
+          ctx.stroke();
+          ctx.setLineDash([]);
+
+          // Animated traveling light pulse along the arc
+          const t = (pulseTime * 0.6 + i * 0.35) % 1;
+          const pulseX = (1 - t) * (1 - t) * homeScreenX + 2 * (1 - t) * t * midX + t * t * targetScreenX;
+          const pulseY = (1 - t) * (1 - t) * homeScreenY + 2 * (1 - t) * t * midY + t * t * targetScreenY;
+
+          ctx.fillStyle = "#38bdf8";
+          ctx.shadowColor = "#38bdf8";
+          ctx.shadowBlur = 8;
+          ctx.beginPath();
+          ctx.arc(pulseX, pulseY, 2.5, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.shadowBlur = 0;
+        }
+      }
+
+      // Draw Governance Hubs & Marker Rings
+      for (const hub of hubs) {
+        const pt = to3D(hub.lat, hub.lon, R);
+        if (pt.z > -R * 0.1) {
+          const screenX = cx + pt.x;
+          const screenY = cy - pt.y;
+          const isFacing = pt.z > 0;
+
+          if (hub.isHome) {
+            // New Delhi - Crown Jewel Pulse
+            const pulseR = 4 + Math.sin(pulseTime * 3) * 3;
+            ctx.strokeStyle = "rgba(234, 179, 8, 0.8)";
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.arc(screenX, screenY, pulseR + 4, 0, Math.PI * 2);
+            ctx.stroke();
+
+            ctx.fillStyle = "#eab308";
+            ctx.shadowColor = "#f59e0b";
+            ctx.shadowBlur = 12;
+            ctx.beginPath();
+            ctx.arc(screenX, screenY, 4.5, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.shadowBlur = 0;
+
+            if (isFacing) {
+              ctx.fillStyle = "#fef08a";
+              ctx.font = "bold 11px sans-serif";
+              ctx.fillText("★ New Delhi (SAP)", screenX + 8, screenY - 4);
+            }
+          } else {
+            // Global Hubs
+            ctx.fillStyle = isFacing ? "#38bdf8" : "rgba(56, 189, 248, 0.4)";
+            ctx.beginPath();
+            ctx.arc(screenX, screenY, 3, 0, Math.PI * 2);
+            ctx.fill();
+
+            if (isFacing) {
+              ctx.fillStyle = "rgba(226, 232, 240, 0.85)";
+              ctx.font = "10px sans-serif";
+              ctx.fillText(hub.name, screenX + 6, screenY + 3);
+            }
+          }
+        }
+      }
+
+      requestAnimationFrame(render);
+    }
+
+    render();
+
+    // Mouse & Touch Interaction
+    canvas.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      autoSpin = false;
+      lastMouseX = e.clientX;
+      lastMouseY = e.clientY;
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isDragging) {
+        // Tooltip check when hovering
+        const rect = canvas.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+
+        let hoveredHub = null;
+        for (const hub of hubs) {
+          const pt = to3D(hub.lat, hub.lon, R);
+          if (pt.z > 0) {
+            const screenX = cx + pt.x;
+            const screenY = cy - pt.y;
+            const dist = Math.hypot(mouseX - screenX, mouseY - screenY);
+            if (dist < 14) {
+              hoveredHub = hub;
+              break;
+            }
+          }
+        }
+
+        if (hoveredHub && tooltip && tooltipCity && tooltipRole) {
+          tooltip.style.opacity = '1';
+          tooltip.style.left = `${mouseX + 12}px`;
+          tooltip.style.top = `${mouseY - 24}px`;
+          tooltipCity.textContent = hoveredHub.name;
+          tooltipRole.textContent = hoveredHub.role;
+        } else if (tooltip) {
+          tooltip.style.opacity = '0';
+        }
+        return;
+      }
+
+      const dx = e.clientX - lastMouseX;
+      const dy = e.clientY - lastMouseY;
+      lastMouseX = e.clientX;
+      lastMouseY = e.clientY;
+
+      targetRotY += dx * 0.008;
+      targetRotX += dy * 0.008;
+      // Clamp X rotation to avoid flipping upside down
+      targetRotX = Math.max(-1.2, Math.min(1.2, targetRotX));
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (isDragging) {
+        isDragging = false;
+        clearTimeout(autoSpinTimeout);
+        autoSpinTimeout = setTimeout(() => {
+          autoSpin = true;
+        }, 2500);
+      }
+    });
+
+    // Touch support for mobile devices
+    canvas.addEventListener('touchstart', (e) => {
+      if (e.touches.length === 1) {
+        isDragging = true;
+        autoSpin = false;
+        lastMouseX = e.touches[0].clientX;
+        lastMouseY = e.touches[0].clientY;
+      }
+    });
+
+    canvas.addEventListener('touchmove', (e) => {
+      if (isDragging && e.touches.length === 1) {
+        const dx = e.touches[0].clientX - lastMouseX;
+        const dy = e.touches[0].clientY - lastMouseY;
+        lastMouseX = e.touches[0].clientX;
+        lastMouseY = e.touches[0].clientY;
+
+        targetRotY += dx * 0.01;
+        targetRotX += dy * 0.01;
+        targetRotX = Math.max(-1.2, Math.min(1.2, targetRotX));
+      }
+    });
+
+    canvas.addEventListener('touchend', () => {
+      isDragging = false;
+      setTimeout(() => { autoSpin = true; }, 3000);
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', init3DGlobe);
+</script>

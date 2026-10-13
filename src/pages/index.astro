@@ -4,22 +4,46 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
 import PhilosophySection from '../components/PhilosophySection.astro';
 import ProgramsGrid from '../components/ProgramsGrid.astro';
+import CivicAssessment from '../components/CivicAssessment.astro';
+import FellowshipCurriculumExplorer from '../components/FellowshipCurriculumExplorer.astro';
 ---
 
 <BaseLayout
   title="School of Awakened Politics (SAP) | Lead from Your Authentic Self"
-  description="Centre for Excellence in Leadership and Governance. Inspiring conscious, purpose-driven political leaders through authentic stewardship and empathy."
+  description="Centre for Excellence in Leadership and Governance. Inspiring conscious, purpose-driven political leaders through authentic stewardship, empathy, and systemic training."
 >
-  <!-- Hero Section -->
+  <!-- Hero Section with Interactive 3D Leadership Globe -->
   <Hero />
 
-  <!-- Foundational Philosophy & Stance -->
+  <!-- Foundational Philosophy & Academic Stance -->
   <PhilosophySection />
 
-  <!-- Core Programs Grid -->
+  <!-- Interactive 3D Programs Grid -->
   <ProgramsGrid />
 
-  <!-- Audience & Eligibility Section -->
+  <!-- Interactive Civic Leader Diagnostic Tool (Quiz) -->
+  <CivicAssessment />
+
+  <!-- 6-Month Fellowship Interactive Curriculum Architecture -->
+  <section class="py-20 bg-sap-sand border-b border-stone-200">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <span class="inline-block text-xs font-semibold uppercase tracking-widest text-sap-terracotta bg-amber-100/60 px-3.5 py-1 rounded-full border border-amber-300">
+          The Learning Arc
+        </span>
+        <h2 class="mt-3 font-serif text-3xl font-bold text-sap-navy sm:text-4xl">
+          Inside the Fellowship Experience
+        </h2>
+        <p class="mt-2 text-slate-600 text-sm sm:text-base leading-relaxed">
+          Explore the immersive 6-month journey that transforms high-potential citizens into grounded statespeople.
+        </p>
+      </div>
+
+      <FellowshipCurriculumExplorer />
+    </div>
+  </section>
+
+  <!-- Inclusivity, Audience & Eligibility Section -->
   <section class="py-20 bg-white border-t border-stone-200">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
