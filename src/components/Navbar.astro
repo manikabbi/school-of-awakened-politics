@@ -18,10 +18,10 @@ const navLinks = [
 ---
 
 <header class="sticky top-0 z-40 w-full border-b border-stone-200 dark:border-slate-800/80 bg-[#fbf8f2]/95 dark:bg-[#0b192c]/95 backdrop-blur-md transition-colors duration-200">
-  <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
-    <!-- Brand Logo Lockup: Centered Emblem + Prominent Typography -->
-    <a href="/" class="group flex items-center gap-3.5 transition py-0.5">
-      <div class="flex h-12 w-12 sm:h-14 sm:w-14 shrink-0 items-center justify-center rounded-xl bg-amber-500/10 dark:bg-white/5 border border-amber-400/30 p-1 group-hover:scale-105 transition-transform shadow-sm">
+  <div class="mx-auto flex max-w-7xl items-center justify-between px-3 sm:px-6 lg:px-8 py-2.5 sm:py-3">
+    <!-- Brand Logo Lockup: Centered Emblem + Scaled Typography -->
+    <a href="/" class="group flex items-center gap-2 sm:gap-3.5 transition py-0.5 shrink min-w-0 max-w-[70%] sm:max-w-none">
+      <div class="flex h-10 w-10 sm:h-14 sm:w-14 shrink-0 items-center justify-center rounded-xl bg-amber-500/10 dark:bg-white/5 border border-amber-400/30 p-1 group-hover:scale-105 transition-transform shadow-sm">
         <img 
           src="/logo.svg" 
           alt="School of Awakened Politics Emblem" 
@@ -29,17 +29,17 @@ const navLinks = [
         />
       </div>
       
-      <div class="flex flex-col justify-center">
-        <div class="flex items-center gap-2">
-          <span class="font-cinzel text-base sm:text-lg font-bold tracking-wider text-sap-terracotta dark:text-amber-400 group-hover:text-amber-500 transition">
+      <div class="flex flex-col justify-center min-w-0">
+        <div class="flex items-center gap-1.5 sm:gap-2">
+          <span class="font-cinzel text-sm sm:text-lg font-bold tracking-wider text-sap-terracotta dark:text-amber-400 group-hover:text-amber-500 transition">
             SAP
           </span>
-          <span class="h-3.5 w-px bg-stone-300 dark:bg-slate-700 inline-block"></span>
-          <span class="font-serif text-sm sm:text-base lg:text-lg font-bold tracking-tight text-slate-900 dark:text-white group-hover:text-sap-terracotta dark:group-hover:text-amber-200 transition">
+          <span class="h-3 sm:h-3.5 w-px bg-stone-300 dark:bg-slate-700 inline-block shrink-0"></span>
+          <span class="font-serif text-xs sm:text-base lg:text-lg font-bold tracking-tight text-slate-900 dark:text-white group-hover:text-sap-terracotta dark:group-hover:text-amber-200 transition truncate">
             School of Awakened Politics
           </span>
         </div>
-        <span class="font-cinzel text-[11px] sm:text-xs font-semibold tracking-wider text-sap-terracotta dark:text-amber-300/95 mt-0.5 uppercase whitespace-nowrap">
+        <span class="font-cinzel text-[9px] sm:text-xs font-semibold tracking-wider text-sap-terracotta dark:text-amber-300/95 mt-0.5 uppercase truncate">
           Lead from Your Authentic Self
         </span>
       </div>
@@ -64,13 +64,13 @@ const navLinks = [
       })}
     </nav>
 
-    <!-- Actions: Theme Switcher + CTA -->
-    <div class="flex items-center gap-3">
+    <!-- Actions: Theme Switcher + CTA + Mobile Hamburger -->
+    <div class="flex items-center gap-2 sm:gap-3 shrink-0">
       <!-- Light / Dark Theme Switcher Button -->
       <button
         id="theme-toggle-btn"
         type="button"
-        class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-stone-300 dark:border-slate-700 bg-stone-100 dark:bg-white/5 text-slate-700 dark:text-amber-300 hover:bg-stone-200 dark:hover:bg-white/15 hover:scale-105 transition focus:outline-none"
+        class="inline-flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full border border-stone-300 dark:border-slate-700 bg-stone-100 dark:bg-white/5 text-slate-700 dark:text-amber-300 hover:bg-stone-200 dark:hover:bg-white/15 hover:scale-105 transition focus:outline-none"
         title="Toggle Light / Dark Theme"
         aria-label="Toggle theme"
       >
@@ -84,10 +84,10 @@ const navLinks = [
         </svg>
       </button>
 
-      <!-- Apply Now CTA -->
+      <!-- Apply Now CTA (Shown on sm+, in mobile drawer on xs) -->
       <button
         type="button"
-        class="trigger-apply-modal rounded-full bg-sap-terracotta px-5 py-2 text-xs font-semibold uppercase tracking-wider text-white shadow-md hover:bg-sap-terracottaDark transition focus:outline-none focus:ring-2 focus:ring-amber-400"
+        class="trigger-apply-modal hidden sm:inline-flex rounded-full bg-sap-terracotta px-4 sm:px-5 py-2 text-xs font-semibold uppercase tracking-wider text-white shadow-md hover:bg-sap-terracottaDark transition focus:outline-none focus:ring-2 focus:ring-amber-400"
       >
         Apply Now
       </button>
@@ -96,7 +96,7 @@ const navLinks = [
       <button
         id="mobile-menu-toggle"
         type="button"
-        class="inline-flex rounded-lg p-2 text-slate-700 dark:text-slate-300 hover:bg-stone-100 dark:hover:bg-white/10 lg:hidden focus:outline-none"
+        class="inline-flex rounded-lg p-1.5 sm:p-2 text-slate-700 dark:text-slate-300 hover:bg-stone-100 dark:hover:bg-white/10 lg:hidden focus:outline-none"
         aria-label="Toggle navigation menu"
       >
         <svg id="menu-icon-bars" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">

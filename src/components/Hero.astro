@@ -2,7 +2,7 @@
 // src/components/Hero.astro
 ---
 
-<section class="relative overflow-hidden bg-sap-navy py-24 sm:py-32 lg:py-36 text-white min-h-[90vh] flex items-center">
+<section class="relative overflow-hidden bg-sap-navy py-14 sm:py-24 lg:py-32 text-white min-h-[85vh] flex items-center">
   <!-- Background Image with Radiant Architectural Illumination (Parliament Model Highlighted) -->
   <div class="absolute inset-0 z-0">
     <img 
@@ -18,12 +18,12 @@
   </div>
 
   <div class="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
-    <div class="max-w-3xl space-y-7">
+    <div class="max-w-3xl space-y-5 sm:space-y-7">
       <!-- Badges -->
-      <div class="flex flex-wrap items-center gap-3">
-        <div class="inline-flex items-center gap-2.5 rounded-full border border-amber-400/60 bg-slate-950/80 px-4 py-1.5 backdrop-blur-md shadow-lg">
+      <div class="flex flex-wrap items-center gap-2.5 sm:gap-3">
+        <div class="inline-flex items-center gap-2 rounded-full border border-amber-400/60 bg-slate-950/80 px-3.5 sm:px-4 py-1.5 backdrop-blur-md shadow-lg">
           <span class="text-sm">🇮🇳</span>
-          <span class="text-xs font-semibold uppercase tracking-widest text-amber-300">
+          <span class="text-[11px] sm:text-xs font-semibold uppercase tracking-widest text-amber-300">
             Made In India For The World
           </span>
         </div>
@@ -31,7 +31,7 @@
           href="https://www.findyouruniqueness.org" 
           target="_blank" 
           rel="noopener noreferrer" 
-          class="inline-flex items-center gap-2 rounded-full border border-amber-400/40 bg-slate-950/80 hover:bg-slate-900 px-4 py-1.5 backdrop-blur-md shadow-lg text-xs font-semibold uppercase tracking-widest text-amber-300/90 hover:text-white transition group"
+          class="inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-amber-400/40 bg-slate-950/80 hover:bg-slate-900 px-3.5 sm:px-4 py-1.5 backdrop-blur-md shadow-lg text-[11px] sm:text-xs font-semibold uppercase tracking-widest text-amber-300/90 hover:text-white transition group"
         >
           <span class="text-xs">⚡</span>
           <span>Powered by Find Your Uniqueness</span>
@@ -40,40 +40,40 @@
       </div>
 
       <!-- Main Headline -->
-      <h1 class="font-serif text-4xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl leading-[1.12]">
+      <h1 class="font-serif text-3xl sm:text-5xl lg:text-7xl font-bold tracking-tight text-white leading-[1.15]">
         Welcome to <br />
         <span class="text-amber-300 drop-shadow-md">School of Awakened Politics</span>
       </h1>
 
       <!-- Slogan & Descriptor -->
-      <p class="font-cinzel text-lg sm:text-2xl font-semibold tracking-wider text-amber-200">
+      <p class="font-cinzel text-base sm:text-xl lg:text-2xl font-semibold tracking-wider text-amber-200">
         Lead From Your Authentic Self
       </p>
 
-      <p class="text-base sm:text-lg text-slate-100 leading-relaxed max-w-2xl font-normal drop-shadow">
+      <p class="text-sm sm:text-base lg:text-lg text-slate-100 leading-relaxed max-w-2xl font-normal drop-shadow">
         <strong class="font-semibold text-white">Centre for Excellence in Leadership and Governance.</strong> 
         For those who aspire to lead from authenticity, empathy, and deep awareness — bridging the gap between inner transformation and societal stewardship.
       </p>
 
       <!-- Action Buttons -->
-      <div class="flex flex-wrap items-center gap-4 pt-2">
+      <div class="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 sm:gap-4 pt-2">
         <button
           type="button"
-          class="trigger-apply-modal inline-flex items-center justify-center rounded-lg bg-sap-terracotta px-8 py-4 text-xs sm:text-sm font-semibold uppercase tracking-wider text-white shadow-xl shadow-sap-terracotta/30 hover:bg-sap-terracottaDark transition focus:outline-none focus:ring-2 focus:ring-amber-400"
+          class="trigger-apply-modal w-full sm:w-auto inline-flex items-center justify-center rounded-lg bg-sap-terracotta px-6 sm:px-8 py-3.5 sm:py-4 text-xs sm:text-sm font-semibold uppercase tracking-wider text-white shadow-xl shadow-sap-terracotta/30 hover:bg-sap-terracottaDark transition focus:outline-none focus:ring-2 focus:ring-amber-400 text-center"
         >
           APPLY FOR FELLOWSHIP →
         </button>
 
         <a
           href="#global-circuits"
-          class="inline-flex items-center justify-center rounded-lg border border-amber-400/60 bg-slate-950/60 px-6 py-4 text-xs sm:text-sm font-semibold text-amber-200 backdrop-blur-md hover:bg-white/20 hover:text-white transition"
+          class="w-full sm:w-auto inline-flex items-center justify-center rounded-lg border border-amber-400/60 bg-slate-950/60 px-5 sm:px-6 py-3.5 sm:py-4 text-xs sm:text-sm font-semibold text-amber-200 backdrop-blur-md hover:bg-white/20 hover:text-white transition text-center"
         >
           Explore Global Circuits ↓
         </a>
 
         <a
           href="#assessment"
-          class="inline-flex items-center justify-center rounded-lg border border-white/30 bg-white/10 px-6 py-4 text-xs sm:text-sm font-semibold text-white backdrop-blur-md hover:bg-white/20 transition"
+          class="w-full sm:w-auto inline-flex items-center justify-center rounded-lg border border-white/30 bg-white/10 px-5 sm:px-6 py-3.5 sm:py-4 text-xs sm:text-sm font-semibold text-white backdrop-blur-md hover:bg-white/20 transition text-center"
         >
           Take 60s Quiz ↓
         </a>
