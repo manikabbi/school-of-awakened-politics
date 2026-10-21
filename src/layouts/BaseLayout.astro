@@ -18,7 +18,12 @@ const {
   image = "https://schoolofawakenedpolitics.org/og-card.jpg?v=4"
 } = Astro.props;
 
-const canonicalUrl = new URL(Astro.url.pathname, "https://schoolofawakenedpolitics.org").href;
+// Format canonical URL ensuring trailing slash matches Astro static site generation
+const rawPath = Astro.url.pathname;
+const cleanPath = (rawPath === '/' || rawPath.endsWith('/') || rawPath.includes('.'))
+  ? rawPath
+  : `${rawPath}/`;
+const canonicalUrl = new URL(cleanPath, "https://schoolofawakenedpolitics.org").href;
 const currentPath = Astro.url.pathname;
 
 const jsonLd = {
@@ -28,25 +33,55 @@ const jsonLd = {
       "@type": "EducationalOrganization",
       "@id": "https://schoolofawakenedpolitics.org/#organization",
       "name": "School of Awakened Politics",
-      "alternateName": "SAP",
-      "url": "https://schoolofawakenedpolitics.org",
-      "logo": "https://schoolofawakenedpolitics.org/logo.svg",
+      "alternateName": [
+        "SAP",
+        "School of Awakened Politics (SAP)",
+        "School of Awakened Politics India"
+      ],
+      "url": "https://schoolofawakenedpolitics.org/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://schoolofawakenedpolitics.org/logo.svg",
+        "width": "512",
+        "height": "512"
+      },
+      "image": "https://schoolofawakenedpolitics.org/og-card.jpg?v=4",
       "description": "Centre for Excellence in Leadership and Governance. Inspiring conscious, purpose-driven political leaders through authentic stewardship, empathy, and systemic training.",
       "foundingDate": "2026",
       "slogan": "Lead From Your Authentic Self",
       "areaServed": "Global",
+      "parentOrganization": {
+        "@type": "Organization",
+        "name": "Find Your Uniqueness",
+        "url": "https://www.findyouruniqueness.org"
+      },
+      "knowsAbout": [
+        "Political Leadership",
+        "Conscious Politics",
+        "Public Policy Fellowship",
+        "Governance and Statecraft",
+        "Ethical Leadership",
+        "Democratic Institutions"
+      ],
       "sameAs": [
         "https://www.findyouruniqueness.org"
-      ]
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "Admissions & Inquiries",
+        "url": "https://schoolofawakenedpolitics.org/contact/"
+      }
     },
     {
       "@type": "WebSite",
       "@id": "https://schoolofawakenedpolitics.org/#website",
-      "url": "https://schoolofawakenedpolitics.org",
+      "url": "https://schoolofawakenedpolitics.org/",
       "name": "School of Awakened Politics",
+      "description": "Centre for Excellence in Leadership and Governance. Inspiring conscious, purpose-driven political leaders.",
       "publisher": {
         "@id": "https://schoolofawakenedpolitics.org/#organization"
-      }
+      },
+      "inLanguage": "en-US"
     }
   ]
 };
@@ -64,9 +99,14 @@ const jsonLd = {
     <title>{title}</title>
     <meta name="title" content={title} />
     <meta name="description" content={description} />
-    <meta name="keywords" content="politics, political leadership, conscious politics, governance training India, leadership fellowship, political school India, school of awakened politics, ethical statecraft, public policy fellowship, Find Your Uniqueness" />
+    <meta name="keywords" content="School of Awakened Politics, school of awakened politics, schoolofawakenedpolitics.org, SAP politics, political school India, conscious politics, ethical political leadership, governance fellowship India, political fellowship, public policy fellowship, Find Your Uniqueness, authentic leadership" />
     <meta name="author" content="School of Awakened Politics" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="revisit-after" content="2 days" />
+    <meta name="geo.region" content="IN" />
+    <meta name="geo.placename" content="India" />
     <link rel="canonical" href={canonicalUrl} />
 
     <!-- Open Graph / Facebook / LinkedIn / WhatsApp -->
