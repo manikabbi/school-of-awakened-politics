@@ -60,7 +60,7 @@
 <!-- Padma AI Chat Window Modal -->
 <div 
   id="padma-chat-modal" 
-  class="fixed bottom-6 right-6 z-50 hidden w-[92vw] sm:w-[420px] max-w-[440px] h-[580px] max-h-[85vh] flex-col rounded-3xl bg-white dark:bg-[#0b192c] shadow-2xl border border-stone-200 dark:border-slate-700/80 overflow-hidden transition-all duration-300"
+  class="fixed bottom-3 inset-x-3 sm:inset-x-auto sm:bottom-6 sm:right-6 z-50 hidden w-auto sm:w-[420px] max-w-[440px] mx-auto sm:mx-0 h-[540px] max-h-[82dvh] sm:max-h-[85vh] sm:h-[580px] flex-col rounded-3xl bg-white dark:bg-[#0b192c] shadow-2xl border border-stone-200 dark:border-slate-700/80 overflow-hidden transition-all duration-300"
 >
   <!-- Chat Window Header -->
   <div class="flex items-center justify-between border-b border-stone-200 dark:border-slate-800 bg-[#fbf8f2] dark:bg-[#071322] px-4 py-3.5">
@@ -168,7 +168,7 @@
       id="padma-input" 
       placeholder="Ask Padma a question about SAP..." 
       autocomplete="off"
-      class="flex-1 rounded-xl border border-stone-300 dark:border-slate-600 bg-stone-50 dark:bg-[#162d4a] px-3.5 py-2.5 text-xs text-slate-900 dark:text-white placeholder-slate-400 focus:border-amber-500 dark:focus:border-amber-400 focus:outline-none focus:ring-1 focus:ring-amber-500"
+      class="flex-1 rounded-xl border border-stone-300 dark:border-slate-600 bg-stone-50 dark:bg-[#162d4a] px-3.5 py-2.5 text-[16px] sm:text-xs text-slate-900 dark:text-white placeholder-slate-400 focus:border-amber-500 dark:focus:border-amber-400 focus:outline-none focus:ring-1 focus:ring-amber-500"
     />
     <button 
       type="submit" 
@@ -385,7 +385,10 @@
       modal?.classList.add('flex');
       container?.classList.add('hidden');
       teaser?.remove();
-      input?.focus();
+      // Only auto-focus on desktop; on mobile, auto-focus causes immediate keyboard pop-up and screen shifts
+      if (window.innerWidth >= 640) {
+        input?.focus();
+      }
     }
 
     function closeChat() {
