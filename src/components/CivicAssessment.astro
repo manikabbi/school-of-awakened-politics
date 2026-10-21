@@ -254,6 +254,14 @@
       }
 
       const res = archetypes[topKey];
+      try {
+        localStorage.setItem('sap_last_archetype', JSON.stringify({
+          key: topKey,
+          title: res.title,
+          program: res.program
+        }));
+      } catch (e) {}
+
       const resultIcon = document.getElementById('result-icon');
       const resultSubtitle = document.getElementById('result-subtitle');
       const resultTitle = document.getElementById('result-title');

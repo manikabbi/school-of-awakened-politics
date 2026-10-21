@@ -206,6 +206,7 @@
     email: string;
     phone: string;
     program: string;
+    archetype?: string;
     statement: string;
   }
 
@@ -313,7 +314,7 @@
         alert('No applications to export.');
         return;
       }
-      const headers = ['Ref ID', 'Timestamp', 'Full Name', 'Email', 'Phone', 'Program', 'Statement'];
+      const headers = ['Ref ID', 'Timestamp', 'Full Name', 'Email', 'Phone', 'Program', 'Civic Archetype', 'Statement'];
       const csvRows = [headers.join(',')];
       records.forEach(r => {
         const row = [
@@ -323,6 +324,7 @@
           `"${r.email.replace(/"/g, '""')}"`,
           `"${r.phone.replace(/"/g, '""')}"`,
           `"${r.program.replace(/"/g, '""')}"`,
+          `"${(r.archetype || 'Not taken').replace(/"/g, '""')}"`,
           `"${(r.statement || '').replace(/"/g, '""')}"`
         ];
         csvRows.push(row.join(','));
@@ -364,6 +366,16 @@
 
       const formData = new FormData(form);
       const refId = `SAP-2026-${Date.now().toString(36).toUpperCase()}`;
+
+      let userArchetype = 'Not taken';
+      try {
+        const storedArch = localStorage.getItem('sap_last_archetype');
+        if (storedArch) {
+          const parsed = JSON.parse(storedArch);
+          userArchetype = parsed.title || 'Not taken';
+        }
+      } catch (e) {}
+
       const record: ApplicationRecord = {
         id: refId,
         timestamp: new Date().toISOString(),
@@ -371,6 +383,7 @@
         email: String(formData.get('email') || ''),
         phone: String(formData.get('phone') || ''),
         program: String(formData.get('program') || ''),
+        archetype: userArchetype,
         statement: String(formData.get('statement') || '')
       };
 
@@ -385,7 +398,7 @@
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify({
           access_key: '5b1dc854-c8c8-4ce6-a797-ea6541f92e7b', // Standard public key fallback
-          subject: `New SAP Application [${refId}]: ${record.fullName}`,
+          subject: `New SAP Application [${refId}]: ${record.fullName} (${userArchetype})`,
           from_name: 'SAP Admissions Portal',
           replyto: record.email,
           ...record
@@ -402,7 +415,10 @@
           method: 'POST',
           mode: 'no-cors',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(record)
+          body: JSON.stringify({
+            formType: 'application',
+            ...record
+          })
         }).catch(err => {
           console.warn('Google Sheet dispatch warning (handled):', err);
         });

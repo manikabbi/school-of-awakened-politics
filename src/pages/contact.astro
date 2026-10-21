@@ -212,7 +212,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             method: 'POST',
             mode: 'no-cors',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(record)
+            body: JSON.stringify({
+              formType: 'contact',
+              ...record
+            })
           }).catch(() => {});
         }
 

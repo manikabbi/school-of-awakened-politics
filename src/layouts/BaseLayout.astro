@@ -9,14 +9,47 @@ import '../styles/global.css';
 interface Props {
   title?: string;
   description?: string;
+  image?: string;
 }
 
 const {
   title = "School of Awakened Politics (SAP) | Lead from Your Authentic Self",
-  description = "Centre for Excellence in Leadership and Governance. Cultivating conscious, purpose-driven political leaders through authentic stewardship and empathy."
+  description = "Centre for Excellence in Leadership and Governance. Cultivating conscious, purpose-driven political leaders through authentic stewardship, empathy, and systemic training.",
+  image = "https://schoolofawakenedpolitics.org/og-image.jpg"
 } = Astro.props;
 
+const canonicalUrl = new URL(Astro.url.pathname, "https://schoolofawakenedpolitics.org").href;
 const currentPath = Astro.url.pathname;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "EducationalOrganization",
+      "@id": "https://schoolofawakenedpolitics.org/#organization",
+      "name": "School of Awakened Politics",
+      "alternateName": "SAP",
+      "url": "https://schoolofawakenedpolitics.org",
+      "logo": "https://schoolofawakenedpolitics.org/logo.svg",
+      "description": "Centre for Excellence in Leadership and Governance. Inspiring conscious, purpose-driven political leaders through authentic stewardship, empathy, and systemic training.",
+      "foundingDate": "2026",
+      "slogan": "Lead From Your Authentic Self",
+      "areaServed": "Global",
+      "sameAs": [
+        "https://www.findyouruniqueness.org"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://schoolofawakenedpolitics.org/#website",
+      "url": "https://schoolofawakenedpolitics.org",
+      "name": "School of Awakened Politics",
+      "publisher": {
+        "@id": "https://schoolofawakenedpolitics.org/#organization"
+      }
+    }
+  ]
+};
 ---
 
 <!doctype html>
@@ -26,14 +59,36 @@ const currentPath = Astro.url.pathname;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
+    
+    <!-- Primary Meta Tags -->
     <title>{title}</title>
+    <meta name="title" content={title} />
     <meta name="description" content={description} />
+    <meta name="keywords" content="politics, political leadership, conscious politics, governance training India, leadership fellowship, political school India, school of awakened politics, ethical statecraft, public policy fellowship, Find Your Uniqueness" />
+    <meta name="author" content="School of Awakened Politics" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <link rel="canonical" href={canonicalUrl} />
 
-    <!-- Open Graph / Meta -->
+    <!-- Open Graph / Facebook / LinkedIn / WhatsApp -->
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content="School of Awakened Politics" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content="/hero-parliament.jpg" />
+    <meta property="og:image" content={image} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalUrl} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 
     <!-- Theme Initializer: Runs before render to prevent flash -->
     <script is:inline>

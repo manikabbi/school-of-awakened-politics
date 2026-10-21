@@ -1,0 +1,26 @@
+# Enable Rewrite Engine
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Force HTTPS
+  RewriteCond %{HTTPS} !=on
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# Security Headers
+<IfModule mod_headers.c>
+  # Protect against MIME type sniffing
+  Header always set X-Content-Type-Options "nosniff"
+
+  # Clickjacking protection
+  Header always set X-Frame-Options "SAMEORIGIN"
+
+  # Referrer policy
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+  # HTTP Strict Transport Security (HSTS)
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+
+  # Permissions Policy
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+</IfModule>
