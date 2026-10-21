@@ -46,7 +46,7 @@ function doPost(e) {
         "Phone / WhatsApp",
         "Program Selected",
         "Civic Archetype (Quiz)",
-        "Statement of Purpose",
+        "Why Join & Vision of Politics",
         "Status"
       ]);
 
