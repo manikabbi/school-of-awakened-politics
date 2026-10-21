@@ -260,6 +260,22 @@
           title: res.title,
           program: res.program
         }));
+
+        // Dispatch diagnostic event to Google Sheets CRM
+        const DEFAULT_SHEET_WEBHOOK = 'https://script.google.com/macros/s/AKfycbzpRq6ml91ESkW4NmHUD2P0SVJQDppcEUvewRrHc6tO8QlldQgEWXbWsp3weAXM8f_Q/exec';
+        const sheetUrl = localStorage.getItem('sap_sheets_webhook_url') || DEFAULT_SHEET_WEBHOOK;
+        if (sheetUrl && sheetUrl.startsWith('http')) {
+          fetch(sheetUrl, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              formType: 'quiz',
+              archetype: res.title,
+              program: res.program
+            })
+          }).catch(() => {});
+        }
       } catch (e) {}
 
       const resultIcon = document.getElementById('result-icon');
