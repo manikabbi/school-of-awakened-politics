@@ -1,6 +1,7 @@
 ---
 // src/pages/blogs.astro
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ArticleProposalModal from '../components/ArticleProposalModal.astro';
 
 const articles = [
   {
@@ -62,13 +63,13 @@ const articles = [
             We welcome original contributions from scholars, active civil servants, and civic practitioners on ethical governance, depolarizing communication, and institutional reform.
           </p>
         </div>
-        <a
-          href="mailto:info@schoolofawakenedpolitics.org?subject=Publishing%20Submission"
-          class="shrink-0 inline-flex items-center gap-2 rounded-lg bg-sap-terracotta hover:bg-sap-terracottaDark px-6 py-3 text-xs font-semibold uppercase tracking-wider text-white shadow-md hover:shadow-lg transition-all"
+        <button
+          type="button"
+          class="trigger-proposal-modal shrink-0 inline-flex items-center gap-2 rounded-lg bg-sap-terracotta hover:bg-sap-terracottaDark px-6 py-3 text-xs font-semibold uppercase tracking-wider text-white shadow-md hover:shadow-lg transition-all active:scale-[0.98] cursor-pointer"
         >
           Submit an Article Proposal
           <span class="text-sm">→</span>
-        </a>
+        </button>
       </div>
 
       <!-- Featured Perspectives -->
@@ -175,14 +176,12 @@ const articles = [
         }).catch(() => {});
       }
 
-      // 2. Email notify
-      fetch('https://api.web3forms.com/submit', {
+      // 2. Email notify via Hostinger Native Mailer
+      fetch('/api/notify.php', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          access_key: '5b1dc854-c8c8-4ce6-a797-ea6541f92e7b',
-          subject: `New SAP Gazette Subscriber: ${email}`,
-          from_name: 'SAP Publishing Portal',
+          formType: 'newsletter',
           email: email
         })
       }).catch(() => {});
@@ -198,4 +197,7 @@ const articles = [
       }, 3000);
     });
   </script>
+
+  <!-- Article & Manuscript Proposal Modal -->
+  <ArticleProposalModal />
 </BaseLayout>

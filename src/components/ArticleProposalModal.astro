@@ -1,0 +1,287 @@
+---
+// src/components/ArticleProposalModal.astro
+---
+
+<div id="article-proposal-modal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-slate-950/75 backdrop-blur-sm transition-opacity">
+  <div class="flex min-h-screen items-center justify-center p-4 sm:p-6">
+    <div class="relative w-full max-w-lg rounded-2xl bg-white dark:bg-[#0b192c] p-6 sm:p-8 shadow-2xl border border-stone-200 dark:border-slate-700/80 transition-all">
+      <!-- Close Button -->
+      <button 
+        type="button" 
+        id="close-proposal-modal-btn"
+        class="absolute right-4 top-4 rounded-full p-2 text-slate-400 hover:bg-stone-100 dark:hover:bg-white/10 hover:text-slate-700 dark:hover:text-white transition"
+        aria-label="Close modal"
+      >
+        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+
+      <!-- Header -->
+      <div class="mb-6">
+        <span class="inline-block rounded-full bg-amber-100 dark:bg-amber-500/20 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-sap-terracotta dark:text-amber-300">
+          Editorial & Publishing Platform
+        </span>
+        <h3 class="mt-2 text-2xl font-serif font-bold text-sap-navy dark:text-white">
+          Submit an Article Proposal
+        </h3>
+        <p class="mt-1 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          Share your research, essays, or policy insights for review by the School of Awakened Politics editorial board.
+        </p>
+      </div>
+
+      <!-- Submission Form -->
+      <form id="sap-proposal-form" class="space-y-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label for="propFullName" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+              Author Name <span class="text-rose-500">*</span>
+            </label>
+            <input 
+              type="text" 
+              id="propFullName" 
+              name="fullName" 
+              required 
+              placeholder="e.g. Dr. Kavita Raman"
+              class="mt-1 w-full rounded-lg border border-stone-300 dark:border-slate-600 bg-stone-50 dark:bg-[#162d4a] px-3.5 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-400 focus:border-amber-500 dark:focus:border-amber-400 focus:outline-none focus:ring-1 focus:ring-amber-500"
+            />
+          </div>
+
+          <div>
+            <label for="propEmail" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+              Email ID <span class="text-rose-500">*</span>
+            </label>
+            <input 
+              type="email" 
+              id="propEmail" 
+              name="email" 
+              required 
+              placeholder="kavita@domain.org"
+              class="mt-1 w-full rounded-lg border border-stone-300 dark:border-slate-600 bg-stone-50 dark:bg-[#162d4a] px-3.5 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-400 focus:border-amber-500 dark:focus:border-amber-400 focus:outline-none focus:ring-1 focus:ring-amber-500"
+            />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label for="propPhone" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+              Phone / WhatsApp
+            </label>
+            <input 
+              type="tel" 
+              id="propPhone" 
+              name="phone" 
+              placeholder="+91 98765 43210"
+              class="mt-1 w-full rounded-lg border border-stone-300 dark:border-slate-600 bg-stone-50 dark:bg-[#162d4a] px-3.5 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-400 focus:border-amber-500 dark:focus:border-amber-400 focus:outline-none focus:ring-1 focus:ring-amber-500"
+            />
+          </div>
+
+          <div>
+            <label for="propAffiliation" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+              Role / Affiliation
+            </label>
+            <input 
+              type="text" 
+              id="propAffiliation" 
+              name="affiliation" 
+              placeholder="e.g. Civic Practitioner / Scholar"
+              class="mt-1 w-full rounded-lg border border-stone-300 dark:border-slate-600 bg-stone-50 dark:bg-[#162d4a] px-3.5 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-400 focus:border-amber-500 dark:focus:border-amber-400 focus:outline-none focus:ring-1 focus:ring-amber-500"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label for="propTitle" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+            Proposed Article / Essay Title <span class="text-rose-500">*</span>
+          </label>
+          <input 
+            type="text" 
+            id="propTitle" 
+            name="title" 
+            required 
+            placeholder="e.g. Reconstructing Rajadharma: Ethics in 21st-Century Statecraft"
+            class="mt-1 w-full rounded-lg border border-stone-300 dark:border-slate-600 bg-stone-50 dark:bg-[#162d4a] px-3.5 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-400 focus:border-amber-500 dark:focus:border-amber-400 focus:outline-none focus:ring-1 focus:ring-amber-500"
+          />
+        </div>
+
+        <div>
+          <label for="propCategory" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+            Thematic Track <span class="text-rose-500">*</span>
+          </label>
+          <select 
+            id="propCategory" 
+            name="category"
+            required
+            class="mt-1 w-full rounded-lg border border-stone-300 dark:border-slate-600 bg-stone-50 dark:bg-[#162d4a] px-3.5 py-2.5 text-sm text-slate-900 dark:text-white focus:border-amber-500 dark:focus:border-amber-400 focus:outline-none focus:ring-1 focus:ring-amber-500"
+          >
+            <option value="Manifesto & Theory">Manifesto & Political Theory</option>
+            <option value="Governance & Ethics">Governance, Ethics & Empathy</option>
+            <option value="Civilisational Thought">Civilisational Thought & Rajadharma</option>
+            <option value="Policy & Institutional Reform">Policy & Institutional Reform</option>
+            <option value="Conscious Leadership">Conscious Leadership & Depolarization</option>
+            <option value="General Perspectives">General Philosophical Perspectives</option>
+          </select>
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between">
+            <label for="propAbstract" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+              Abstract / Proposal Synopsis <span class="text-rose-500">*</span>
+            </label>
+            <span class="text-[10px] text-slate-400 dark:text-slate-500">2–5 sentences</span>
+          </div>
+          <textarea 
+            id="propAbstract" 
+            name="abstract" 
+            rows="3" 
+            required
+            placeholder="Summarize the core thesis, key insights, and systemic relevance of your proposed article..."
+            class="mt-1.5 w-full rounded-lg border border-stone-300 dark:border-slate-600 bg-stone-50 dark:bg-[#162d4a] px-3.5 py-2 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-400 focus:border-amber-500 dark:focus:border-amber-400 focus:outline-none focus:ring-1 focus:ring-amber-500"
+          ></textarea>
+        </div>
+
+        <div>
+          <label for="propDraftUrl" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+            Draft / Manuscript Link <span class="text-slate-400 text-[10px] lowercase">(optional)</span>
+          </label>
+          <input 
+            type="url" 
+            id="propDraftUrl" 
+            name="draftUrl" 
+            placeholder="https://docs.google.com/... or Notion/Dropbox link"
+            class="mt-1 w-full rounded-lg border border-stone-300 dark:border-slate-600 bg-stone-50 dark:bg-[#162d4a] px-3.5 py-2 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-400 focus:border-amber-500 dark:focus:border-amber-400 focus:outline-none focus:ring-1 focus:ring-amber-500"
+          />
+        </div>
+
+        <div id="proposal-feedback" class="hidden rounded-xl p-3.5 text-xs font-medium space-y-1"></div>
+
+        <button 
+          type="submit" 
+          id="proposal-submit-btn"
+          class="w-full rounded-lg bg-sap-terracotta px-6 py-3 text-sm font-semibold uppercase tracking-wider text-white shadow-md hover:bg-sap-terracottaDark transition focus:outline-none focus:ring-2 focus:ring-amber-400 active:scale-[0.99]"
+        >
+          Submit Proposal →
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  function setupProposalSystem() {
+    const modal = document.getElementById('article-proposal-modal');
+    const closeBtn = document.getElementById('close-proposal-modal-btn');
+    const form = document.getElementById('sap-proposal-form') as HTMLFormElement | null;
+    const feedback = document.getElementById('proposal-feedback');
+    const submitBtn = document.getElementById('proposal-submit-btn');
+    const triggers = document.querySelectorAll('.trigger-proposal-modal');
+
+    function openModal() {
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeModal() {
+      if (modal) modal.classList.add('hidden');
+    }
+
+    triggers.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        openModal();
+      });
+    });
+
+    closeBtn?.addEventListener('click', closeModal);
+    modal?.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (submitBtn) submitBtn.textContent = 'Submitting Proposal...';
+
+      const formData = new FormData(form);
+      const refId = `SAP-PUB-${Date.now().toString(36).toUpperCase()}`;
+
+      const payload = {
+        formType: 'article',
+        id: refId,
+        refId: refId,
+        fullName: String(formData.get('fullName') || ''),
+        email: String(formData.get('email') || ''),
+        phone: String(formData.get('phone') || ''),
+        affiliation: String(formData.get('affiliation') || ''),
+        title: String(formData.get('title') || ''),
+        category: String(formData.get('category') || ''),
+        abstract: String(formData.get('abstract') || ''),
+        draftUrl: String(formData.get('draftUrl') || ''),
+        submittedAt: new Date().toISOString()
+      };
+
+      // 1. Local storage record
+      try {
+        const stored = JSON.parse(localStorage.getItem('sap_article_proposals') || '[]');
+        stored.unshift(payload);
+        localStorage.setItem('sap_article_proposals', JSON.stringify(stored));
+      } catch (err) {}
+
+      // 2. Google Sheets Webhook Dispatch (Logs to Manuscripts tab)
+      const DEFAULT_SHEET_WEBHOOK = 'https://script.google.com/macros/s/AKfycbzpRq6ml91ESkW4NmHUD2P0SVJQDppcEUvewRrHc6tO8QlldQgEWXbWsp3weAXM8f_Q/exec';
+      const sheetUrl = localStorage.getItem('sap_sheets_webhook_url') || DEFAULT_SHEET_WEBHOOK;
+      let sheetPromise: Promise<any> | null = null;
+      if (sheetUrl && sheetUrl.startsWith('http')) {
+        sheetPromise = fetch(sheetUrl, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        }).catch(err => {
+          console.warn('Google Sheet dispatch warning:', err);
+        });
+      }
+
+      // 3. Native Server Email Dispatch (Direct to info@schoolofawakenedpolitics.org)
+      const emailPromise = fetch('/api/notify.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).catch(err => {
+        console.warn('Server notification warning:', err);
+      });
+
+      await Promise.allSettled([sheetPromise, emailPromise].filter(Boolean));
+
+      // Display rich success feedback
+      if (feedback) {
+        feedback.classList.remove('hidden');
+        feedback.className = 'rounded-xl p-4 text-xs font-medium bg-emerald-50 dark:bg-emerald-950/40 text-emerald-900 dark:text-emerald-200 border border-emerald-300 dark:border-emerald-700/60 space-y-1.5';
+        feedback.innerHTML = `
+          <div class="flex items-center gap-1.5 font-bold text-emerald-800 dark:text-emerald-300 text-sm">
+            <span>✓</span> Proposal Successfully Received!
+          </div>
+          <div>Reference ID: <strong class="font-mono text-sap-terracotta dark:text-amber-300">${refId}</strong></div>
+          <div class="text-[11px] text-emerald-700 dark:text-emerald-300/80 leading-relaxed">
+            • <strong>Google Sheets CRM:</strong> Logged in official Manuscripts registry.<br/>
+            • <strong>Editorial Notification:</strong> Dispatched to info@schoolofawakenedpolitics.org.<br/>
+            Our editorial committee will review your proposal and respond within 3–5 working days.
+          </div>
+        `;
+      }
+
+      form.reset();
+      if (submitBtn) submitBtn.textContent = 'Proposal Received ✓';
+
+      setTimeout(() => {
+        closeModal();
+        if (submitBtn) submitBtn.textContent = 'Submit Proposal →';
+        if (feedback) feedback.classList.add('hidden');
+      }, 5000);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupProposalSystem);
+  } else {
+    setupProposalSystem();
+  }
+</script>

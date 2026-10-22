@@ -400,15 +400,12 @@
       existing.unshift(record);
       saveStoredApplications(existing);
 
-      // 2. Email Pipeline: Web3Forms Dispatch to info@schoolofawakenedpolitics.org
-      const emailPromise = fetch('https://api.web3forms.com/submit', {
+      // 2. Email Pipeline: Hostinger Native Server Mailer to info@schoolofawakenedpolitics.org
+      const emailPromise = fetch('/api/notify.php', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          access_key: '5b1dc854-c8c8-4ce6-a797-ea6541f92e7b', // Standard public key fallback
-          subject: `New SAP Application [${refId}]: ${record.fullName} (${userArchetype})`,
-          from_name: 'SAP Admissions Portal',
-          replyto: record.email,
+          formType: 'application',
           ...record
         })
       }).catch(err => {

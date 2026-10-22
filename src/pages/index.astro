@@ -222,15 +222,12 @@ import FellowshipCurriculumExplorer from '../components/FellowshipCurriculumExpl
           localStorage.setItem('sap_applications', JSON.stringify(list));
         } catch (err) {}
 
-        // 2. Email dispatch
-        const emailPromise = fetch('https://api.web3forms.com/submit', {
+        // 2. Email dispatch via Hostinger Native Mailer
+        const emailPromise = fetch('/api/notify.php', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            access_key: '5b1dc854-c8c8-4ce6-a797-ea6541f92e7b',
-            subject: `New SAP Application [${refId}]: ${record.fullName}`,
-            from_name: 'SAP Admissions Portal',
-            replyto: record.email,
+            formType: 'application',
             ...record
           })
         }).catch(() => {});
