@@ -2,7 +2,7 @@
 // src/components/Hero.astro
 ---
 
-<section class="relative overflow-hidden bg-sap-navy text-white min-h-[calc(100vh-3.75rem)] flex flex-col justify-center py-4 sm:py-6 lg:py-5">
+<section class="relative overflow-hidden bg-sap-navy text-white min-h-[calc(100vh-3.75rem)] flex flex-col justify-center py-10 sm:py-14 lg:py-16 xl:py-20">
   <!-- Background Image with Radiant Architectural Illumination (Parliament Model Highlighted) -->
   <div class="absolute inset-0 z-0">
     <img 
@@ -19,8 +19,8 @@
 
   <div class="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
     <div class="max-w-3xl">
-      <!-- Badges -->
-      <div class="flex flex-wrap items-center gap-2.5 sm:gap-3">
+      <!-- Badges: Shifted up with generous breathing room below -->
+      <div class="flex flex-wrap items-center gap-2.5 sm:gap-3 mb-8 sm:mb-10 lg:mb-12">
         <div class="inline-flex items-center gap-2 rounded-full border border-amber-400/60 bg-slate-950/80 px-3.5 sm:px-4 py-1.5 backdrop-blur-md shadow-lg">
           <span class="text-xs sm:text-sm">🇮🇳</span>
           <span class="text-[11px] sm:text-xs font-semibold uppercase tracking-widest text-amber-300">
@@ -39,50 +39,50 @@
         </a>
       </div>
 
-      <!-- Main Headline -->
-      <h1 class="mt-4 sm:mt-5 font-serif text-3xl sm:text-5xl lg:text-[3.1rem] xl:text-[3.6rem] font-bold tracking-tight text-white leading-[1.12]">
-        Welcome to <br />
+      <!-- Main Headline: Breathable, elegant line-height -->
+      <h1 class="font-serif text-3xl sm:text-5xl lg:text-[3.25rem] xl:text-[3.75rem] font-bold tracking-tight text-white leading-[1.2] sm:leading-[1.16]">
+        <span class="block text-xl sm:text-2xl lg:text-3xl font-light text-slate-200/90 mb-3 sm:mb-4 font-serif tracking-normal">Welcome to</span>
         <span class="text-amber-300 drop-shadow-md">School of Awakened Politics</span>
       </h1>
 
-      <!-- Slogan & Descriptor -->
-      <p class="mt-3 sm:mt-4 font-cinzel text-base sm:text-xl lg:text-xl font-semibold tracking-wider text-amber-200">
+      <!-- Slogan & Descriptor: Generous breathing room and line-height -->
+      <p class="mt-6 sm:mt-7 lg:mt-8 font-cinzel text-base sm:text-xl lg:text-2xl font-semibold tracking-wider text-amber-200">
         Lead From Your Authentic Self
       </p>
 
-      <p class="mt-2.5 sm:mt-3 text-sm sm:text-base lg:text-[15.5px] text-slate-100 leading-relaxed max-w-2xl font-normal drop-shadow">
+      <p class="mt-5 sm:mt-6 lg:mt-7 text-sm sm:text-base lg:text-[17px] text-slate-100/95 leading-relaxed sm:leading-[1.8] max-w-2xl font-normal drop-shadow">
         <strong class="font-semibold text-white">Centre for Excellence in Leadership and Governance.</strong> 
         For those who aspire to lead from authenticity, empathy, and deep awareness — bridging the gap between inner transformation and societal stewardship.
       </p>
 
-      <!-- Action Buttons -->
-      <div class="mt-4 sm:mt-5 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 sm:gap-3.5">
+      <!-- Action Buttons: Shifted down for clear visual separation -->
+      <div class="mt-9 sm:mt-11 lg:mt-12 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 sm:gap-4">
         <button
           type="button"
-          class="trigger-apply-modal w-full sm:w-auto inline-flex items-center justify-center rounded-lg bg-sap-terracotta px-6 sm:px-7 py-3 sm:py-3.5 text-xs sm:text-sm font-semibold uppercase tracking-wider text-white shadow-xl shadow-sap-terracotta/30 hover:bg-sap-terracottaDark transition focus:outline-none focus:ring-2 focus:ring-amber-400 text-center"
+          class="trigger-apply-modal w-full sm:w-auto inline-flex items-center justify-center rounded-lg bg-sap-terracotta px-7 sm:px-8 py-3.5 sm:py-4 text-xs sm:text-sm font-semibold uppercase tracking-wider text-white shadow-xl shadow-sap-terracotta/30 hover:bg-sap-terracottaDark transition focus:outline-none focus:ring-2 focus:ring-amber-400 text-center"
         >
           APPLY FOR FELLOWSHIP →
         </button>
 
         <a
           href="#global-circuits"
-          class="w-full sm:w-auto inline-flex items-center justify-center rounded-lg border border-amber-400/60 bg-slate-950/60 px-5 sm:px-6 py-3 sm:py-3.5 text-xs sm:text-sm font-semibold text-amber-200 backdrop-blur-md hover:bg-white/20 hover:text-white transition text-center"
+          class="w-full sm:w-auto inline-flex items-center justify-center rounded-lg border border-amber-400/60 bg-slate-950/60 px-6 sm:px-7 py-3.5 sm:py-4 text-xs sm:text-sm font-semibold text-amber-200 backdrop-blur-md hover:bg-white/20 hover:text-white transition text-center"
         >
           Explore Global Circuits ↓
         </a>
 
         <a
           href="#assessment"
-          class="w-full sm:w-auto inline-flex items-center justify-center rounded-lg border border-white/30 bg-white/10 px-5 sm:px-6 py-3 sm:py-3.5 text-xs sm:text-sm font-semibold text-white backdrop-blur-md hover:bg-white/20 transition text-center"
+          class="w-full sm:w-auto inline-flex items-center justify-center rounded-lg border border-white/30 bg-white/10 px-6 sm:px-7 py-3.5 sm:py-4 text-xs sm:text-sm font-semibold text-white backdrop-blur-md hover:bg-white/20 transition text-center"
         >
           Take 60s Quiz ↓
         </a>
       </div>
 
-      <!-- Trust Pillars: Non-Partisan, Inner Mastery, Field Immersions -->
-      <div class="mt-5 sm:mt-6 pt-4 sm:pt-4.5 grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-5 border-t border-slate-700/60 max-w-2xl">
+      <!-- Trust Pillars: Shifted further down with clean separation -->
+      <div class="mt-10 sm:mt-12 lg:mt-14 pt-7 sm:pt-8 lg:pt-9 grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-6 border-t border-slate-700/60 max-w-2xl">
         <div class="flex items-center gap-3">
-          <div class="flex h-10 w-10 sm:h-10.5 sm:w-10.5 shrink-0 items-center justify-center rounded-xl bg-amber-500/20 border border-amber-400/30 text-amber-300 text-lg shadow-sm">
+          <div class="flex h-10 w-10 sm:h-11 sm:w-11 shrink-0 items-center justify-center rounded-xl bg-amber-500/20 border border-amber-400/30 text-amber-300 text-lg sm:text-xl shadow-sm">
             ⚖️
           </div>
           <div>
@@ -92,7 +92,7 @@
         </div>
 
         <div class="flex items-center gap-3">
-          <div class="flex h-10 w-10 sm:h-10.5 sm:w-10.5 shrink-0 items-center justify-center rounded-xl bg-amber-500/20 border border-amber-400/30 text-amber-300 text-lg shadow-sm">
+          <div class="flex h-10 w-10 sm:h-11 sm:w-11 shrink-0 items-center justify-center rounded-xl bg-amber-500/20 border border-amber-400/30 text-amber-300 text-lg sm:text-xl shadow-sm">
             🌱
           </div>
           <div>
@@ -102,7 +102,7 @@
         </div>
 
         <div class="flex items-center gap-3">
-          <div class="flex h-10 w-10 sm:h-10.5 sm:w-10.5 shrink-0 items-center justify-center rounded-xl bg-amber-500/20 border border-amber-400/30 text-amber-300 text-lg shadow-sm">
+          <div class="flex h-10 w-10 sm:h-11 sm:w-11 shrink-0 items-center justify-center rounded-xl bg-amber-500/20 border border-amber-400/30 text-amber-300 text-lg sm:text-xl shadow-sm">
             🏛️
           </div>
           <div>
