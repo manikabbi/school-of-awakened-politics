@@ -2,9 +2,9 @@
 // src/components/ArticleProposalModal.astro
 ---
 
-<div id="article-proposal-modal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-slate-950/80 backdrop-blur-sm transition-opacity">
-  <div class="flex min-h-screen items-center justify-center p-3 sm:p-5 md:p-6">
-    <div class="relative w-full max-w-4xl rounded-2xl bg-white dark:bg-[#0b192c] p-5 sm:p-7 shadow-2xl border border-stone-200 dark:border-slate-700/80 transition-all max-h-[94vh] overflow-y-auto md:overflow-visible">
+<div id="article-proposal-modal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-slate-950/75 backdrop-blur-sm transition-opacity">
+  <div class="flex min-h-screen items-center justify-center p-3 sm:p-4">
+    <div class="relative w-full max-w-xl rounded-2xl bg-white dark:bg-[#0b192c] p-6 sm:p-7 shadow-2xl border border-stone-200 dark:border-slate-700/80 transition-all">
       <!-- Close Button -->
       <button 
         type="button" 
@@ -18,171 +18,155 @@
       </button>
 
       <!-- Header -->
-      <div class="mb-4 pr-10">
-        <div class="flex items-center gap-2">
-          <span class="inline-block rounded-full bg-amber-100 dark:bg-amber-500/20 px-3 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-sap-terracotta dark:text-amber-300">
-            Editorial & Publishing Platform
-          </span>
-          <span class="text-xs text-slate-400 dark:text-slate-500 hidden sm:inline">•</span>
-          <span class="text-xs text-slate-500 dark:text-slate-400 hidden sm:inline">Rolling Review • Vol. I (2026–27)</span>
-        </div>
-        <h3 class="mt-1 text-xl sm:text-2xl font-serif font-bold text-sap-navy dark:text-white leading-tight">
+      <div class="mb-4 pr-8">
+        <span class="inline-block rounded-full bg-amber-100 dark:bg-amber-500/20 px-3 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-sap-terracotta dark:text-amber-300">
+          Editorial & Publishing Platform
+        </span>
+        <h3 class="mt-1.5 text-2xl font-serif font-bold text-sap-navy dark:text-white leading-tight">
           Submit an Article Proposal
         </h3>
-        <p class="mt-0.5 text-xs text-slate-600 dark:text-slate-300">
+        <p class="mt-1 text-xs text-slate-600 dark:text-slate-300">
           Share your research, essays, or policy insights for review by the School of Awakened Politics editorial board.
         </p>
       </div>
 
-      <!-- Submission Form (Balanced 2-Column Horizontal Architecture) -->
-      <form id="sap-proposal-form" class="space-y-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3.5">
-          <!-- Left Column: Author & Background Details -->
-          <div class="space-y-3.5">
-            <div>
-              <label for="propFullName" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
-                Author Name <span class="text-rose-500">*</span>
-              </label>
-              <input 
-                type="text" 
-                id="propFullName" 
-                name="fullName" 
-                required 
-                placeholder="e.g. Dr. Kavita Raman"
-                class="mt-1 w-full rounded-lg border border-stone-300 dark:border-slate-600 bg-stone-50 dark:bg-[#162d4a] px-3.5 py-2 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-400 focus:border-amber-500 dark:focus:border-amber-400 focus:outline-none focus:ring-1 focus:ring-amber-500"
-              />
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div>
-                <label for="propEmail" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
-                  Email ID <span class="text-rose-500">*</span>
-                </label>
-                <input 
-                  type="email" 
-                  id="propEmail" 
-                  name="email" 
-                  required 
-                  placeholder="kavita@domain.org"
-                  class="mt-1 w-full rounded-lg border border-stone-300 dark:border-slate-600 bg-stone-50 dark:bg-[#162d4a] px-3.5 py-2 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-400 focus:border-amber-500 dark:focus:border-amber-400 focus:outline-none focus:ring-1 focus:ring-amber-500"
-                />
-              </div>
-
-              <div>
-                <label for="propPhone" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
-                  Phone / WhatsApp
-                </label>
-                <input 
-                  type="tel" 
-                  id="propPhone" 
-                  name="phone" 
-                  placeholder="+91 98765 43210"
-                  class="mt-1 w-full rounded-lg border border-stone-300 dark:border-slate-600 bg-stone-50 dark:bg-[#162d4a] px-3.5 py-2 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-400 focus:border-amber-500 dark:focus:border-amber-400 focus:outline-none focus:ring-1 focus:ring-amber-500"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label for="propAffiliation" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
-                Institutional Affiliation / Current Role
-              </label>
-              <input 
-                type="text" 
-                id="propAffiliation" 
-                name="affiliation" 
-                placeholder="e.g. Scholar, Active Civil Servant, Civic Practitioner"
-                class="mt-1 w-full rounded-lg border border-stone-300 dark:border-slate-600 bg-stone-50 dark:bg-[#162d4a] px-3.5 py-2 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-400 focus:border-amber-500 dark:focus:border-amber-400 focus:outline-none focus:ring-1 focus:ring-amber-500"
-              />
-            </div>
-
-            <div>
-              <label for="propCategory" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
-                Thematic Track <span class="text-rose-500">*</span>
-              </label>
-              <select 
-                id="propCategory" 
-                name="category"
-                required
-                class="mt-1 w-full rounded-lg border border-stone-300 dark:border-slate-600 bg-stone-50 dark:bg-[#162d4a] px-3.5 py-2 text-sm text-slate-900 dark:text-white focus:border-amber-500 dark:focus:border-amber-400 focus:outline-none focus:ring-1 focus:ring-amber-500"
-              >
-                <option value="Manifesto & Theory">Manifesto & Political Theory</option>
-                <option value="Governance & Ethics">Governance, Ethics & Empathy</option>
-                <option value="Civilisational Thought">Civilisational Thought & Rajadharma</option>
-                <option value="Policy & Institutional Reform">Policy & Institutional Reform</option>
-                <option value="Conscious Leadership">Conscious Leadership & Depolarization</option>
-                <option value="General Perspectives">General Philosophical Perspectives</option>
-              </select>
-            </div>
+      <!-- Symmetrical, Compact Form (Fits fully on laptop screens with no scrolling) -->
+      <form id="sap-proposal-form" class="space-y-3">
+        <!-- Row 1: Author Name & Email (Balanced 2-Column) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label for="propFullName" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+              Author Name <span class="text-rose-500">*</span>
+            </label>
+            <input 
+              type="text" 
+              id="propFullName" 
+              name="fullName" 
+              required 
+              placeholder="e.g. Dr. Kavita Raman"
+              class="mt-1 w-full rounded-lg border border-stone-300 dark:border-slate-600 bg-stone-50 dark:bg-[#162d4a] px-3.5 py-2 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-400 focus:border-amber-500 dark:focus:border-amber-400 focus:outline-none focus:ring-1 focus:ring-amber-500"
+            />
           </div>
 
-          <!-- Right Column: Proposal Title, Link & Abstract -->
-          <div class="space-y-3.5">
-            <div>
-              <label for="propTitle" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
-                Proposed Article / Essay Title <span class="text-rose-500">*</span>
-              </label>
-              <input 
-                type="text" 
-                id="propTitle" 
-                name="title" 
-                required 
-                placeholder="e.g. Reconstructing Rajadharma: Ethics in Modern Statecraft"
-                class="mt-1 w-full rounded-lg border border-stone-300 dark:border-slate-600 bg-stone-50 dark:bg-[#162d4a] px-3.5 py-2 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-400 focus:border-amber-500 dark:focus:border-amber-400 focus:outline-none focus:ring-1 focus:ring-amber-500"
-              />
-            </div>
-
-            <div>
-              <div class="flex items-center justify-between">
-                <label for="propDraftUrl" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
-                  Draft / Manuscript Link <span class="text-rose-500">*</span>
-                </label>
-                <span class="text-[10px] text-slate-400 dark:text-slate-500">Google Docs / PDF / Notion</span>
-              </div>
-              <input 
-                type="url" 
-                id="propDraftUrl" 
-                name="draftUrl" 
-                required
-                placeholder="https://docs.google.com/document/d/... (with view access)"
-                class="mt-1 w-full rounded-lg border border-stone-300 dark:border-slate-600 bg-stone-50 dark:bg-[#162d4a] px-3.5 py-2 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-400 focus:border-amber-500 dark:focus:border-amber-400 focus:outline-none focus:ring-1 focus:ring-amber-500"
-              />
-            </div>
-
-            <div>
-              <div class="flex items-center justify-between">
-                <label for="propAbstract" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
-                  Abstract / Proposal Synopsis <span class="text-rose-500">*</span>
-                </label>
-                <span class="text-[10px] text-slate-400 dark:text-slate-500">2–4 sentences</span>
-              </div>
-              <textarea 
-                id="propAbstract" 
-                name="abstract" 
-                rows="3" 
-                required
-                placeholder="Summarize the core thesis, insights, and systemic governance relevance..."
-                class="mt-1 w-full rounded-lg border border-stone-300 dark:border-slate-600 bg-stone-50 dark:bg-[#162d4a] px-3.5 py-2 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-400 focus:border-amber-500 dark:focus:border-amber-400 focus:outline-none focus:ring-1 focus:ring-amber-500"
-              ></textarea>
-            </div>
+          <div>
+            <label for="propEmail" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+              Email ID <span class="text-rose-500">*</span>
+            </label>
+            <input 
+              type="email" 
+              id="propEmail" 
+              name="email" 
+              required 
+              placeholder="kavita@domain.org"
+              class="mt-1 w-full rounded-lg border border-stone-300 dark:border-slate-600 bg-stone-50 dark:bg-[#162d4a] px-3.5 py-2 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-400 focus:border-amber-500 dark:focus:border-amber-400 focus:outline-none focus:ring-1 focus:ring-amber-500"
+            />
           </div>
         </div>
 
-        <!-- Feedback & Action Row -->
+        <!-- Row 2: Thematic Track & Phone / Affiliation (Balanced 2-Column) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label for="propCategory" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+              Thematic Track <span class="text-rose-500">*</span>
+            </label>
+            <select 
+              id="propCategory" 
+              name="category"
+              required
+              class="mt-1 w-full rounded-lg border border-stone-300 dark:border-slate-600 bg-stone-50 dark:bg-[#162d4a] px-3.5 py-2 text-sm text-slate-900 dark:text-white focus:border-amber-500 dark:focus:border-amber-400 focus:outline-none focus:ring-1 focus:ring-amber-500"
+            >
+              <option value="Manifesto & Theory">Manifesto & Political Theory</option>
+              <option value="Governance & Ethics">Governance, Ethics & Empathy</option>
+              <option value="Civilisational Thought">Civilisational Thought & Rajadharma</option>
+              <option value="Policy & Institutional Reform">Policy & Institutional Reform</option>
+              <option value="Conscious Leadership">Conscious Leadership & Depolarization</option>
+              <option value="General Perspectives">General Philosophical Perspectives</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="propPhone" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+              Phone / WhatsApp
+            </label>
+            <input 
+              type="tel" 
+              id="propPhone" 
+              name="phone" 
+              placeholder="+91 98765 43210"
+              class="mt-1 w-full rounded-lg border border-stone-300 dark:border-slate-600 bg-stone-50 dark:bg-[#162d4a] px-3.5 py-2 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-400 focus:border-amber-500 dark:focus:border-amber-400 focus:outline-none focus:ring-1 focus:ring-amber-500"
+            />
+          </div>
+        </div>
+
+        <!-- Row 3: Proposed Title (Full Width) -->
+        <div>
+          <label for="propTitle" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+            Proposed Article / Essay Title <span class="text-rose-500">*</span>
+          </label>
+          <input 
+            type="text" 
+            id="propTitle" 
+            name="title" 
+            required 
+            placeholder="e.g. Reconstructing Rajadharma: Ethics in 21st-Century Statecraft"
+            class="mt-1 w-full rounded-lg border border-stone-300 dark:border-slate-600 bg-stone-50 dark:bg-[#162d4a] px-3.5 py-2 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-400 focus:border-amber-500 dark:focus:border-amber-400 focus:outline-none focus:ring-1 focus:ring-amber-500"
+          />
+        </div>
+
+        <!-- Row 4: Draft / Manuscript Link (Full Width with Required Asterisk) -->
+        <div>
+          <div class="flex items-center justify-between">
+            <label for="propDraftUrl" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+              Draft / Manuscript Link <span class="text-rose-500">*</span>
+            </label>
+            <span class="text-[10px] text-slate-400 dark:text-slate-500 lowercase">Google Docs, Notion, or PDF link</span>
+          </div>
+          <input 
+            type="url" 
+            id="propDraftUrl" 
+            name="draftUrl" 
+            required
+            placeholder="https://docs.google.com/document/d/... (with view access)"
+            class="mt-1 w-full rounded-lg border border-stone-300 dark:border-slate-600 bg-stone-50 dark:bg-[#162d4a] px-3.5 py-2 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-400 focus:border-amber-500 dark:focus:border-amber-400 focus:outline-none focus:ring-1 focus:ring-amber-500"
+          />
+        </div>
+
+        <!-- Row 5: Abstract / Synopsis (Compact 2-Row Full Width) -->
+        <div>
+          <div class="flex items-center justify-between">
+            <label for="propAbstract" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+              Abstract / Proposal Synopsis <span class="text-rose-500">*</span>
+            </label>
+            <span class="text-[10px] text-slate-400 dark:text-slate-500">2–4 sentences</span>
+          </div>
+          <textarea 
+            id="propAbstract" 
+            name="abstract" 
+            rows="2" 
+            required
+            placeholder="Summarize the core thesis, insights, and systemic governance relevance of your paper..."
+            class="mt-1 w-full rounded-lg border border-stone-300 dark:border-slate-600 bg-stone-50 dark:bg-[#162d4a] px-3.5 py-2 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-400 focus:border-amber-500 dark:focus:border-amber-400 focus:outline-none focus:ring-1 focus:ring-amber-500"
+          ></textarea>
+        </div>
+
+        <!-- Feedback Area -->
         <div id="proposal-feedback" class="hidden rounded-xl p-3 text-xs font-medium space-y-1"></div>
 
-        <div class="pt-1 flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-stone-200 dark:border-slate-700/60">
-          <p class="text-[11px] text-slate-500 dark:text-slate-400 text-center sm:text-left">
-            Submissions are logged into the SAP Manuscripts registry and reviewed within 3–5 working days.
-          </p>
+        <!-- Submit Button (Full Width, Terracotta, Pristine Alignment) -->
+        <div class="pt-1">
           <button 
             type="submit" 
             id="proposal-submit-btn"
-            class="w-full sm:w-auto shrink-0 rounded-lg bg-sap-terracotta hover:bg-sap-terracottaDark px-7 py-2.5 text-xs font-semibold uppercase tracking-wider text-white shadow-md hover:shadow-lg transition focus:outline-none focus:ring-2 focus:ring-amber-400 active:scale-[0.99] cursor-pointer"
+            class="w-full rounded-lg bg-sap-terracotta hover:bg-sap-terracottaDark py-2.5 text-xs font-semibold uppercase tracking-wider text-white shadow-md hover:shadow-lg transition focus:outline-none focus:ring-2 focus:ring-amber-400 active:scale-[0.99] cursor-pointer"
           >
             Submit Proposal →
           </button>
         </div>
       </form>
+
+      <div class="mt-3 pt-2 border-t border-stone-200/80 dark:border-slate-700/60 text-center text-[11px] text-slate-500 dark:text-slate-400">
+        Logged into the SAP Manuscripts registry & reviewed within 3–5 working days.
+      </div>
     </div>
   </div>
 </div>
@@ -230,7 +214,7 @@
         fullName: String(formData.get('fullName') || ''),
         email: String(formData.get('email') || ''),
         phone: String(formData.get('phone') || ''),
-        affiliation: String(formData.get('affiliation') || ''),
+        affiliation: 'Independent / Contributor',
         title: String(formData.get('title') || ''),
         category: String(formData.get('category') || ''),
         abstract: String(formData.get('abstract') || ''),
@@ -274,7 +258,7 @@
       // Display rich success feedback
       if (feedback) {
         feedback.classList.remove('hidden');
-        feedback.className = 'rounded-xl p-3.5 text-xs font-medium bg-emerald-50 dark:bg-emerald-950/40 text-emerald-900 dark:text-emerald-200 border border-emerald-300 dark:border-emerald-700/60 space-y-1';
+        feedback.className = 'rounded-xl p-3 text-xs font-medium bg-emerald-50 dark:bg-emerald-950/40 text-emerald-900 dark:text-emerald-200 border border-emerald-300 dark:border-emerald-700/60 space-y-1';
         feedback.innerHTML = `
           <div class="flex items-center gap-1.5 font-bold text-emerald-800 dark:text-emerald-300 text-sm">
             <span>✓</span> Proposal Successfully Received!
