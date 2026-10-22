@@ -38,6 +38,14 @@
       </button>
     </div>
   </div>
+  <script is:inline>
+    try {
+      if (localStorage.getItem('sap_padma_teaser_dismissed') === 'true') {
+        var el = document.getElementById('padma-teaser');
+        if (el) el.remove();
+      }
+    } catch (e) {}
+  </script>
 
   <!-- Primary Floating Action Button with Lotus Sign -->
   <button
@@ -370,21 +378,35 @@
 
     if (!container || !modal || !triggerBtn || !messagesArea) return;
 
-    // Auto-hide teaser after 12 seconds if not clicked
+    // Check localStorage dismissal
+    try {
+      if (localStorage.getItem('sap_padma_teaser_dismissed') === 'true') {
+        teaser?.remove();
+      }
+    } catch (e) {}
+
+    function dismissTeaser() {
+      try {
+        localStorage.setItem('sap_padma_teaser_dismissed', 'true');
+      } catch (e) {}
+      teaser?.remove();
+    }
+
+    // Auto-hide teaser after 10 seconds if not clicked
     setTimeout(() => {
       teaser?.classList.add('opacity-0', 'pointer-events-none');
-    }, 12000);
+    }, 10000);
 
     closeTeaserBtn?.addEventListener('click', (e) => {
       e.stopPropagation();
-      teaser?.remove();
+      dismissTeaser();
     });
 
     function openChat() {
+      dismissTeaser();
       modal?.classList.remove('hidden');
       modal?.classList.add('flex');
       container?.classList.add('hidden');
-      teaser?.remove();
       // Only auto-focus on desktop; on mobile, auto-focus causes immediate keyboard pop-up and screen shifts
       if (window.innerWidth >= 640) {
         input?.focus();
