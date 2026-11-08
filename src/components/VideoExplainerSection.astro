@@ -1,0 +1,94 @@
+---
+// src/components/VideoExplainerSection.astro
+---
+
+<section id="explainer-section" class="relative py-16 sm:py-20 lg:py-24 bg-[#071322] text-white border-y border-amber-500/20 overflow-hidden">
+  <!-- Subtle ambient golden background glow behind the video -->
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-amber-500/10 blur-[120px] rounded-full pointer-events-none"></div>
+
+  <div class="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <!-- Header -->
+    <div class="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
+      <div class="inline-flex items-center gap-2 rounded-full border border-amber-400/50 bg-amber-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-amber-300 backdrop-blur-md mb-4">
+        <span>🎬</span>
+        <span>The Movement in 57 Seconds</span>
+      </div>
+
+      <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight">
+        Why the World Needs <span class="text-amber-300 drop-shadow">Awakened Politics</span>
+      </h2>
+
+      <p class="mt-4 text-sm sm:text-base text-slate-300 leading-relaxed font-normal max-w-2xl mx-auto">
+        Watch how the School of Awakened Politics is bridging inner mastery, constitutional law, and the sacred stewardship of democracy — from Bharat to the democratic capitals of the world.
+      </p>
+    </div>
+
+    <!-- Video Showcase Centerpiece (16:9 Widescreen) -->
+    <div class="relative max-w-4xl mx-auto">
+      <div class="relative rounded-2xl sm:rounded-3xl overflow-hidden border-2 border-amber-400/40 bg-black shadow-[0_20px_60px_rgba(245,158,11,0.15)] group aspect-video">
+        <!-- Floating Pill Indicator -->
+        <div class="absolute top-4 left-4 z-20 flex items-center gap-2 rounded-full bg-slate-950/80 border border-amber-400/30 px-3.5 py-1.5 backdrop-blur-md text-xs font-medium text-amber-200 pointer-events-none">
+          <span class="h-2 w-2 rounded-full bg-amber-400 animate-pulse"></span>
+          <span>Official Explainer Video · 57s</span>
+        </div>
+
+        <!-- Video Player -->
+        <video
+          id="inline-explainer-video"
+          class="w-full h-full object-cover rounded-2xl sm:rounded-3xl"
+          controls
+          playsinline
+          preload="metadata"
+          poster="/sap-explainer-poster.jpg"
+        >
+          <source src="/sap-explainer.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+
+      <!-- Quick Takeaway Cards below the video -->
+      <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+        <div class="rounded-xl bg-slate-900/60 border border-slate-800 p-4 sm:p-5 text-center sm:text-left backdrop-blur-sm">
+          <div class="text-xl sm:text-2xl mb-2">🧘</div>
+          <h3 class="font-serif text-sm sm:text-base font-bold text-white">Inner Mastery First</h3>
+          <p class="mt-1 text-xs text-slate-400 leading-relaxed">
+            Before we can transform society, we must first master the authentic self within.
+          </p>
+        </div>
+
+        <div class="rounded-xl bg-slate-900/60 border border-slate-800 p-4 sm:p-5 text-center sm:text-left backdrop-blur-sm">
+          <div class="text-xl sm:text-2xl mb-2">⚖️</div>
+          <h3 class="font-serif text-sm sm:text-base font-bold text-white">Constitutional Stewardship</h3>
+          <p class="mt-1 text-xs text-slate-400 leading-relaxed">
+            Non-partisan governance rooted in ethical courage, jurisprudence, and civilisational vision.
+          </p>
+        </div>
+
+        <div class="rounded-xl bg-slate-900/60 border border-slate-800 p-4 sm:p-5 text-center sm:text-left backdrop-blur-sm">
+          <div class="text-xl sm:text-2xl mb-2">🌏</div>
+          <h3 class="font-serif text-sm sm:text-base font-bold text-white">Bharat to the World</h3>
+          <p class="mt-1 text-xs text-slate-400 leading-relaxed">
+            Conscious statecraft radiating to democratic capitals across the globe.
+          </p>
+        </div>
+      </div>
+
+      <!-- Bottom CTA Banner -->
+      <div class="mt-8 text-center flex flex-col sm:flex-row items-center justify-center gap-4">
+        <button
+          type="button"
+          class="trigger-apply-modal w-full sm:w-auto inline-flex items-center justify-center rounded-lg bg-sap-terracotta px-8 py-3.5 text-xs sm:text-sm font-semibold uppercase tracking-wider text-white shadow-lg shadow-sap-terracotta/30 hover:bg-sap-terracottaDark transition"
+        >
+          Apply for 1-Year Fellowship →
+        </button>
+
+        <a
+          href="#global-circuits"
+          class="w-full sm:w-auto inline-flex items-center justify-center rounded-lg border border-amber-400/50 bg-slate-900/80 px-6 py-3.5 text-xs sm:text-sm font-semibold text-amber-200 hover:text-white hover:bg-slate-800 transition"
+        >
+          Explore Global Circuits ↓
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
